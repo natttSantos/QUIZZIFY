@@ -29,18 +29,28 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="tipoUsuarioLabel" layoutX="140.0" layoutY="70.0" text="PRUEBA">
+                  <Label fx:id="tipoUsuarioLabel" layoutX="131.0" layoutY="68.0" text="PRUEBA">
                      <font>
-                        <Font name="System Bold Italic" size="32.0" />
+                        <Font name="Impact" size="32.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="usuario" layoutX="142.0" layoutY="196.0" prefHeight="39.0" prefWidth="246.0" />
-                  <PasswordField fx:id="password" layoutX="139.0" layoutY="289.0" prefHeight="37.0" prefWidth="255.0" />
-                  <Button layoutX="202.0" layoutY="451.0" mnemonicParsing="false" onAction="#pulsarIniciarSesion" text="Iniciar sesión">
+                  <TextField fx:id="usuario" layoutX="148.0" layoutY="199.0" prefHeight="39.0" prefWidth="204.0" />
+                  <PasswordField fx:id="password" layoutX="148.0" layoutY="338.0" prefHeight="37.0" prefWidth="204.0" />
+                  <Button layoutX="179.0" layoutY="442.0" mnemonicParsing="false" onAction="#pulsarIniciarSesion" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Iniciar sesión">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="130.0" layoutY="155.0" text="Introduzca el nombre de usuario: ">
                      <font>
                         <Font size="18.0" />
                      </font>
-                  </Button>
+                  </Label>
+                  <Label layoutX="148.0" layoutY="289.0" text="Introduzca la contraseña: ">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </children>

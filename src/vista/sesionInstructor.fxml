@@ -92,7 +92,7 @@
             <Image url="@../images/userInstructor-modified.png" />
          </image>
       </ImageView>
-      <Label fx:id="instructor" layoutX="1104.0" layoutY="158.0" text="nsanmar">
+      <Label fx:id="instructor" layoutX="1104.0" layoutY="158.0" text="nsanmar" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>

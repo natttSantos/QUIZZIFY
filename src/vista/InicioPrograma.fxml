@@ -5,31 +5,56 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="697.0" prefWidth="585.0" styleClass="negro" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.InicioProgramaController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.InicioProgramaController">
    <children>
-      <Button layoutX="177.0" layoutY="409.0" mnemonicParsing="false" onAction="#pulsarInstructor" prefHeight="40.0" prefWidth="216.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Inicio sesión instructor ">
-         <font>
-            <Font size="18.0" />
-         </font></Button>
-      <Button layoutX="236.0" layoutY="549.0" mnemonicParsing="false" onAction="#pulsarRegistrar" prefHeight="40.0" prefWidth="114.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Regístrame">
-         <font>
-            <Font size="18.0" />
-         </font></Button>
-      <Label layoutX="178.0" layoutY="499.0" text="¿No tienes cuenta? ¡Créatela!" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-      <ImageView fitHeight="270.0" fitWidth="270.0" layoutX="151.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="757.0" fitWidth="1245.0" layoutX="-34.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/inicioQuizzify.png" />
+            <Image url="@../images/fondoIni.png" />
          </image>
       </ImageView>
-      <Button layoutX="177.0" layoutY="340.0" mnemonicParsing="false" onAction="#pulsarEstudiante" prefHeight="40.0" prefWidth="216.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Inicio sesión estudiante ">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+      <GridPane layoutX="322.0" layoutY="59.0" prefHeight="643.0" prefWidth="587.0" styleClass="recordar" stylesheets="@../css/hojaEstilo.css">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <AnchorPane prefHeight="657.0" prefWidth="600.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css">
+               <children>
+                  <Button layoutX="229.0" layoutY="545.0" mnemonicParsing="false" onAction="#pulsarRegistrar" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Regístrame">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="271.0" fitWidth="283.0" layoutX="159.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/inicioQuizzify.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="173.0" layoutY="321.0" mnemonicParsing="false" onAction="#pulsarEstudiante" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Inicio sesión estudiante ">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="177.0" layoutY="404.0" mnemonicParsing="false" onAction="#pulsarInstructor" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Inicio sesión instructor ">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="177.0" layoutY="491.0" text="¿No tienes cuenta? ¡Créatela!">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>
