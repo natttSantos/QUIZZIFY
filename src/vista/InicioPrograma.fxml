@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="697.0" prefWidth="585.0" styleClass="negro" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.InicioProgramaController">
+   <children>
+      <Button layoutX="177.0" layoutY="409.0" mnemonicParsing="false" onAction="#pulsarInstructor" prefHeight="40.0" prefWidth="216.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Inicio sesión instructor ">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button layoutX="236.0" layoutY="549.0" mnemonicParsing="false" onAction="#pulsarRegistrar" prefHeight="40.0" prefWidth="114.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Regístrame">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Label layoutX="178.0" layoutY="499.0" text="¿No tienes cuenta? ¡Créatela!" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <ImageView fitHeight="270.0" fitWidth="270.0" layoutX="151.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/inicioQuizzify.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="177.0" layoutY="340.0" mnemonicParsing="false" onAction="#pulsarEstudiante" prefHeight="40.0" prefWidth="216.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Inicio sesión estudiante ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

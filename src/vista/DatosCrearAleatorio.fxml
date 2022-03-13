@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.DatosCrearAleatorioController">
+   <children>
+      <Label text="Número de preguntas:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="numeroTextField" maxWidth="150.0" minWidth="0.0" onAction="#numeroTextFieldClicked" prefWidth="50.0" />
+      <CheckBox fx:id="checkbox" mnemonicParsing="false" onAction="#checkboxClicked" text="Especificar el tema concreto">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <Label fx:id="temaLabel" disable="true" text="Tema de preguntas:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="temaChoiceBox" disable="true" onDragDetected="#temaChoiceBoxClicked" prefWidth="150.0" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+         <children>
+            <Button fx:id="aceptarButton" minWidth="100.0" mnemonicParsing="false" onAction="#aceptarButtonClicked" prefWidth="100.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Aceptar">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="anularButton" minWidth="100.0" mnemonicParsing="false" onAction="#anularButtonClicked" prefWidth="100.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Anular">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
+   </padding>
+</VBox>

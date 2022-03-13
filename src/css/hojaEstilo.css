@@ -1,0 +1,168 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 5 mar 2022, 10:39:12
+    Author     : nata2
+*/
+.miClase{
+    -fx-background-color: #000000;  
+    -fx-text-fill: white;  
+     -fx-border-color: white; 
+    -fx-border-width: 0.95pt; 
+}
+
+.azul{
+    -fx-background-color: #66ccff;  
+    -fx-text-fill: white;  
+     -fx-border-color: white; 
+    -fx-border-width: 0.95pt; 
+}
+.negro{
+    -fx-background-color: #000000;  
+    -fx-text-fill: white;  
+     -fx-border-color: white; 
+    -fx-border-width: 0.95pt; 
+}
+
+.botonrojo{
+    -fx-background-color: #c30000; 
+    -fx-text-fill: white; 
+}
+.botonrojo:hover{
+    -fx-background-color: #ff9292;  
+   
+}
+
+.atras {
+        -fx-background-color: white; 
+         -fx-border-color: #c30000;  
+         -fx-border-width: 1;
+         -fx-background-radius: 10 10 10 10;
+         -fx-border-radius: 10 10 10 10;  
+}   
+ .atras:hover {
+     -fx-background-color: #c30000;   
+}
+
+.cerrarSesion{
+    -fx-background-color: white; 
+    -fx-text-fill:  #c30000; 
+     -fx-border-color:  #c30000;
+    -fx-border-width: 0.95pt; 
+}
+.cerrarSesion:hover{
+    -fx-background-color: #ffcccc; 
+   
+}
+.fondoAutenti{
+    -fx-background-color: #990000;      
+}
+.botonIniciar {
+    -fx-background-color: #f32235; 
+    -fx-text-fill: white; 
+    
+    
+}
+
+.botonIniciar:hover {
+    -fx-background-color: #ff6666;    
+    
+}
+.recordar {
+    -fx-background-color: #cccccc;   
+    -fx-text-fill: #666666;  
+    -fx-border-color: white; 
+    -fx-border-width: 0.95pt;  
+    
+}
+
+.inicio{
+    -fx-background-color: white;  
+    -fx-border-color: #c14848; 
+
+    -fx-border-width: 0.95pt;  
+    
+ 
+    
+}
+.inicio:hover{
+    -fx-background-color: #f17676;  
+   
+}
+.fondoBlanco{
+    -fx-background-color: white;  
+    -fx-border-color: #c30000; 
+    -fx-border-width: 1.7pt;  
+    
+}
+.fondoBlanco:hover {
+     -fx-background-color: #c14848;    
+   
+    
+}
+
+.graficas {
+    -fx-background-color: #e7e5e5;   
+    -fx-text-fill:  #c30000; 
+     -fx-border-color:  #c30000;
+    -fx-border-width: 0.95pt;  
+ 
+    
+    
+}
+.graficas:hover {
+     -fx-background-color: #ffcccc;  
+   
+    
+}
+.buscar{
+    -fx-background-color: white;  
+    -fx-border-color: black; 
+
+    -fx-border-width: 0.95pt;  
+    
+ 
+    
+}
+.buscar:hover{
+    -fx-background-color: #f17676;  
+   
+}
+
+.fondogris {
+    -fx-background-color: #cccccc;   
+    -fx-text-fill: #666666;  
+    -fx-border-color: white; 
+    -fx-border-width: 1pt;   
+    
+    
+}
+
+.principio {
+    -fx-background-color: #0033ff;  
+    -fx-text-fill: #ffffff;   
+   
+    
+    
+}
+.principio:hover {
+    -fx-background-color: #ccccff; 
+    
+    
+}
+.this {
+    -fx-background-color: #e2e2e2;    
+    -fx-text-fill:  #0033ff;   
+/*     -fx-border-color:  #c30000;
+    -fx-border-width: 0.95pt;  
+ */
+    
+    
+}
+.this:hover {
+    -fx-background-color: #6e6e6e;   
+   
+    
+}

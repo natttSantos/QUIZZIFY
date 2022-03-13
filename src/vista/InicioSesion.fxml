@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.InicioSesionController">
+   <children>
+      <ImageView fitHeight="682.0" fitWidth="1085.0" layoutX="-34.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/fondoIni.png" />
+         </image>
+      </ImageView>
+      <GridPane layoutX="272.0" layoutY="59.0" prefHeight="579.0" prefWidth="501.0" styleClass="recordar" stylesheets="@../css/hojaEstilo.css">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="tipoUsuarioLabel" layoutX="140.0" layoutY="70.0" text="PRUEBA">
+                     <font>
+                        <Font name="System Bold Italic" size="32.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="usuario" layoutX="142.0" layoutY="196.0" prefHeight="39.0" prefWidth="246.0" />
+                  <PasswordField fx:id="password" layoutX="139.0" layoutY="289.0" prefHeight="37.0" prefWidth="255.0" />
+                  <Button layoutX="202.0" layoutY="451.0" mnemonicParsing="false" onAction="#pulsarIniciarSesion" text="Iniciar sesión">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
