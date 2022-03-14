@@ -1,6 +1,6 @@
 package Controlador;
 
-import Modelo.UsuarioAlumno;
+import modelo.UsuarioAlumno;
 import com.google.gson.Gson;
 import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;

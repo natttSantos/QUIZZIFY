@@ -1,6 +1,6 @@
 package main;
 
-import Modelo.UsuarioAlumno;
+import modelo.UsuarioAlumno;
 import modelo.Conexion;
 import modelo.Pregunta;
 import controlador.ControladorPreguntas;

@@ -1,6 +1,6 @@
-package Modelo;
+package modelo;
 
-import Modelo.Usuario;
+import modelo.Usuario;
 
 public class UsuarioAlumno extends Usuario {
     
