@@ -29,9 +29,9 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="tipoUsuarioLabel" layoutX="131.0" layoutY="68.0" text="PRUEBA">
+                  <Label fx:id="tipoUsuarioLabel" layoutX="161.0" layoutY="67.0" text="PRUEBA">
                      <font>
-                        <Font name="Impact" size="32.0" />
+                        <Font name="Impact" size="37.0" />
                      </font>
                   </Label>
                   <TextField fx:id="usuario" layoutX="148.0" layoutY="199.0" prefHeight="39.0" prefWidth="204.0" />
@@ -55,5 +55,14 @@
             </AnchorPane>
          </children>
       </GridPane>
+      <Button layoutX="136.0" layoutY="107.0" mnemonicParsing="false" onAction="#pulsarAtras" prefHeight="47.0" prefWidth="61.0" styleClass="atras" stylesheets="@../css/hojaEstilo.css">
+         <graphic>
+            <ImageView fitHeight="47.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/atras.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

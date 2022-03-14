@@ -14,7 +14,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .azul{
-    -fx-background-color: #66ccff;  
+    -fx-background-color: #009999;  
     -fx-text-fill: white;  
      -fx-border-color: white; 
     -fx-border-width: 0.95pt; 
@@ -27,7 +27,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .botonrojo{
-    -fx-background-color: #c30000; 
+    -fx-background-color: #cc0000; 
     -fx-text-fill: white; 
 }
 .botonrojo:hover{

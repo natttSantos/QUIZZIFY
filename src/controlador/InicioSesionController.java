@@ -40,6 +40,7 @@ public class InicioSesionController implements Initializable {
     @FXML
     private Label tipoUsuarioLabel;
     private String tipoUsuario; 
+    private boolean credenciales =  true; 
     @FXML
     private TextField usuario;
     @FXML
@@ -73,42 +74,50 @@ public class InicioSesionController implements Initializable {
 
     @FXML
     private void pulsarIniciarSesion(ActionEvent event) throws IOException {
-        Parent root = null;
-        if(tipoUsuario.equals("Instructor")){
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/sesionInstructor.fxml"));
-             root =(Parent) loader.load();
-             SesionInstructorController inicio = loader.<SesionInstructorController>getController();
-             inicio.setNombreUsuario(usuario.getText());
-        } else{
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/sesionEstudiante.fxml"));
-             root =(Parent) loader.load();
-             SesionEstudianteController inicio = loader.<SesionEstudianteController>getController(); 
+        comprobarCredenciales();
+        if(credenciales){
+            Parent root = null;
+            if(tipoUsuario.equals("Instructor")){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/sesionInstructor.fxml"));
+                root =(Parent) loader.load();
+                SesionInstructorController inicio = loader.<SesionInstructorController>getController();
+                inicio.setNombreUsuario(usuario.getText());
+            } else{
+                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/sesionEstudiante.fxml"));
+                root =(Parent) loader.load();
+                SesionEstudianteController inicio = loader.<SesionEstudianteController>getController(); 
+             }
+            Scene scene = new Scene (root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Sesion " + tipoUsuario);
+            stage.initModality(Modality.APPLICATION_MODAL); 
+            stage.show();
+            ((Node) event.getSource()).getScene().getWindow().hide();
         }
+    }
+
+    @FXML
+    private void pulsarAtras(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/InicioPrograma.fxml"));
+        Parent root =(Parent) loader.load();      
+        InicioProgramaController inicio = loader.<InicioProgramaController>getController();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setTitle("Sesion " + tipoUsuario);
         stage.initModality(Modality.APPLICATION_MODAL); 
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
-        
+     }
+    
+    public void comprobarCredenciales(){
+        if(usuario.getText().equals(null)){
+             JOptionPane.showMessageDialog(null, "El nombre de usuario no debe estar vacío!");   
+             credenciales = false; 
+        } else if (password.getText().equals(null)){
+            JOptionPane.showMessageDialog(null, "La contraseña no debe estar vacía!");
+            credenciales = false; 
+        }
     }
-
-//    @FXML
-//    private void pulsarAtras(ActionEvent event) throws IOException {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/InicioPrograma.fxml"));
-//        Parent root =(Parent) loader.load();      
-//        InicioProgramaController inicio = loader.<InicioProgramaController>getController();
-//        Scene scene = new Scene (root);
-//        Stage stage = new Stage();
-//        stage.setScene(scene);
-//        stage.initModality(Modality.APPLICATION_MODAL); 
-//        stage.show();
-//        ((Node) event.getSource()).getScene().getWindow().hide();
-//        
-//    }
-
-
-
-
-    }  
+    
+}  
