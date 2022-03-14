@@ -14,9 +14,8 @@ public class ControladorPreguntas implements IControladorPreguntas {
     MongoCollection preguntas;
     
     Conexion con;
-    public ControladorPreguntas(MongoDatabase db){
-        db = db;
-        preguntas = db.getCollection("Preguntas");
+    public ControladorPreguntas(MongoCollection collection){
+       preguntas = collection;
     }
      
     public Pregunta obtenerPregunta(String key, String valor) {
