@@ -18,7 +18,7 @@ public class NewMain {
         if(c != null) {
             
             
-            UsuarioAlumno u = new UsuarioAlumno("test","aa","email@email.com","contraseña","grupo","clase");
+            //UsuarioAlumno u = new UsuarioAlumno("test","aa","email@email.com","contraseña","grupo","clase");
            // System.out.println(c.crearUsuarioAlumno(u));
             
             
@@ -27,15 +27,15 @@ public class NewMain {
            
            
            
-           /*String email ="ervino@alumno.upv.es";
-           String pass = "1234";
+           String email ="ervino@alumno.upv.es";
+           String pass = "123";
            
            UsuarioAlumno u = c.login(email, pass);
-           if(u!=null) {
+           if(u != null) {
                System.out.println(u.toString());
            } else {
                System.out.println("Usuario Y/O CONTRASEÑA INCORRECTOS");
-           }*/
+           }
            
            
            //ArrayList a = c.obtenerTodosUsuariosAlumno();

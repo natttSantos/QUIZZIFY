@@ -29,6 +29,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
+import modelo.Conexion;
+import modelo.UsuarioAlumno;
 
 
 /**
@@ -40,11 +42,12 @@ public class InicioSesionController implements Initializable {
     @FXML
     private Label tipoUsuarioLabel;
     private String tipoUsuario; 
-    private boolean credenciales =  true; 
+    private boolean credenciales =  false; 
     @FXML
     private TextField usuario;
     @FXML
     private PasswordField password;
+    Conexion con;
 
     /**
      * Initializes the controller class.
@@ -52,6 +55,7 @@ public class InicioSesionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        con = Conexion.obtenerConexion(); 
 
     }  
 
@@ -111,13 +115,23 @@ public class InicioSesionController implements Initializable {
      }
     
     public void comprobarCredenciales(){
-        if(usuario.getText().equals(null)){
+       /* if(usuario.getText().equals(null)){
              JOptionPane.showMessageDialog(null, "El nombre de usuario no debe estar vacío!");   
              credenciales = false; 
         } else if (password.getText().equals(null)){
             JOptionPane.showMessageDialog(null, "La contraseña no debe estar vacía!");
             credenciales = false; 
-        }
+        }*/
+       String user = usuario.getText();
+       String pass = password.getText();
+       UsuarioAlumno u = u = con.login(user ,pass);
+       
+       if(u!=null) {
+           credenciales = true;
+       }
+            
+        
+       
     }
     
 }  

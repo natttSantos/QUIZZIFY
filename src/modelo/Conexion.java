@@ -1,5 +1,5 @@
 package modelo;
-import Controlador.ControladorUsuarios;
+import controlador.ControladorUsuarios;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
@@ -27,7 +27,7 @@ public class Conexion {
             instanciaMongo = new MongoClient(URL);
             db = instanciaMongo.getDatabase(DB);
             preguntas = db.getCollection("Preguntas");
-             preguntas = db.getCollection("Usuarios");
+            usuarios = db.getCollection("Usuarios");
         }catch(MongoException e) {
             JOptionPane.showMessageDialog(null, "Error en conexión a MONGODB " + e.toString());
         }
