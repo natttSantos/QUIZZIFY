@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.SesionInstructorController">
+<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.SesionInstructorController">
    <children>
       <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
          <font>
@@ -30,7 +30,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="563.0" layoutY="315.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="103.0" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
+      <Button layoutX="563.0" layoutY="315.0" mnemonicParsing="false" onAction="#quizAleatorioPulsar" prefHeight="95.0" prefWidth="103.0" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
          <graphic>
             <ImageView fitHeight="77.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
                <image>

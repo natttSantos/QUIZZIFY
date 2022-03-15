@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.DatosCrearAleatorioController">
    <children>
       <Label text="Número de preguntas:">
@@ -37,7 +36,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="anularButton" minWidth="100.0" mnemonicParsing="false" onAction="#anularButtonClicked" prefWidth="100.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Anular">
+            <Button fx:id="anularButton" minWidth="100.0" mnemonicParsing="false" onAction="#anularButtonClickedTest" prefWidth="100.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Anular">
                <font>
                   <Font size="18.0" />
                </font>

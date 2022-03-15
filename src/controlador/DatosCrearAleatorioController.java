@@ -68,7 +68,7 @@ public class DatosCrearAleatorioController implements Initializable {
     }
 
     @FXML
-    private void anularButtonClicked(ActionEvent event) {
+    private void anularButtonClickedTest(ActionEvent event) {
     }
     
 }
