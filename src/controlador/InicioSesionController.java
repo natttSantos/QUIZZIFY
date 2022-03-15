@@ -41,13 +41,12 @@ import modelo.UsuarioAlumno;
 public class InicioSesionController implements Initializable {
     @FXML
     private Label tipoUsuarioLabel;
-    private String tipoUsuario; 
-    private boolean credenciales =  false; 
+    private String tipoUsuario;
     @FXML
     private TextField usuario;
     @FXML
     private PasswordField password;
-    Conexion con;
+    private Conexion con;
 
     /**
      * Initializes the controller class.
@@ -78,8 +77,9 @@ public class InicioSesionController implements Initializable {
 
     @FXML
     private void pulsarIniciarSesion(ActionEvent event) throws IOException {
-        comprobarCredenciales();
-        if(credenciales){
+        
+        //Refactoring hecho Extract Method
+        if(comprobarCredenciales()){
             Parent root = null;
             if(tipoUsuario.equals("Instructor")){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/sesionInstructor.fxml"));
@@ -87,7 +87,7 @@ public class InicioSesionController implements Initializable {
                 SesionInstructorController inicio = loader.<SesionInstructorController>getController();
                 inicio.setNombreUsuario(usuario.getText());
             } else{
-                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/sesionEstudiante.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/sesionEstudiante.fxml"));
                 root =(Parent) loader.load();
                 SesionEstudianteController inicio = loader.<SesionEstudianteController>getController(); 
              }
@@ -114,24 +114,21 @@ public class InicioSesionController implements Initializable {
         ((Node) event.getSource()).getScene().getWindow().hide();
      }
     
-    public void comprobarCredenciales(){
-       /* if(usuario.getText().equals(null)){
-             JOptionPane.showMessageDialog(null, "El nombre de usuario no debe estar vacío!");   
-             credenciales = false; 
-        } else if (password.getText().equals(null)){
-            JOptionPane.showMessageDialog(null, "La contraseña no debe estar vacía!");
-            credenciales = false; 
-        }*/
-       String user = usuario.getText();
-       String pass = password.getText();
-       UsuarioAlumno u = u = con.login(user ,pass);
-       
-       if(u!=null) {
-           credenciales = true;
-       }
-            
-        
-       
+    public boolean comprobarCredenciales(){
+        //Refactoring variable descriptiva
+        String user = usuario.getText();
+        String pass = password.getText();
+        if(user.equals("") || pass.equals("") ){
+            JOptionPane.showMessageDialog(null, "Debe insertar usuario y contraseña!","Error", JOptionPane.ERROR_MESSAGE); 
+        } else {
+            UsuarioAlumno u = con.login(user ,pass);
+            if(u!=null) {
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos!","Error", JOptionPane.ERROR_MESSAGE); 
+            }
+        }
+        return false;
     }
     
 }  
