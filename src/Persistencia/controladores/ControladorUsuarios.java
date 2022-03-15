@@ -11,7 +11,7 @@ import org.bson.Document;
 
 public class ControladorUsuarios {
     
-    MongoCollection usuariosAlumno;
+   private MongoCollection usuariosAlumno;
     
     public ControladorUsuarios(MongoCollection collection){
         usuariosAlumno = collection;

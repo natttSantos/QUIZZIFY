@@ -1,7 +1,5 @@
 package LogicaNegocio.modelo;
 
-import LogicaNegocio.modelo.Usuario;
-
 public class UsuarioAlumno extends Usuario {
     
     private String grupo;

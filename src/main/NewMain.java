@@ -10,16 +10,17 @@ import java.util.ArrayList;
 import org.bson.Document;
 
 public class NewMain {
-
-    static ControladorPreguntas controlador;
+    
     public static void main(String[] args) {
         
         Conexion c = Conexion.obtenerConexion(); 
+         
         if(c != null) {
-            
-            
-            //UsuarioAlumno u = new UsuarioAlumno("test","aa","email@email.com","contraseña","grupo","clase");
-           // System.out.println(c.crearUsuarioAlumno(u));
+           
+           
+            UsuarioAlumno u = new UsuarioAlumno("prueba","gg","email@email.com","contraseña2","grupo1","clase1");
+            System.out.println(u.toString());
+            System.out.println(c.crearUsuarioAlumno(u));
             
             
            //Pregunta p = c.obtenerPregunta("text", "pregunta 2");
@@ -27,15 +28,13 @@ public class NewMain {
            
            
            
-           String email ="ervino@alumno.upv.es";
-           String pass = "123";
+           //String email ="ervino@alumno.upv.es";
+           //String pass = "123";
            
-           UsuarioAlumno u = c.login(email, pass);
-           if(u != null) {
-               System.out.println(u.toString());
-           } else {
-               System.out.println("Usuario Y/O CONTRASEÑA INCORRECTOS");
-           }
+           //UsuarioAlumno u = c.login(email, pass);
+           //if(u != null) {
+           //    System.out.println(u.toString());
+           //////}
            
            
            //ArrayList a = c.obtenerTodosUsuariosAlumno();
