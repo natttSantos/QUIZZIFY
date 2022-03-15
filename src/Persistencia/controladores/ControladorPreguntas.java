@@ -1,13 +1,13 @@
-package controlador;
+package Persistencia.controladores;
 
 import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import modelo.Pregunta;
+import LogicaNegocio.modelo.Pregunta;
 import org.bson.Document;
 import static java.util.Arrays.asList;
 
-public class ControladorPreguntas implements IControladorPreguntas {
+public class ControladorPreguntas {
     MongoCollection preguntas;
     
     public ControladorPreguntas(MongoCollection collection){

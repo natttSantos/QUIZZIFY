@@ -1,6 +1,6 @@
-package controlador;
+package Persistencia.controladores;
 
-import modelo.UsuarioAlumno;
+import LogicaNegocio.modelo.UsuarioAlumno;
 import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;

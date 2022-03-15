@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package controlador;
+package Interfaz.controladores;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,8 +29,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
-import modelo.Conexion;
-import modelo.UsuarioAlumno;
+import Persistencia.conexion.Conexion;
+import LogicaNegocio.modelo.UsuarioAlumno;
 
 
 /**

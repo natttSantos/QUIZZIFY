@@ -1,12 +1,14 @@
-package modelo;
-import controlador.ControladorUsuarios;
+package Persistencia.conexion;
+import Persistencia.controladores.ControladorUsuarios;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import javax.swing.JOptionPane;
 
-import controlador.ControladorPreguntas;
+import Persistencia.controladores.ControladorPreguntas;
+import LogicaNegocio.modelo.Pregunta;
+import LogicaNegocio.modelo.UsuarioAlumno;
 
 public class Conexion {
     private static Conexion conexion = null; 

@@ -1,9 +1,9 @@
 package main;
 
-import modelo.UsuarioAlumno;
-import modelo.Conexion;
-import modelo.Pregunta;
-import controlador.ControladorPreguntas;
+import LogicaNegocio.modelo.UsuarioAlumno;
+import Persistencia.conexion.Conexion;
+import LogicaNegocio.modelo.Pregunta;
+import Persistencia.controladores.ControladorPreguntas;
 import com.mongodb.MongoClient;
 import java.util.ArrayList;
 

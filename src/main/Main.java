@@ -5,7 +5,7 @@
 package main;
 
 import com.mongodb.MongoClient;
-import controlador.ControladorPreguntas;
+import Persistencia.controladores.ControladorPreguntas;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -17,8 +17,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import modelo.Conexion;
-import modelo.Pregunta;
+import Persistencia.conexion.Conexion;
+import LogicaNegocio.modelo.Pregunta;
 
 /**
  *

@@ -1,4 +1,4 @@
-package modelo;
+package LogicaNegocio.modelo;
 
 
 

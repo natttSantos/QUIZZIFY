@@ -1,6 +1,6 @@
-package modelo;
+package LogicaNegocio.modelo;
 
-import modelo.Usuario;
+import LogicaNegocio.modelo.Usuario;
 
 public class UsuarioAlumno extends Usuario {
     
