@@ -4,6 +4,8 @@
  */
 package main;
 
+import com.mongodb.MongoClient;
+import controlador.ControladorPreguntas;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -15,6 +17,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import modelo.Conexion;
+import modelo.Pregunta;
 
 /**
  *
@@ -35,6 +39,17 @@ public class Main extends Application {
         } catch(IOException e){
             System.out.println(e.getMessage());
         }
+        
+        // ========== test ==========
+        Conexion c = Conexion.obtenerConexion(); 
+        if(c != null) {
+
+//           String [] respe = {"Verdadero","Falso"};
+//           c.insertarPregunta("Responda si la afirmacion siguiente es cierta: Hola que tal", "alta", respe);
+           
+        }
+        
+        
         
     }
 

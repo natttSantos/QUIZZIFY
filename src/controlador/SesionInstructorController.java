@@ -55,6 +55,21 @@ public class SesionInstructorController implements Initializable {
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
+
+    @FXML
+    private void quizAleatorioPulsar(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/vista/DatosCrearAleatorio.fxml"));
+        Parent root = miCargador.load();
+        
+        DatosCrearAleatorioController controlador = miCargador.getController();
+        
+        Scene scene = new Scene(root, 400, 400);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Crear un quiz aleatorio");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
     
 
     }    
