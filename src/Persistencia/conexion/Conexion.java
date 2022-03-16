@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import Persistencia.controladores.ControladorPreguntas;
 import LogicaNegocio.modelo.Pregunta;
 import LogicaNegocio.modelo.UsuarioAlumno;
+import LogicaNegocio.modelo.UsuarioInstructor;
 
 public class Conexion {
     private static Conexion conexion = null; 
@@ -56,8 +57,12 @@ public class Conexion {
         return cu.crearUsuarioAlumno(u);
     }
     
+    public boolean crearUsuarioInstructor(UsuarioInstructor u) {
+        return cu.crearUsuarioInstructor(u);
+    }
+    
     public UsuarioAlumno login(String email, String contraseña) {
-        return cu.login(email, contraseña);
+        return cu.loginAlumno(email, contraseña);
     }
      
 }

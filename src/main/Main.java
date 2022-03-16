@@ -19,6 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.Pregunta;
+import LogicaNegocio.modelo.UsuarioInstructor;
 
 /**
  *
@@ -41,13 +42,17 @@ public class Main extends Application {
         }
         
         // ========== test ==========
+        // Este código pone un instructor de ejemplo en base de dato
+        
 //        Conexion c = Conexion.obtenerConexion(); 
 //        if(c != null) {
-
-//           String [] respe = {"Verdadero","Falso"};
-//           c.insertarPregunta("Responda si la afirmacion siguiente es cierta: Hola que tal", "alta", respe);
-           
-        //}
+//
+//            UsuarioInstructor instructor;
+//            String[] grupos = {"A", "B"};
+//            instructor = new UsuarioInstructor("Jose", "Arcadio Morales", "email@email.com", "Password", grupos);
+//            boolean exito = c.crearUsuarioInstructor(instructor);
+//
+//        }
     
     }
     /**
