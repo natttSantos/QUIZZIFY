@@ -30,7 +30,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/vista/InicioPrograma.fxml"));
+            loader.setLocation(Main.class.getResource("/Interfaz/vista/InicioPrograma.fxml"));
             Pane ventana = (Pane) loader.load(); 
         
             Scene scene = new Scene (ventana); 
@@ -41,18 +41,15 @@ public class Main extends Application {
         }
         
         // ========== test ==========
-        Conexion c = Conexion.obtenerConexion(); 
-        if(c != null) {
+//        Conexion c = Conexion.obtenerConexion(); 
+//        if(c != null) {
 
 //           String [] respe = {"Verdadero","Falso"};
 //           c.insertarPregunta("Responda si la afirmacion siguiente es cierta: Hola que tal", "alta", respe);
            
-        }
-        
-        
-        
+        //}
+    
     }
-
     /**
      * @param args the command line arguments
      */

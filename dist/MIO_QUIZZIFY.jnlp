@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="MIO_QUIZZIFY.jnlp">
+  <information>
+    <title>MIO_QUIZZIFY</title>
+    <vendor>nata2</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="MIO_QUIZZIFY.jar" size="996625" download="eager" />
+    <jar href="lib\gson-2.8.0.jar" size="231952" download="eager" />
+    <jar href="lib\javafx-swt.jar" size="37121" download="eager" />
+    <jar href="lib\javafx.base.jar" size="745873" download="eager" />
+    <jar href="lib\javafx.controls.jar" size="2545470" download="eager" />
+    <jar href="lib\javafx.fxml.jar" size="129485" download="eager" />
+    <jar href="lib\javafx.graphics.jar" size="4252483" download="eager" />
+    <jar href="lib\javafx.media.jar" size="275926" download="eager" />
+    <jar href="lib\javafx.swing.jar" size="88803" download="eager" />
+    <jar href="lib\javafx.web.jar" size="720448" download="eager" />
+    <jar href="lib\mongo-java-driver-3.12.10.jar" size="2314569" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="MIO_QUIZZIFY" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="main.Main"  name="MIO_QUIZZIFY" />
+  <update check="always"/>
+</jnlp>
