@@ -44,7 +44,7 @@ public class SesionInstructorController implements Initializable {
 
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/InicioSesion.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/InicioSesion.fxml"));
         Parent root =(Parent) loader.load();      
         InicioSesionController inicio = loader.<InicioSesionController>getController();
         inicio.setTipoUsuario("Instructor");
@@ -58,7 +58,7 @@ public class SesionInstructorController implements Initializable {
 
     @FXML
     private void quizAleatorioPulsar(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/vista/DatosCrearAleatorio.fxml"));
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/DatosCrearAleatorio.fxml"));
         Parent root = miCargador.load();
         
         DatosCrearAleatorioController controlador = miCargador.getController();

@@ -82,12 +82,12 @@ public class InicioSesionController implements Initializable {
         if(comprobarCredenciales()){
             Parent root = null;
             if(tipoUsuario.equals("Instructor")){
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/sesionInstructor.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
                 root =(Parent) loader.load();
                 SesionInstructorController inicio = loader.<SesionInstructorController>getController();
                 inicio.setNombreUsuario(usuario.getText());
             } else{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/sesionEstudiante.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionEstudiante.fxml"));
                 root =(Parent) loader.load();
                 SesionEstudianteController inicio = loader.<SesionEstudianteController>getController(); 
              }
@@ -103,7 +103,7 @@ public class InicioSesionController implements Initializable {
 
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/InicioPrograma.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/InicioPrograma.fxml"));
         Parent root =(Parent) loader.load();      
         InicioProgramaController inicio = loader.<InicioProgramaController>getController();
         Scene scene = new Scene (root);

@@ -53,7 +53,7 @@ public class InicioProgramaController implements Initializable {
     
     public void initData(String usuario, ActionEvent event) throws IOException{
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/InicioSesion.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/InicioSesion.fxml"));
         Parent root =(Parent) loader.load();
             
         InicioSesionController inicio = loader.<InicioSesionController>getController();
