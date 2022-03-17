@@ -8,8 +8,10 @@ import javax.swing.JOptionPane;
 
 import Persistencia.controladores.ControladorPreguntas;
 import LogicaNegocio.modelo.Pregunta;
+import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
+import java.util.ArrayList;
 
 public class Conexion {
     private static Conexion conexion = null; 
@@ -49,8 +51,11 @@ public class Conexion {
        return cp.obtenerPregunta(key, valor);
     }
     
-    public void insertarPregunta(String text, String dificultad, String [] respuestas) {
+    /*public void insertarPregunta(String text, String dificultad, String [] respuestas) {
         cp.insertPregunta(text, dificultad, respuestas);
+    }*/
+    public void insertarPregunta(String text, String dificultad,String tema, RespuestaSeleccion respuestas) {
+        cp.insertPregunta(text, dificultad, tema, respuestas);
     }
     
     public boolean crearUsuarioAlumno(UsuarioAlumno u) { 

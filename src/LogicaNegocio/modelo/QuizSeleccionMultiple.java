@@ -18,8 +18,8 @@ public class QuizSeleccionMultiple extends QuizAbstracto {
 
     @Override
     public PreguntaAbstracta crearPregunta(String enunciado, String instrucciones, float puntuacion) throws IOException {
-        PreguntaAbstracta pregunta = new PreguntaSeleccionMultiple (enunciado, instrucciones, puntuacion);
-        return pregunta;
+        //PreguntaAbstracta pregunta = new PreguntaSeleccionMultiple (enunciado, instrucciones, puntuacion);
+        return null;
     }
     
 }

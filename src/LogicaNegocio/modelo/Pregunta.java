@@ -12,6 +12,7 @@ import org.bson.Document;
 public class Pregunta {
     private String text;
     private String dificultad;
+    private String tema;
     private Document [] respuestas;
     
     
@@ -19,9 +20,10 @@ public class Pregunta {
         
     }
     
-    public Pregunta(String text, String dificultad, Document [] respuestas){
+    public Pregunta(String text, String dificultad,String tema, Document [] respuestas){
         this.text = text;
         this.dificultad = dificultad;
+        this.tema = tema;
         this.respuestas = respuestas;
     }
 
@@ -48,4 +50,18 @@ public class Pregunta {
     public String getDificultad() {
         return dificultad;
     }
+
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
+    }
+
+    @Override
+    public String toString() {
+        return "Pregunta{" + "text=" + text + ", dificultad=" + dificultad + ", tema=" + tema + ", respuestas=" + respuestas + '}';
+    }
+    
 }

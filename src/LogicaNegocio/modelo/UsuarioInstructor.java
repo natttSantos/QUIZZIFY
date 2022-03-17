@@ -26,5 +26,12 @@ public class UsuarioInstructor extends Usuario {
     public void setCursos(String[] cursos) {
         this.cursos = cursos;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "cursos= " + cursos + '}';
+    }
+    
+    
     
 }

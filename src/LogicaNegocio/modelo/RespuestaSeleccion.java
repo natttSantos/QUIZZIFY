@@ -12,16 +12,47 @@ import java.util.ArrayList;
  */
 public class RespuestaSeleccion extends Respuesta{
     protected ArrayList<String> opciones; 
-    protected ArrayList<String> respuestas_correctas; 
+    protected ArrayList<Boolean> opciones_correctas; 
     
-    public RespuestaSeleccion(String descripcion){
+    public RespuestaSeleccion(String descripcion, ArrayList<String>opciones, ArrayList<Boolean>correctas){
         super(descripcion); 
-         opciones = new ArrayList();
-         respuestas_correctas = new ArrayList();
+        this.opciones = opciones;
+        this.opciones_correctas = correctas;
     }
 
+    public ArrayList<String> getOpciones() {
+        return opciones;
+    }
+
+    public ArrayList<Boolean> getOpciones_correctas() {
+        return opciones_correctas;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+    
     @Override
     public String obtenerDescricpion() {
         return descripcion; 
     }
+
+    @Override
+    public String toString() {
+        return "RespuestaSeleccion{" + "opciones=" + opciones + ", opciones_correctas=" + opciones_correctas + '}';
+    }
+
+    public void setOpciones(ArrayList<String> opciones) {
+        this.opciones = opciones;
+    }
+
+    public void setOpciones_correctas(ArrayList<Boolean> opciones_correctas) {
+        this.opciones_correctas = opciones_correctas;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    
 }

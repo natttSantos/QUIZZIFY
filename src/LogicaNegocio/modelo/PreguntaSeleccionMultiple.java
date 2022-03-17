@@ -8,9 +8,9 @@ package LogicaNegocio.modelo;
  *
  * @author jaime
  */
-public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
+public class PreguntaSeleccionMultiple{ //extends PreguntaAbstracta//¡¡ {
     
-   public PreguntaSeleccionMultiple (String enunciado, String instrucciones, float puntuacion){
+   /*public PreguntaSeleccionMultiple (String enunciado, String instrucciones, float puntuacion){
         super(enunciado, instrucciones, puntuacion); 
     }
 
@@ -18,6 +18,6 @@ public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
     public Respuesta crearRespuesta(String descripcion) {
          Respuesta respuesta = new RespuestaSeleccion(descripcion); 
          return respuesta; 
-    }
+    }*/
  
 }

@@ -26,8 +26,8 @@ public class QuizAbierto extends QuizAbstracto {
      */
     @Override
     public PreguntaAbstracta crearPregunta(String enunciado, String instrucciones, float puntuacion) throws IOException {
-        PreguntaAbstracta pregunta = new PreguntaAbierta (enunciado, instrucciones, puntuacion);
-        return pregunta;        
+        //PreguntaAbstracta pregunta = new PreguntaAbierta (enunciado, instrucciones, puntuacion);
+        return null;        
     }
     
 }

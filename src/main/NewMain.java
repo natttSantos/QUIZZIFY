@@ -3,6 +3,7 @@ package main;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.Pregunta;
+import LogicaNegocio.modelo.RespuestaSeleccion;
 import Persistencia.controladores.ControladorPreguntas;
 import com.mongodb.MongoClient;
 import java.util.ArrayList;
@@ -12,15 +13,15 @@ import org.bson.Document;
 public class NewMain {
     
     public static void main(String[] args) {
-        
-        Conexion c = Conexion.obtenerConexion(); 
          
+        Conexion c = Conexion.obtenerConexion(); 
+         System.out.println("aaa");
         if(c != null) {
+          System.out.println("aaa");
            
-           
-            UsuarioAlumno u = new UsuarioAlumno("prueba","gg","email@email.com","contraseña2","grupo1","clase1");
-            System.out.println(u.toString());
-            System.out.println(c.crearUsuarioAlumno(u));
+            //UsuarioAlumno u = new UsuarioAlumno("prueba","gg","email@email.com","contraseña2","grupo1","clase1");
+            //System.out.println(u.toString());
+            //System.out.println(c.crearUsuarioAlumno(u));
             
             
            //Pregunta p = c.obtenerPregunta("text", "pregunta 2");
@@ -45,7 +46,20 @@ public class NewMain {
            System.out.println(d[1]);*/
            
            //String [] respe = {"Verdadero","Falso"};
-           //controlador.insertPregunta("Responda si la afirmacion siguiente es cierta: Hola que tal", "alta", respe);
+           
+            ArrayList<String> opciones = new ArrayList();
+            opciones.add("una");
+            opciones.add("dos");
+            opciones.add("tes");
+             
+            ArrayList<Boolean> correctas = new ArrayList();
+            correctas.add(true);
+            correctas.add(false);
+            correctas.add(false);
+           
+           RespuestaSeleccion r = new RespuestaSeleccion("RespuestaSeleccion1",opciones, correctas);
+         
+           c.insertarPregunta("abc", "alta","PSW", r);
         }
     }
 
