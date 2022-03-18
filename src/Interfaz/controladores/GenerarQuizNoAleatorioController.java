@@ -4,11 +4,17 @@
  */
 package Interfaz.controladores;
 
+import LogicaNegocio.modelo.Pregunta;
+import Persistencia.conexion.Conexion;
+import Persistencia.controladores.ControladorPreguntas;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -20,20 +26,43 @@ import javafx.scene.control.TextField;
 public class GenerarQuizNoAleatorioController implements Initializable {
 
     @FXML
-    private ListView<?> lista;
+    private TextField nombreTextField;
     @FXML
-    private TextField buscador;
+    private Button crearPreguntaButton;
+    @FXML
+    private Button aceptarButton;
+    @FXML
+    private Button anularButton;     
+    @FXML
+    private ListView<String> listView;
+    
+    private Conexion con;
+    private ControladorPreguntas controlador;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        con = Conexion.obtenerConexion();
+        ArrayList<Pregunta> preguntas = controlador.obtenerTodasPreguntas();
+        for (Pregunta pregunta:preguntas ){
+            listView.getItems().add(pregunta.toString());
+        }
     }    
 
+
     @FXML
-    private void crearQuizz(ActionEvent event) {
+    private void crearPreguntaButtonClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void aceptarButtonClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void anularButtonClickedTest(ActionEvent event) {
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
     
 }
