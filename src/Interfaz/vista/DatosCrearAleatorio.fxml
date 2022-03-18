@@ -10,14 +10,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.DatosCrearAleatorioController">
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="600.0" prefWidth="400.0" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.DatosCrearAleatorioController">
    <children>
+      <Label text="Nombre de quiz:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nombreTextField" onAction="#nombreTextFieldClicked" />
       <Label text="Número de preguntas:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="numeroTextField" maxWidth="150.0" minWidth="0.0" onAction="#numeroTextFieldClicked" prefWidth="50.0" />
+      <TextField fx:id="numeroTextField" maxWidth="150.0" minWidth="50.0" onAction="#numeroTextFieldClicked" prefWidth="50.0" />
       <CheckBox fx:id="checkbox" mnemonicParsing="false" onAction="#checkboxClicked" text="Especificar el tema concreto">
          <font>
             <Font size="18.0" />

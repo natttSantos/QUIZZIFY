@@ -63,12 +63,31 @@ public class SesionInstructorController implements Initializable {
         
         DatosCrearAleatorioController controlador = miCargador.getController();
         
-        Scene scene = new Scene(root, 400, 400);
+        Scene scene = new Scene(root, 400, 600);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Crear un quiz aleatorio");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+        
+        if (controlador.getAnulado()) {
+            return;  //  si creación de quiz es anulado, no ejecuta codigo abajo
+        }
+        
+        String nombre = controlador.getNombre();
+        int numero = controlador.getNumero();
+        boolean temaConcreto = controlador.getTemaConcreto();
+        
+        if (temaConcreto) {
+            String tema = controlador.getTema();
+        }
+        
+        // TODO
+        // validar numero de preguntas (no puede ser mayor de numero de preguntas en la base
+        // crear quiz con preguntas aleatorias
+        // subir el quiz a la base de datos
+        
+        
     }
     
 

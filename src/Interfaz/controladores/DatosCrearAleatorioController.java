@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -35,13 +36,19 @@ public class DatosCrearAleatorioController implements Initializable {
     private Button aceptarButton;
     @FXML
     private Button anularButton;
+    @FXML
+    private TextField nombreTextField;
+    
+    private String nombre, tema;
+    private int numero;
+    private boolean anulado, temaConcreto;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        anulado = true; // si usuario cierra ventana con "X" accion es anulada por defecto
     }    
 
     @FXML
@@ -65,10 +72,46 @@ public class DatosCrearAleatorioController implements Initializable {
 
     @FXML
     private void aceptarButtonClicked(ActionEvent event) {
+        nombre = nombreTextField.getText();
+        numero = Integer.parseInt(numeroTextField.getText());
+        anulado = false;
+        
+        if (checkbox.isSelected()) {
+            // tema concreto
+            temaConcreto = true;
+            // TODO
+        } else {
+            tema = null;
+            temaConcreto = false;
+        }
+        
+        ((Node) event.getSource()).getScene().getWindow().hide();
+        
     }
 
     @FXML
     private void anularButtonClickedTest(ActionEvent event) {
+        ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+
+    @FXML
+    private void nombreTextFieldClicked(ActionEvent event) {
+    }
+    
+    public boolean getAnulado() {
+        return anulado;
+    }
+    public boolean getTemaConcreto() {
+        return temaConcreto;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public String getTema() {
+        return tema;
+    }
+    public int getNumero() {
+        return numero;
     }
     
 }
