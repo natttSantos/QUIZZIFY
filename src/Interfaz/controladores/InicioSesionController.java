@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 import main.Main;
 import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.UsuarioAlumno;
+import javafx.scene.control.Alert;
 
 
 /**
@@ -65,19 +66,8 @@ public class InicioSesionController implements Initializable {
         } else{ tipoUsuarioLabel.setText("INSTRUCTOR");}
     }
 
-//    @FXML
-//    private void pulsarInterrogante_Usuario(ActionEvent event) {
-//        JOptionPane.showMessageDialog(null, "El nombre de usuario debe contener al menos ...");
-//    }
-//
-//    @FXML
-//    private void pulsarInterrogante_Contrasenya(ActionEvent event) {
-//        JOptionPane.showMessageDialog(null, "La contraseña debe contener al menos 6 cararcteres");
-//    }
-
     @FXML
     private void pulsarIniciarSesion(ActionEvent event) throws IOException {
-        
         //Refactoring hecho Extract Method
         if(comprobarCredenciales()){
             Parent root = null;
@@ -120,16 +110,24 @@ public class InicioSesionController implements Initializable {
         String user = usuario.getText();
         String pass = password.getText();
         if(user.equals("") || pass.equals("") ){
-            JOptionPane.showMessageDialog(null, "Debe insertar usuario y contraseña!","Error", JOptionPane.ERROR_MESSAGE); 
+            envioAlerta("Debe insertar usuario y contraseña!");
         } else {
             UsuarioAlumno u = con.login(user ,pass);
             if(u!=null) {
                 return true;
             } else {
-                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos!","Error", JOptionPane.ERROR_MESSAGE); 
+                envioAlerta("Usuario y/o contraseña incorrectos!");
             }
         }
         return false;
+    }
+    public void envioAlerta(String msgError){
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR); 
+            dialogoAlerta.setTitle(null);
+            dialogoAlerta.setHeaderText(null);
+            dialogoAlerta.setContentText(msgError);
+            java.awt.Toolkit.getDefaultToolkit().beep();
+            dialogoAlerta.showAndWait(); 
     }
     
 }  
