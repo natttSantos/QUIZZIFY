@@ -39,7 +39,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="836.0" layoutY="314.0" mnemonicParsing="false" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
+      <Button layoutX="836.0" layoutY="314.0" mnemonicParsing="false" onAction="#crearPreguntaPulsar" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
          <graphic>
             <ImageView fitHeight="82.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                <image>
