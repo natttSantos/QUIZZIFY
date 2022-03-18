@@ -16,13 +16,13 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="nombreTextField" onAction="#nombreTextFieldClicked" />
+      <TextField fx:id="nombreTextField" />
       <Label text="Seleccionar preguntas:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ListView prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" />
       <Button fx:id="crearPreguntaButton" minWidth="100.0" mnemonicParsing="false" onAction="#crearPreguntaButtonClicked" prefHeight="39.0" prefWidth="182.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Crear pregunta">
          <font>
             <Font size="18.0" />
