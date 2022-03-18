@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -20,9 +21,13 @@ import javafx.scene.control.TextField;
 public class GenerarQuizNoAleatorioController implements Initializable {
 
     @FXML
-    private ListView<?> lista;
+    private TextField nombreTextField;
     @FXML
-    private TextField buscador;
+    private Button crearPreguntaButton;
+    @FXML
+    private Button aceptarButton;
+    @FXML
+    private Button anularButton;
 
     /**
      * Initializes the controller class.
@@ -33,7 +38,19 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     }    
 
     @FXML
-    private void crearQuizz(ActionEvent event) {
+    private void nombreTextFieldClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void crearPreguntaButtonClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void aceptarButtonClicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void anularButtonClickedTest(ActionEvent event) {
     }
     
 }
