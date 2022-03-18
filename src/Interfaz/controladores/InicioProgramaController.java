@@ -43,7 +43,15 @@ public class InicioProgramaController implements Initializable {
 
     @FXML
     private void pulsarRegistrar(ActionEvent event) throws IOException {
-        //initData("Instructor"); 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/Registro.fxml"));
+        Parent root =(Parent) loader.load();    
+        RegistroController registro = loader.<RegistroController>getController();
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
     @FXML

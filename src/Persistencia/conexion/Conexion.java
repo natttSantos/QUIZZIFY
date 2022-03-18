@@ -27,7 +27,7 @@ public class Conexion {
     MongoCollection preguntas;
     MongoCollection usuarios;
         
-    private Conexion() {
+    public Conexion() {
         try {
             instanciaMongo = new MongoClient(URL);
             db = instanciaMongo.getDatabase(DB);

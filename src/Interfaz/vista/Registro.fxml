@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.Registro">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.RegistroController">
    <children>
       <ImageView fitHeight="682.0" fitWidth="1085.0" layoutX="-34.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -35,18 +35,16 @@
                      </font>
                   </Label>
                   <TextField fx:id="nombre" layoutX="84.0" layoutY="137.0" prefHeight="39.0" prefWidth="204.0" promptText="Nombre" />
-                  <Button layoutX="251.0" layoutY="487.0" mnemonicParsing="false" onAction="#pulsarIniciarSesion" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Regístrame">
+                  <Button layoutX="251.0" layoutY="487.0" mnemonicParsing="false" onAction="#pulsarRegistrar" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Regístrame">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="apelidos" layoutX="84.0" layoutY="201.0" prefHeight="39.0" prefWidth="204.0" promptText="Apellidos" />
+                  <TextField fx:id="apellidos" layoutX="84.0" layoutY="201.0" prefHeight="39.0" prefWidth="204.0" promptText="Apellidos" />
                   <TextField fx:id="email" layoutX="84.0" layoutY="262.0" prefHeight="39.0" prefWidth="204.0" promptText="Email" />
                   <TextField fx:id="password" layoutX="84.0" layoutY="324.0" prefHeight="39.0" prefWidth="204.0" promptText="Contraseña" />
-                  <Label layoutX="366.0" layoutY="201.0" text="Seleccione un curso:" />
-                  <Label layoutX="364.0" layoutY="291.0" text="Seleccione un grupo:" />
-                  <ComboBox fx:id="comboBoxGrupo" layoutX="364.0" layoutY="328.0" prefWidth="150.0" />
-                  <ComboBox fx:id="comboBoxCurso" layoutX="364.0" layoutY="240.0" prefWidth="150.0" />
+                  <Label layoutX="364.0" layoutY="291.0" text="Seleccione un tipo de usuario:" />
+                  <ComboBox fx:id="comboBoxTipoUsuario" layoutX="364.0" layoutY="328.0" onAction="#pulsarSeleccionTipoUsuario" prefHeight="31.0" prefWidth="179.0" />
                </children>
             </AnchorPane>
          </children>
