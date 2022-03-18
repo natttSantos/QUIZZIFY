@@ -4,7 +4,9 @@
  */
 package Interfaz.controladores;
 
+import LogicaNegocio.modelo.Pregunta;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -42,6 +45,7 @@ public class DatosCrearAleatorioController implements Initializable {
     private String nombre, tema;
     private int numero;
     private boolean anulado, temaConcreto;
+    private ArrayList<Pregunta> listaPreguntas;
 
     /**
      * Initializes the controller class.
@@ -74,7 +78,6 @@ public class DatosCrearAleatorioController implements Initializable {
     private void aceptarButtonClicked(ActionEvent event) {
         nombre = nombreTextField.getText();
         numero = Integer.parseInt(numeroTextField.getText());
-        anulado = false;
         
         if (checkbox.isSelected()) {
             // tema concreto
@@ -85,8 +88,12 @@ public class DatosCrearAleatorioController implements Initializable {
             temaConcreto = false;
         }
         
-        ((Node) event.getSource()).getScene().getWindow().hide();
-        
+        if (comprobarNumero()) {
+            anulado = false;
+            ((Node) event.getSource()).getScene().getWindow().hide();
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay tantas preguntas en la bateria!","Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @FXML
@@ -96,6 +103,12 @@ public class DatosCrearAleatorioController implements Initializable {
 
     @FXML
     private void nombreTextFieldClicked(ActionEvent event) {
+    }
+    
+    private boolean comprobarNumero() {
+        int numero = Integer.parseInt(numeroTextField.getText());
+        int numeroPreguntas = listaPreguntas.size();
+        return numero <= numeroPreguntas;
     }
     
     public boolean getAnulado() {
@@ -112,6 +125,10 @@ public class DatosCrearAleatorioController implements Initializable {
     }
     public int getNumero() {
         return numero;
+    }
+    
+    public void setListaPreguntas(ArrayList<Pregunta> lista) {
+        listaPreguntas = lista;
     }
     
 }

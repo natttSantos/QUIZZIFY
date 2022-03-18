@@ -69,5 +69,9 @@ public class Conexion {
     public UsuarioAlumno login(String email, String contraseña) {
         return cu.loginAlumno(email, contraseña);
     }
+    
+    public ArrayList<Pregunta> obtenerTodasPreguntas() {
+        return cp.obtenerTodasPreguntas();
+    }
      
 }

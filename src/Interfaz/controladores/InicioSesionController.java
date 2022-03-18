@@ -86,6 +86,7 @@ public class InicioSesionController implements Initializable {
                 root =(Parent) loader.load();
                 SesionInstructorController inicio = loader.<SesionInstructorController>getController();
                 inicio.setNombreUsuario(usuario.getText());
+                inicio.setConexion(con);
             } else{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionEstudiante.fxml"));
                 root =(Parent) loader.load();

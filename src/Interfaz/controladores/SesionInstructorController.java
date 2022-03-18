@@ -4,8 +4,11 @@
  */
 package Interfaz.controladores;
 
+import LogicaNegocio.modelo.Pregunta;
+import Persistencia.conexion.Conexion;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +31,8 @@ public class SesionInstructorController implements Initializable {
     private String nombreUsuario; 
     @FXML
     private Label instructor;
+    
+    private Conexion conexion;
 
     /**
      * Initializes the controller class.
@@ -40,6 +45,10 @@ public class SesionInstructorController implements Initializable {
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
         instructor.setText(nombreUsuario);
+    }
+    
+    public void setConexion(Conexion con) {
+        conexion = con;
     }
 
     @FXML
@@ -58,10 +67,15 @@ public class SesionInstructorController implements Initializable {
 
     @FXML
     private void quizAleatorioPulsar(ActionEvent event) throws IOException {
+        
+        ArrayList<Pregunta> listaPreguntas = conexion.obtenerTodasPreguntas();
+        
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/DatosCrearAleatorio.fxml"));
         Parent root = miCargador.load();
         
         DatosCrearAleatorioController controlador = miCargador.getController();
+        
+        controlador.setListaPreguntas(listaPreguntas);
         
         Scene scene = new Scene(root, 400, 600);
         Stage stage = new Stage();
@@ -82,8 +96,9 @@ public class SesionInstructorController implements Initializable {
             String tema = controlador.getTema();
         }
         
+        
         // TODO
-        // validar numero de preguntas (no puede ser mayor de numero de preguntas en la base
+        // [done] validar numero de preguntas (no puede ser mayor de numero de preguntas en la base
         // crear quiz con preguntas aleatorias
         // subir el quiz a la base de datos
         

@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.Pregunta;
 import LogicaNegocio.modelo.UsuarioInstructor;
+import java.util.ArrayList;
 
 /**
  *

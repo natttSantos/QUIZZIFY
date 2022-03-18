@@ -5,6 +5,8 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import LogicaNegocio.modelo.Pregunta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
+import LogicaNegocio.modelo.UsuarioAlumno;
+import com.mongodb.client.MongoCursor;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import org.bson.Document;
@@ -63,6 +65,25 @@ public class ControladorPreguntas {
             .append("respuestas", asList(d));
           
         preguntas.insertOne(p);
+    }
+    
+    public ArrayList<Pregunta> obtenerTodasPreguntas() {
+        ArrayList<Pregunta> lista = new ArrayList();
+        MongoCursor<Document> cursor = preguntas.find().iterator();
+        
+        try {
+            while (cursor.hasNext()) {
+              Document otro = (Document) cursor.next();
+              String json =  otro.toJson();
+              Pregunta pregunta = new Gson().fromJson(json, Pregunta.class);
+              lista.add(pregunta);
+            }
+        }catch(Exception e){
+             System.out.println("ERROR al obtener todas las preguntas:   " + e.getMessage());
+        } finally {
+          cursor.close();
+        }
+        return lista;
     }
 
 }
