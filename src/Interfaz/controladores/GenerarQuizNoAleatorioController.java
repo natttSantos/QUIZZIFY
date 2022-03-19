@@ -8,6 +8,7 @@ import LogicaNegocio.modelo.Pregunta;
 import LogicaNegocio.modelo.Quiz;
 import Persistencia.conexion.Conexion;
 import Persistencia.controladores.ControladorPreguntas;
+import Persistencia.controladores.ControladorQuizzes;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -42,6 +43,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     
     private Conexion con;
     private ControladorPreguntas controlador;
+    private ControladorQuizzes controlador1;
     @FXML
     private ListView<String> listView2;
     @FXML
@@ -70,8 +72,9 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         Document[] preguntas = new Document[lista.size()];
         for (String text:lista){
             Pregunta pregunta = controlador.obtenerPregunta("text", text);
+            
         }
-        Quiz quiz = new Quiz(nombreTextField.getText(), preguntas);
+        controlador1.insertarQuiz(nombreTextField.getText(), preguntas);
     }
 
     @FXML

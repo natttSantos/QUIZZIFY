@@ -41,8 +41,12 @@ public class ControladorQuizzes {
         // subir a base de dato
     }
     
-    public void insertarPregunta(String nombre, Document[] preguntas) {
+    public void insertarQuiz(String nombre, Document[] preguntas) {
+        Document quiz = new Document();
+        quiz.append("nombre", nombre)
+                .append("preguntas", preguntas);
         
+        quizzes.insertOne(quiz);
     }
     
 }
