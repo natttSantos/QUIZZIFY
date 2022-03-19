@@ -29,6 +29,8 @@ public class ControladorUsuarios {
             d.append("contraseña", u.getContraseña());
             d.append("grupo", u.getGrupo());
             d.append("curso", u.getCurso());
+             d.append("tipo", "Alumno");
+            
             usuarios.insertOne(d);
             return true;
         }catch(Exception e) {
@@ -103,9 +105,10 @@ public class ControladorUsuarios {
             d.append("apelldios", u.getApellidos());
             d.append("email", u.getEmail());
             d.append("contraseña", u.getContraseña());
+            d.append("tipo", "Instructor");
             
             
-            String[] cursos = u.getCursos();
+            /*String[] cursos = u.getCursos();
             Document [] cursosDocument  = new Document[cursos.length]; 
       
             for(int i = 0; i< cursos.length; i++){
@@ -114,7 +117,7 @@ public class ControladorUsuarios {
                 }    
             }
             
-            d.append("cursos", asList(cursosDocument));
+            d.append("cursos", asList(cursosDocument));*/
             usuarios.insertOne(d);
             return true;
             

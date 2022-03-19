@@ -38,10 +38,8 @@ import javafx.stage.Stage;
  */
 public class RegistroController implements Initializable {
 
-    private boolean credenciales; 
     private String tipoUsuario; 
     @FXML
-    private Label tipoUsuarioLabel;
     private ComboBox<String> comboBoxCurso;
     @FXML
     private TextField nombre;
@@ -54,7 +52,7 @@ public class RegistroController implements Initializable {
     @FXML
     private TextField apellidos;
 
-   
+    private Conexion con;
 
     /**
      * Initializes the controller class.
@@ -62,8 +60,9 @@ public class RegistroController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         ObservableList<String> usuario = FXCollections.observableArrayList("Estudiante", "Instructor"); 
-         comboBoxTipoUsuario.setItems(usuario);
+        con = Conexion.obtenerConexion();
+        ObservableList<String> usuario = FXCollections.observableArrayList("Estudiante", "Instructor"); 
+        comboBoxTipoUsuario.setItems(usuario);
     }    
 
 
@@ -81,18 +80,16 @@ public class RegistroController implements Initializable {
     }
 
     @FXML
-    private void pulsarRegistrar(ActionEvent event) throws IOException {
-        credenciales = comprobarCredenciales(); 
-         Conexion conexion = new Conexion(); 
-        if(credenciales){
+    private void pulsarRegistrar(ActionEvent event) throws IOException { 
+        if(comprobarCredenciales()){
             if(tipoUsuario.equals("Estudiante")){
                 UsuarioAlumno student = new UsuarioAlumno(nombre.getText(), apellidos.getText(), email.getText(), password.getText(), "", ""); 
-                conexion.crearUsuarioAlumno(student);  
+                con.crearUsuarioAlumno(student);  
                 navegar_SesionEstudiante(event);
             } else{
                 String [] cursos = null; 
                 UsuarioInstructor instructor = new UsuarioInstructor(nombre.getText(), apellidos.getText(), email.getText(), password.getText(), cursos); 
-                conexion.crearUsuarioInstructor(instructor);
+                con.crearUsuarioInstructor(instructor);
                 navegar_SesionInstructor(event);
             }
         } 
@@ -121,20 +118,28 @@ public class RegistroController implements Initializable {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
     public boolean comprobarCredenciales(){
-        credenciales = true; 
+       
         if(nombre.getText().equals("") || apellidos.getText().equals("") || 
-           email.getText().equals("") || password.getText().equals("") || tipoUsuario.equals("")) {
-            credenciales = false; 
-            Alert dialogoAlerta = new Alert(AlertType.ERROR); 
-            dialogoAlerta.setTitle(null);
-            dialogoAlerta.setHeaderText("¡ERROR! Campos incompletos");
-            dialogoAlerta.setContentText("Debe completar todos los campos, incluído el tipo de usuario");
-            java.awt.Toolkit.getDefaultToolkit().beep();
-            dialogoAlerta.showAndWait(); 
+           email.getText().equals("") || password.getText().equals("") || tipoUsuario == null) {
+            enviarAlerta("Debe completar todos los campos, incluído el tipo de usuario");   
+            return false;
+        } else if(!email.getText().contains("@") || !(email.getText().endsWith(".com") || email.getText().endsWith(".es"))){
+            enviarAlerta("Introduzca un correo electrónico correcto. Ejemplo: email@email.com");
+            return false;
         }
-        return credenciales; 
+        return true;
+       
     }
-
+    
+    //extract method
+    private void enviarAlerta(String text) {
+        Alert dialogoAlerta = new Alert(AlertType.ERROR); 
+        dialogoAlerta.setTitle(null);
+        dialogoAlerta.setHeaderText("¡ERROR!¡");
+        dialogoAlerta.setContentText(text);
+        java.awt.Toolkit.getDefaultToolkit().beep();
+        dialogoAlerta.showAndWait(); 
+    }
     @FXML
     private void pulsarSeleccionTipoUsuario(ActionEvent event) {
         String tipoUsuarioSeleccionado = comboBoxTipoUsuario.getSelectionModel().getSelectedItem().toString();

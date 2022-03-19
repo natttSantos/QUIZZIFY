@@ -121,10 +121,10 @@ public class InicioSesionController implements Initializable {
         }
         return false;
     }
-    public void envioAlerta(String msgError){
+    public void envioAlerta(String msgError){ //extract method
             Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR); 
             dialogoAlerta.setTitle(null);
-            dialogoAlerta.setHeaderText(null);
+            dialogoAlerta.setHeaderText("Error");
             dialogoAlerta.setContentText(msgError);
             java.awt.Toolkit.getDefaultToolkit().beep();
             dialogoAlerta.showAndWait(); 
