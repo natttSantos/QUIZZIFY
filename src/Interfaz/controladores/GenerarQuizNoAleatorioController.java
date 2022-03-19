@@ -11,6 +11,7 @@ import Persistencia.controladores.ControladorPreguntas;
 import Persistencia.controladores.ControladorQuizzes;
 import java.net.URL;
 import java.util.ArrayList;
+import static java.util.Arrays.asList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -70,9 +71,16 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private void aceptarButtonClicked(ActionEvent event) {
         ObservableList<String> lista = listView2.getItems();
         Document[] preguntas = new Document[lista.size()];
+        int i = 0;
         for (String text:lista){
             Pregunta pregunta = controlador.obtenerPregunta("text", text);
-            
+            Document d = new Document();
+                d.append("text", pregunta.getText())
+            .append("dificultad", pregunta.getDificultad())
+            .append("tema", pregunta.getTema()) 
+            .append("respuestas", pregunta.getRespuestas());
+            preguntas[i] = d;
+            i++;            
         }
         controlador1.insertarQuiz(nombreTextField.getText(), preguntas);
     }
