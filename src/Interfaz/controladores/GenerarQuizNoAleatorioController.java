@@ -38,6 +38,10 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     
     private Conexion con;
     private ControladorPreguntas controlador;
+    @FXML
+    private ListView<?> listView2;
+    @FXML
+    private Button añadirAExamenButton1;
 
     /**
      * Initializes the controller class.
@@ -63,6 +67,10 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     @FXML
     private void anularButtonClickedTest(ActionEvent event) {
         ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+
+    @FXML
+    private void añadirAExamenButtonClicked(ActionEvent event) {
     }
     
 }
