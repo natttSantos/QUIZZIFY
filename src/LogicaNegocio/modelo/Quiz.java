@@ -4,7 +4,9 @@
  */
 package LogicaNegocio.modelo;
 
-import org.w3c.dom.Document;
+import org.bson.Document;
+
+
 
 /**
  *

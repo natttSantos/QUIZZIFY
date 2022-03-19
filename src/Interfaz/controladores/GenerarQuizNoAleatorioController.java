@@ -5,6 +5,7 @@
 package Interfaz.controladores;
 
 import LogicaNegocio.modelo.Pregunta;
+import LogicaNegocio.modelo.Quiz;
 import Persistencia.conexion.Conexion;
 import Persistencia.controladores.ControladorPreguntas;
 import java.net.URL;
@@ -19,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import org.bson.Document;
 
 /**
  * FXML Controller class
@@ -65,9 +67,11 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     @FXML
     private void aceptarButtonClicked(ActionEvent event) {
         ObservableList<String> lista = listView2.getItems();
-        for (String pregunta:lista){
-            controlador.obtenerPregunta(pregunta, pregunta);
+        Document[] preguntas = new Document[lista.size()];
+        for (String text:lista){
+            Pregunta pregunta = controlador.obtenerPregunta("text", text);
         }
+        Quiz quiz = new Quiz(nombreTextField.getText(), preguntas);
     }
 
     @FXML

@@ -12,6 +12,7 @@ import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.Quiz;
 import java.util.ArrayList;
 import java.util.Collections;
+import org.bson.Document;
 
 public class ControladorQuizzes {
     MongoDatabase db;
@@ -39,6 +40,9 @@ public class ControladorQuizzes {
         // crear quiz con preguntas de nuevaLista
         // subir a base de dato
     }
-     
+    
+    public void insertarPregunta(String nombre, Document[] preguntas) {
+        
+    }
     
 }
