@@ -10,6 +10,8 @@ import Persistencia.controladores.ControladorPreguntas;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,7 +41,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private Conexion con;
     private ControladorPreguntas controlador;
     @FXML
-    private ListView<?> listView2;
+    private ListView<String> listView2;
     @FXML
     private Button añadirAExamenButton1;
 
@@ -51,7 +53,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         con = Conexion.obtenerConexion();
         ArrayList<Pregunta> preguntas = controlador.obtenerTodasPreguntas();
         for (Pregunta pregunta:preguntas ){
-            listView.getItems().add(pregunta.toString());
+            listView.getItems().add(pregunta.getText());
         }
     }    
 
@@ -62,6 +64,10 @@ public class GenerarQuizNoAleatorioController implements Initializable {
 
     @FXML
     private void aceptarButtonClicked(ActionEvent event) {
+        ObservableList<String> lista = listView2.getItems();
+        for (String pregunta:lista){
+            controlador.obtenerPregunta(pregunta, pregunta);
+        }
     }
 
     @FXML
@@ -71,6 +77,9 @@ public class GenerarQuizNoAleatorioController implements Initializable {
 
     @FXML
     private void añadirAExamenButtonClicked(ActionEvent event) {
+        String selectedItem = listView.getSelectionModel().getSelectedItem();
+        listView2.getItems().add(selectedItem);
+        
     }
     
 }
