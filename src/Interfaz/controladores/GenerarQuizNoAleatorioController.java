@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -97,7 +98,14 @@ public class GenerarQuizNoAleatorioController implements Initializable {
             preguntas[i] = d;
             i++;            
         }
-        con.insertarQuiz(nombreTextField.getText(), preguntas);
+        try {
+             con.insertarQuiz(nombreTextField.getText(), preguntas);
+             enviarAlerta("Creado","Quizz creado correctamente!");
+             
+        }catch(Exception e){
+            enviarAlerta("ERROR","Ha ocurrido un error en la creación del Quizz! : "+ e.getMessage() );
+        }
+       
     }
 
     @FXML
@@ -117,5 +125,19 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         for (Pregunta pregunta:preguntas ){
             listView.getItems().add(pregunta.getText());
         }
+    }
+    
+      private void enviarAlerta(String header,String text) {
+        Alert dialogoAlerta;
+        if(header.equals("ERROR")){
+           dialogoAlerta = new Alert(Alert.AlertType.ERROR); 
+        }else {
+            dialogoAlerta = new Alert(Alert.AlertType.CONFIRMATION); 
+        }
+        dialogoAlerta.setTitle(null);
+        dialogoAlerta.setHeaderText(header);
+        dialogoAlerta.setContentText(text);
+        java.awt.Toolkit.getDefaultToolkit().beep();
+        dialogoAlerta.showAndWait(); 
     }
 }
