@@ -5,8 +5,10 @@
 package Interfaz.controladores;
 
 import LogicaNegocio.modelo.Pregunta;
+import Persistencia.conexion.Conexion;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +21,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javax.swing.JOptionPane;
+import org.bson.Document;
+import static java.util.Arrays.asList;
 
 /**
  * FXML Controller class
@@ -46,6 +50,8 @@ public class DatosCrearAleatorioController implements Initializable {
     private int numero;
     private boolean anulado, temaConcreto;
     private ArrayList<Pregunta> listaPreguntas;
+    private Conexion conexion;
+
 
     /**
      * Initializes the controller class.
@@ -90,6 +96,7 @@ public class DatosCrearAleatorioController implements Initializable {
         
         if (comprobarNumero()) {
             anulado = false;
+            crearQuizAleatorio(numero, nombre, listaPreguntas);
             ((Node) event.getSource()).getScene().getWindow().hide();
         } else {
             JOptionPane.showMessageDialog(null, "No hay tantas preguntas en la bateria!","Error", JOptionPane.ERROR_MESSAGE);
@@ -111,6 +118,24 @@ public class DatosCrearAleatorioController implements Initializable {
         return numero <= numeroPreguntas;
     }
     
+    public void crearQuizAleatorio(int num, String nombre, ArrayList<Pregunta> lista) {
+        Collections.shuffle(lista);
+        Document[] preguntas = new Document[num];
+        
+        for (int i = 0; i < num; i++) {
+            
+            Pregunta pregunta = lista.get(i);
+            Document d = new Document();
+            
+            d.append("text", pregunta.getText())
+            .append("dificultad", pregunta.getDificultad())
+            .append("tema", pregunta.getTema())
+            .append("respuestas", asList(pregunta.getRespuestas()));
+            preguntas[i] = d;
+        }
+        conexion.insertarQuiz(nombre, preguntas);
+    }
+    
     public boolean getAnulado() {
         return anulado;
     }
@@ -130,5 +155,7 @@ public class DatosCrearAleatorioController implements Initializable {
     public void setListaPreguntas(ArrayList<Pregunta> lista) {
         listaPreguntas = lista;
     }
-    
+    public void setConexion(Conexion con) {
+        conexion = con;
+    }
 }

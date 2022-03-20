@@ -9,6 +9,7 @@ import Persistencia.conexion.Conexion;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -78,7 +79,8 @@ public class SesionInstructorController implements Initializable {
         DatosCrearAleatorioController controlador = miCargador.getController();
         
         controlador.setListaPreguntas(listaPreguntas);
-        
+        controlador.setConexion(conexion);
+                
         Scene scene = new Scene(root, 400, 600);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -86,25 +88,17 @@ public class SesionInstructorController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         
-        if (controlador.getAnulado()) {
-            return;  //  si creación de quiz es anulado, no ejecuta codigo abajo
-        }
-        
-        String nombre = controlador.getNombre();
-        int numero = controlador.getNumero();
-        boolean temaConcreto = controlador.getTemaConcreto();
-        
-        if (temaConcreto) {
-            String tema = controlador.getTema();
-        }
-        
-        
-        // TODO
-        // [done] validar numero de preguntas (no puede ser mayor de numero de preguntas en la base
-        // crear quiz con preguntas aleatorias
-        // subir el quiz a la base de datos
-        
-        
+//        if (controlador.getAnulado()) {
+//            return;  //  si creación de quiz es anulado, no ejecuta codigo abajo
+//        }
+//        
+//        String nombre = controlador.getNombre();
+//        int numero = controlador.getNumero();
+//        boolean temaConcreto = controlador.getTemaConcreto();
+//        
+//        if (temaConcreto) {
+//            String tema = controlador.getTema();
+//        }    
     }
 
     @FXML
