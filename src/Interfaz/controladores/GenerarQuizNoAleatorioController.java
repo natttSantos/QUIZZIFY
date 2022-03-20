@@ -86,12 +86,14 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         Document[] preguntas = new Document[lista.size()];
         int i = 0;
         for (String text:lista){
+            
             Pregunta pregunta = con.obtenerPregunta("text", text);
             Document d = new Document();
-                d.append("text", pregunta.getText())
+            d.append("text", pregunta.getText())
             .append("dificultad", pregunta.getDificultad())
             .append("tema", pregunta.getTema()) 
-            .append("respuestas", pregunta.getRespuestas());
+            .append("respuestas", asList(pregunta.getRespuestas()));
+            
             preguntas[i] = d;
             i++;            
         }
