@@ -68,8 +68,8 @@ public class CrearPreguntaController implements Initializable {
 
     @FXML
     private void crearPregunta(ActionEvent event) {
-        Conexion c = Conexion.obtenerConexion();
-        ArrayList<String> opciones = new ArrayList();
+       Conexion c = Conexion.obtenerConexion();
+       ArrayList<String> opciones = new ArrayList();
        opciones.add(Res1.getText());
        opciones.add(Res2.getText());
        ArrayList<Boolean> correctas = new ArrayList();
