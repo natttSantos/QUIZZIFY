@@ -101,7 +101,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         try {
              con.insertarQuiz(nombreTextField.getText(), preguntas);
              enviarAlerta("Creado","Quizz creado correctamente!");
-             
+             ((Node) event.getSource()).getScene().getWindow().hide();
         }catch(Exception e){
             enviarAlerta("ERROR","Ha ocurrido un error en la creación del Quizz! : "+ e.getMessage() );
         }

@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -76,33 +77,53 @@ public class CrearPreguntaController implements Initializable {
     private void crearPregunta(ActionEvent event) {
         Conexion c = Conexion.obtenerConexion();
         ArrayList<String> opciones = new ArrayList();
-       opciones.add(Res1.getText());
-       opciones.add(Res2.getText());
-       ArrayList<Boolean> correctas = new ArrayList();
-       switch(respuestaCorrecta.getValue()){
-           case "Respuesta 1": correctas.add(true);
-                               correctas.add(false);
-                               correctas.add(false);
-                               correctas.add(false);
-           break;
-           case "Respuesta 2": correctas.add(false);
-                               correctas.add(true);
-                               correctas.add(false);
-                               correctas.add(false);
-           break;
-           case "Respuesta 3":correctas.add(false);
-                              correctas.add(false);
-                              correctas.add(true);
-                              correctas.add(false);
-                              break;
-           case "Respuesta 4":correctas.add(false);
-                              correctas.add(false);
-                              correctas.add(false);
-                              correctas.add(true);
+        if(!Res1.getText().equals("")){
+            opciones.add(Res1.getText());
+        }
+        if(!Res2.getText().equals("")){
+            opciones.add(Res2.getText());
+        }
+        if(!Res3.getText().equals("")){
+            opciones.add(Res3.getText());
+        }
+        if(!Res4.getText().equals("")){
+            opciones.add(Res4.getText());
+        }
+       
+        ArrayList<Boolean> correctas = new ArrayList();
+        switch(respuestaCorrecta.getValue()){
+            case "Respuesta 1": 
+                correctas.add(true);
+                correctas.add(false);
+                correctas.add(false);
+                correctas.add(false);
+                break;
+            case "Respuesta 2": 
+                correctas.add(false);
+                correctas.add(true);
+                correctas.add(false);
+                correctas.add(false);
+                break;
+            case "Respuesta 3":
+                correctas.add(false);
+                correctas.add(false);
+                correctas.add(true);
+                correctas.add(false);
+                break;
+            case "Respuesta 4":
+               correctas.add(false);
+               correctas.add(false);
+               correctas.add(false);
+               correctas.add(true);
+               break;
+            default:
+                break;
        }    
        RespuestaSeleccion r = new RespuestaSeleccion("RespuestaSeleccion1", opciones, correctas);
        c.insertarPregunta(textoPregunta.getText(), dificultadPregunta.getValue(), temaPregunta.getText(), r);
-       JOptionPane.showMessageDialog(null,"¡Pregunta creada con éxito!");
+       //JOptionPane.showMessageDialog(null,"¡Pregunta creada con éxito!");
+        enviarAlerta("Creado","Pregunta correctamente!");
+        ((Node) event.getSource()).getScene().getWindow().hide();
        
     }
 
@@ -130,6 +151,20 @@ public class CrearPreguntaController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL); 
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+    
+       private void enviarAlerta(String header,String text) {
+        Alert dialogoAlerta;
+        if(header.equals("ERROR")){
+           dialogoAlerta = new Alert(Alert.AlertType.ERROR); 
+        }else {
+            dialogoAlerta = new Alert(Alert.AlertType.CONFIRMATION); 
+        }
+        dialogoAlerta.setTitle(null);
+        dialogoAlerta.setHeaderText(header);
+        dialogoAlerta.setContentText(text);
+        java.awt.Toolkit.getDefaultToolkit().beep();
+        dialogoAlerta.showAndWait(); 
     }
     
 }
