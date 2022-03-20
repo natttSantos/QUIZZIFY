@@ -17,11 +17,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,8 +37,6 @@ import javax.swing.JOptionPane;
  */
 public class CrearPreguntaController implements Initializable {
 
-    @FXML
-    private TextArea textoPregunta;
     @FXML
     private TextField Res1;
     @FXML
@@ -52,7 +56,9 @@ public class CrearPreguntaController implements Initializable {
     ObservableList<String> respuestasItems = FXCollections.observableArrayList();
     ObservableList<String> dificultadesItems = FXCollections.observableArrayList();
     @FXML
-    private Button salirBoton;
+    private Label instructor;
+    @FXML
+    private TextArea textoPregunta;
     /**
      * Initializes the controller class.
      */
@@ -105,13 +111,25 @@ public class CrearPreguntaController implements Initializable {
         
     }
 
-    @FXML
     private void salir(ActionEvent event) throws IOException{
         Conexion c = Conexion.obtenerConexion();
         Parent root = null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
                 root =(Parent) loader.load();
                 SesionInstructorController inicio = loader.<SesionInstructorController>getController();
+    }
+
+    @FXML
+    private void pulsarAtras(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
+        Parent root =(Parent) loader.load();      
+        SesionInstructorController sesionInstructor = loader.<SesionInstructorController>getController();
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
     
 }

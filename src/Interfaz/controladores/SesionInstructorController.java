@@ -111,9 +111,9 @@ public class SesionInstructorController implements Initializable {
     private void crearPreguntaPulsar(ActionEvent event) throws IOException{
     
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearPregunta.fxml"));
-            Parent root = miCargador.load();
+        Parent root = miCargador.load();
         CrearPreguntaController controlador = miCargador.getController();
-        Scene scene = new Scene(root, 400, 600);
+        Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(false);
@@ -121,6 +121,7 @@ public class SesionInstructorController implements Initializable {
         stage.setMinHeight(400);
         stage.setTitle("Crear un quiz aleatorio");
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-}
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
+    }
 }    
