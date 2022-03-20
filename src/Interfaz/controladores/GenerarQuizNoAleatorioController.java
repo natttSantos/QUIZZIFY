@@ -49,8 +49,6 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private ListView<String> listView;
     
     private Conexion con;
-    private ControladorPreguntas controlador;
-    private ControladorQuizzes controlador1;
     @FXML
     private ListView<String> listView2;
     @FXML
@@ -88,7 +86,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         Document[] preguntas = new Document[lista.size()];
         int i = 0;
         for (String text:lista){
-            Pregunta pregunta = controlador.obtenerPregunta("text", text);
+            Pregunta pregunta = con.obtenerPregunta("text", text);
             Document d = new Document();
                 d.append("text", pregunta.getText())
             .append("dificultad", pregunta.getDificultad())
@@ -97,7 +95,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
             preguntas[i] = d;
             i++;            
         }
-        controlador1.insertarQuiz(nombreTextField.getText(), preguntas);
+        con.insertarQuiz(nombreTextField.getText(), preguntas);
     }
 
     @FXML
@@ -113,7 +111,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     }
     
     public void cargarLista(){
-        ArrayList<Pregunta> preguntas = controlador.obtenerTodasPreguntas();
+        ArrayList<Pregunta> preguntas = con.obtenerTodasPreguntas();
         for (Pregunta pregunta:preguntas ){
             listView.getItems().add(pregunta.getText());
         }

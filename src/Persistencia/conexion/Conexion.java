@@ -11,7 +11,9 @@ import LogicaNegocio.modelo.Pregunta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
+import Persistencia.controladores.ControladorQuizzes;
 import java.util.ArrayList;
+import org.bson.Document;
 
 public class Conexion {
     private static Conexion conexion = null; 
@@ -23,9 +25,11 @@ public class Conexion {
     
     ControladorPreguntas cp;
     ControladorUsuarios cu;
+    ControladorQuizzes cq;
     
     MongoCollection preguntas;
     MongoCollection usuarios;
+    MongoCollection quizzes;
         
     public Conexion() {
         try {
@@ -33,11 +37,13 @@ public class Conexion {
             db = instanciaMongo.getDatabase(DB);
             preguntas = db.getCollection("Preguntas");
             usuarios = db.getCollection("Usuarios");
+            quizzes = db.getCollection("Quizzes");
         }catch(MongoException e) {
             JOptionPane.showMessageDialog(null, "Error en conexión a MONGODB " + e.toString());
         }
         cp = new ControladorPreguntas(preguntas);
         cu = new ControladorUsuarios(usuarios);
+        cq = new ControladorQuizzes(quizzes);
     }
     
     public static Conexion obtenerConexion() {
@@ -72,6 +78,10 @@ public class Conexion {
     
     public ArrayList<Pregunta> obtenerTodasPreguntas() {
         return cp.obtenerTodasPreguntas();
+    }
+    
+    public void insertarQuiz(String text, Document[] preguntas){
+        cq.insertarQuiz(text, preguntas);
     }
      
 }

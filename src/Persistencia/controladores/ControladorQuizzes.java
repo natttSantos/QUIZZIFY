@@ -15,13 +15,11 @@ import java.util.Collections;
 import org.bson.Document;
 
 public class ControladorQuizzes {
-    MongoDatabase db;
     MongoCollection quizzes;
     
     Conexion con;
-    public ControladorQuizzes(MongoDatabase db){
-        this.db = db;
-        this.quizzes = db.getCollection("Quizzes");
+    public ControladorQuizzes(MongoCollection collection){
+        this.quizzes = collection;
     }
     
     public void barajarListaPreguntas(ArrayList<Pregunta> lista) {
