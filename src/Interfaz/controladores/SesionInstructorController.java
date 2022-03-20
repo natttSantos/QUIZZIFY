@@ -9,6 +9,7 @@ import Persistencia.conexion.Conexion;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +42,7 @@ public class SesionInstructorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        conexion = Conexion.obtenerConexion();
     }   
 
     public void setNombreUsuario(String nombreUsuario) {
@@ -78,7 +79,8 @@ public class SesionInstructorController implements Initializable {
         DatosCrearAleatorioController controlador = miCargador.getController();
         
         controlador.setListaPreguntas(listaPreguntas);
-        
+        controlador.setConexion(conexion);
+                
         Scene scene = new Scene(root, 400, 600);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -86,34 +88,26 @@ public class SesionInstructorController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         
-        if (controlador.getAnulado()) {
-            return;  //  si creación de quiz es anulado, no ejecuta codigo abajo
-        }
-        
-        String nombre = controlador.getNombre();
-        int numero = controlador.getNumero();
-        boolean temaConcreto = controlador.getTemaConcreto();
-        
-        if (temaConcreto) {
-            String tema = controlador.getTema();
-        }
-        
-        
-        // TODO
-        // [done] validar numero de preguntas (no puede ser mayor de numero de preguntas en la base
-        // crear quiz con preguntas aleatorias
-        // subir el quiz a la base de datos
-        
-        
+//        if (controlador.getAnulado()) {
+//            return;  //  si creación de quiz es anulado, no ejecuta codigo abajo
+//        }
+//        
+//        String nombre = controlador.getNombre();
+//        int numero = controlador.getNumero();
+//        boolean temaConcreto = controlador.getTemaConcreto();
+//        
+//        if (temaConcreto) {
+//            String tema = controlador.getTema();
+//        }    
     }
 
     @FXML
     private void crearPreguntaPulsar(ActionEvent event) throws IOException{
     
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearPregunta.fxml"));
-            Parent root = miCargador.load();
+        Parent root = miCargador.load();
         CrearPreguntaController controlador = miCargador.getController();
-        Scene scene = new Scene(root, 400, 600);
+        Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(false);
@@ -121,6 +115,23 @@ public class SesionInstructorController implements Initializable {
         stage.setMinHeight(400);
         stage.setTitle("Crear un quiz aleatorio");
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+
+    @FXML
+    private void crearQuiz(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/GenerarQuizNoAleatorio.fxml"));
+            Parent root = loader.load();
+        GenerarQuizNoAleatorioController controlador = loader.getController();
+        Scene scene = new Scene(root, 400, 600);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+        stage.setTitle("Crear un quiz");
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
-}
+    }
 }    

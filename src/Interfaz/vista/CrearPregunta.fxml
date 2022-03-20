@@ -1,50 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="30.0" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.CrearPreguntaController">
+<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.CrearPreguntaController">
    <children>
-      <Label text="Introduzca el texto de la pregunta:" />
-      <TextArea id="textoPregunta" fx:id="textoPregunta" prefHeight="200.0" prefWidth="200.0" />
-      <Label text="Introduzca las posibles respuestas:" />
-      <HBox prefHeight="56.0" prefWidth="600.0" spacing="30.0">
-         <children>
-            <TextField id="Res2" fx:id="Res1" onAction="#actualizarComboBox" prefHeight="25.0" prefWidth="110.0" />
-            <TextField id="Res1" fx:id="Res2" onAction="#actualizarComboBox" prefHeight="25.0" prefWidth="110.0" />
-            <TextField fx:id="Res3" onAction="#actualizarComboBox" prefHeight="25.0" prefWidth="110.0" />
-            <TextField fx:id="Res4" onAction="#actualizarComboBox" prefHeight="25.0" prefWidth="110.0" />
-         </children>
-      </HBox>
-      <Label prefHeight="17.0" prefWidth="350.0" text="Seleccione la respuesta correcta, dificultad y tema de la pregunta:">
-         <VBox.margin>
-            <Insets left="100.0" />
-         </VBox.margin>
+      <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <ImageView fitHeight="825.0" fitWidth="1233.0" layoutX="-3.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/fondo.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="59.0" layoutY="44.0" mnemonicParsing="false" onAction="#pulsarAtras" prefHeight="47.0" prefWidth="61.0" styleClass="atras" stylesheets="@../css/hojaEstilo.css">
+         <graphic>
+            <ImageView fitHeight="47.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/atras.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="569.0" layoutY="309.0" />
+      <Label layoutX="144.0" layoutY="124.0" text="Introduzca el enunciado de la pregunta: ">
+         <font>
+            <Font size="18.0" />
+         </font>
       </Label>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
-         <children>
-            <ComboBox id="respuestaCorrecta" fx:id="respuestaCorrecta" prefWidth="150.0" />
-            <ComboBox id="dificultadPregunta" fx:id="dificultadPregunta" prefWidth="150.0" />
-            <TextField id="temaPregunta" fx:id="temaPregunta" />
-         </children>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="450.0">
-         <children>
-            <Button fx:id="salirBoton" mnemonicParsing="false" onAction="#salir" prefHeight="25.0" prefWidth="50.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Salir" />
-            <Button id="botonCrear" fx:id="botonCrear" mnemonicParsing="false" onAction="#crearPregunta" prefHeight="25.0" prefWidth="50.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Crear" />
-         </children>
-      </HBox>
+      <Label layoutX="144.0" layoutY="389.0" text="Introduzca las posibles respuestas: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="144.0" layoutY="511.0" text="Seleccione la respuesta correcta, la dificultad y determine el tema: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="respuestaCorrecta" layoutX="144.0" layoutY="555.0" prefHeight="31.0" prefWidth="179.0" />
+      <ComboBox fx:id="dificultadPregunta" layoutX="360.0" layoutY="555.0" prefHeight="31.0" prefWidth="179.0" />
+      <Button fx:id="botonCrear" layoutX="579.0" layoutY="667.0" mnemonicParsing="false" onAction="#crearPregunta" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Crear">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Label layoutX="474.0" layoutY="46.0" text="CREAR PREGUNTA">
+         <font>
+            <Font name="Impact" size="41.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Res1" layoutX="140.0" layoutY="443.0" onAction="#actualizarComboBox" />
+      <TextField fx:id="Res3" layoutX="589.0" layoutY="443.0" onAction="#actualizarComboBox" />
+      <TextField fx:id="Res2" layoutX="356.0" layoutY="443.0" onAction="#actualizarComboBox" />
+      <TextField fx:id="Res4" layoutX="817.0" layoutY="443.0" onAction="#actualizarComboBox" />
+      <TextField fx:id="temaPregunta" layoutX="589.0" layoutY="555.0" />
+      <TextArea fx:id="textoPregunta" layoutX="144.0" layoutY="165.0" prefHeight="200.0" prefWidth="893.0" />
    </children>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
-   </padding>
-</VBox>
+</AnchorPane>

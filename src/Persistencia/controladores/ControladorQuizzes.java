@@ -11,40 +11,23 @@ import com.mongodb.client.MongoDatabase;
 import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.Quiz;
 import java.util.ArrayList;
+import static java.util.Arrays.asList;
 import java.util.Collections;
 import org.bson.Document;
 
 public class ControladorQuizzes {
-    MongoDatabase db;
     MongoCollection quizzes;
     
     Conexion con;
-    public ControladorQuizzes(MongoDatabase db){
-        this.db = db;
-        this.quizzes = db.getCollection("Quizzes");
+    public ControladorQuizzes(MongoCollection collection){
+        this.quizzes = collection;
     }
     
-    public void barajarListaPreguntas(ArrayList<Pregunta> lista) {
-        // shuffle ArrayList
-	Collections.shuffle(lista);
-    }
-    
-    public void crearQuizAleatorio(int num, String nombre, ArrayList<Pregunta> lista) {
-        Collections.shuffle(lista);
-        ArrayList<Pregunta> nuevaLista = new ArrayList<Pregunta>();
-        
-        for(int i = 0; i< num; i++)
-            nuevaLista.add(lista.get(i));
-        
-        // TODO:
-        // crear quiz con preguntas de nuevaLista
-        // subir a base de dato
-    }
     
     public void insertarQuiz(String nombre, Document[] preguntas) {
         Document quiz = new Document();
         quiz.append("nombre", nombre)
-                .append("preguntas", preguntas);
+                .append("preguntas", asList(preguntas));
         
         quizzes.insertOne(quiz);
     }
