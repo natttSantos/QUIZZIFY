@@ -42,7 +42,7 @@ public class SesionInstructorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        conexion = Conexion.obtenerConexion();
     }   
 
     public void setNombreUsuario(String nombreUsuario) {
