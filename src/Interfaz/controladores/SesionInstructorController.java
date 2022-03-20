@@ -124,4 +124,20 @@ public class SesionInstructorController implements Initializable {
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
+
+    @FXML
+    private void crearQuiz(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/GenerarQuizNoAleatorio.fxml"));
+            Parent root = loader.load();
+        GenerarQuizNoAleatorioController controlador = loader.getController();
+        Scene scene = new Scene(root, 400, 600);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+        stage.setTitle("Crear un quiz");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
 }    
