@@ -34,8 +34,8 @@
                         <Font name="Impact" size="37.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="usuario" layoutX="148.0" layoutY="199.0" prefHeight="39.0" prefWidth="204.0" />
-                  <PasswordField fx:id="password" layoutX="148.0" layoutY="338.0" prefHeight="37.0" prefWidth="204.0" />
+                  <TextField fx:id="usuario" layoutX="148.0" layoutY="199.0" prefHeight="39.0" prefWidth="204.0" promptText="Nombre Usuario" />
+                  <PasswordField fx:id="password" layoutX="148.0" layoutY="338.0" prefHeight="37.0" prefWidth="204.0" promptText="Contraseña" />
                   <Button layoutX="179.0" layoutY="442.0" mnemonicParsing="false" onAction="#pulsarIniciarSesion" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Iniciar sesión">
                      <font>
                         <Font size="20.0" />

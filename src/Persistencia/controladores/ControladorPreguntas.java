@@ -26,24 +26,6 @@ public class ControladorPreguntas {
         Pregunta p = new Gson().fromJson(json, Pregunta.class);
         return p;
     }
-     
-   /* public void insertPregunta(String text, String dificultad, String [] respuestas) {
-         
-       Document [] d  = new Document[respuestas.length]; 
-      
-       for(int i = 0; i< respuestas.length;i++){
-           if(respuestas[i] != null){
-               d[i] = new Document("resp",respuestas[i]);
-              
-           }
-       }
-       Document p = new Document();
-          p.append("text", text)
-                 .append("dificultad", dificultad)
-                 .append("respuestas", asList(d));
-        preguntas.insertOne(p);
-    }*/
-    
     
     public void insertPregunta(String text, String dificultad,String tema,  RespuestaSeleccion respuesta) {
          

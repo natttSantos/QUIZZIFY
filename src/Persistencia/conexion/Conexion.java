@@ -84,8 +84,14 @@ public class Conexion {
     public void insertarQuiz(String text, Document[] preguntas){
         cq.insertarQuiz(text, preguntas);
     }
+    
+    public Quiz obtenerQuiz(String key, String valor){
+       return cq.obtenerQuiz(key, valor);
+    }
     public ArrayList<Quiz> obtenerTodosQuizzes() {
         return cq.obtenerTodosLosQuizzes();
     }
+ 
+    
      
 }

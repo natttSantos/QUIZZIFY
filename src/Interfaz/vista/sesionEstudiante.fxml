@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.SesionEstudianteController">
+<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.SesionEstudianteController">
    <children>
       <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
          <font>
@@ -52,7 +52,7 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="65.0" layoutY="108.0" mnemonicParsing="false" onAction="#pulsarAtras" prefHeight="47.0" prefWidth="61.0" styleClass="atras" stylesheets="@../css/hojaEstilo.css">
+      <Button layoutX="98.0" layoutY="79.0" mnemonicParsing="false" onAction="#pulsarAtras" prefHeight="47.0" prefWidth="61.0" styleClass="atras" stylesheets="@../css/hojaEstilo.css">
          <graphic>
             <ImageView fitHeight="47.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -77,6 +77,14 @@
             <Image url="@../images/estudiante.png" />
          </image>
       </ImageView>
-      <Button fx:id="realizarQuizBoton" layoutX="570.0" layoutY="618.0" mnemonicParsing="false" onAction="#entrarQuiz" prefHeight="40.0" prefWidth="88.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Realizar Quiz" />
+      <Button fx:id="realizarQuizBoton" layoutX="555.0" layoutY="643.0" mnemonicParsing="false" onAction="#entrarQuiz" prefHeight="40.0" prefWidth="125.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Continuar">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Label layoutX="491.0" layoutY="85.0" text="QUIZZES PENDIENTES">
+         <font>
+            <Font name="Impact" size="37.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

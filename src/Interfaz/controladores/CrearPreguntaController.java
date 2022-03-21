@@ -123,7 +123,7 @@ public class CrearPreguntaController implements Initializable {
        c.insertarPregunta(textoPregunta.getText(), dificultadPregunta.getValue(), temaPregunta.getText(), r);
        //JOptionPane.showMessageDialog(null,"¡Pregunta creada con éxito!");
         enviarAlerta("Creado","Pregunta correctamente!");
-        ((Node) event.getSource()).getScene().getWindow().hide();
+        //((Node) event.getSource()).getScene().getWindow().hide();
        
     }
 

@@ -51,5 +51,13 @@ public class ControladorQuizzes {
         }
         return lista;
     }
+    public Quiz obtenerQuiz(String key, String valor) {
+        Document findDocument = new Document(key, valor);
+        FindIterable<Document> resultDocument = quizzes.find(findDocument);
+        String json =  resultDocument.first().toJson();
+        System.out.println(json);
+        Quiz quiz = new Gson().fromJson(json, Quiz.class);
+        return quiz;
+    }
     
 }

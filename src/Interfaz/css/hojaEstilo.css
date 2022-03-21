@@ -126,10 +126,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
  
     
 }
-.buscar:hover{
-    -fx-background-color: #f17676;  
-   
-}
+
 
 .fondogris {
     -fx-background-color: #cccccc;   
