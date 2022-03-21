@@ -10,6 +10,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.Quiz;
+import com.google.gson.Gson;
+import com.mongodb.client.MongoCursor;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import java.util.Collections;
@@ -30,6 +32,24 @@ public class ControladorQuizzes {
                 .append("preguntas", asList(preguntas));
         
         quizzes.insertOne(quiz);
+    }
+     public ArrayList<Quiz> obtenerTodosLosQuizzes() {
+        ArrayList<Quiz> lista = new ArrayList();
+        MongoCursor<Document> cursor = quizzes.find().iterator();
+        
+        try {
+            while (cursor.hasNext()) {
+              Document otro = (Document) cursor.next();
+              String json =  otro.toJson();
+              Quiz quiz = new Gson().fromJson(json, Quiz.class);
+              lista.add(quiz);
+            }
+        }catch(Exception e){
+             System.out.println("ERROR al obtener todos los quizzes:   " + e.getMessage());
+        } finally {
+          cursor.close();
+        }
+        return lista;
     }
     
 }

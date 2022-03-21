@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.SesionEstudianteController">
+<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.SesionEstudianteController">
    <children>
       <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
          <font>
@@ -21,6 +22,7 @@
             <Image url="@../images/fondo.jpg" />
          </image>
       </ImageView>
+      <ListView fx:id="listaQuizes" disable="true" layoutX="320.0" layoutY="185.0" prefHeight="422.0" prefWidth="590.0" visible="false" />
       <MenuBar layoutX="-3.0" prefHeight="40.0" prefWidth="1236.0" styleClass="recordar" stylesheets="@../css/hojaEstilo.css">
         <menus>
           <Menu mnemonicParsing="false" text="Calificaciones">
@@ -59,13 +61,13 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="447.0" layoutY="443.0" text="Espere a que el instructor lance el quiz">
+      <Label fx:id="textoEspera" layoutX="447.0" layoutY="443.0" text="Espere a que el instructor lance el quiz">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
       <Label layoutX="569.0" layoutY="309.0" />
-      <ImageView fitHeight="125.0" fitWidth="134.0" layoutX="555.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenReloj" fitHeight="125.0" fitWidth="134.0" layoutX="555.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/waiting.png" />
          </image>
@@ -75,5 +77,6 @@
             <Image url="@../images/estudiante.png" />
          </image>
       </ImageView>
+      <Button fx:id="realizarQuizBoton" layoutX="570.0" layoutY="618.0" mnemonicParsing="false" onAction="#entrarQuiz" prefHeight="40.0" prefWidth="88.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Realizar Quiz" />
    </children>
 </AnchorPane>

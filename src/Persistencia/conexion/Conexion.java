@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import Persistencia.controladores.ControladorPreguntas;
 import LogicaNegocio.modelo.Pregunta;
+import LogicaNegocio.modelo.Quiz;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
@@ -82,6 +83,9 @@ public class Conexion {
     
     public void insertarQuiz(String text, Document[] preguntas){
         cq.insertarQuiz(text, preguntas);
+    }
+    public ArrayList<Quiz> obtenerTodosQuizzes() {
+        return cq.obtenerTodosLosQuizzes();
     }
      
 }
