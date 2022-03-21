@@ -37,7 +37,6 @@ public class ResolucionQuizController implements Initializable {
     private String nombreQuiz; 
     private Document[] preguntas; 
     private int indexPregunta; 
-    private int indexRespuesta; 
     private int [] arrayRespuestasUsuario = new int [50]; 
     private int [] arrayRespuestasCorrectas = new int[50] ; 
     @FXML
@@ -85,6 +84,7 @@ public class ResolucionQuizController implements Initializable {
 
     @FXML
     private void pulsarContinuar(ActionEvent event) throws IOException {
+        guardarRespuestasUsuario();
         indexPregunta++; 
         if(indexPregunta < preguntas.length){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/ResolucionQuiz.fxml"));
@@ -134,26 +134,24 @@ public class ResolucionQuizController implements Initializable {
     
     public void cargarPreguntasEnQuiz(){
         Document dpregunta; 
-        Document dresp;
-        indexRespuesta = 0;  
+        Document dresp; 
         fraccionNumeroPreguntas();
-        if(indexPregunta < preguntas.length){
-            dpregunta = preguntas[indexPregunta];  
-            String enunciadoPregunta = dpregunta.getString("text"); 
-            Pregunta pregunta = con.obtenerPregunta("text", enunciadoPregunta);
-            Document [] respuestas = pregunta.getRespuestas(); 
-            addEnunciadoPregunta(enunciadoPregunta);  
-            for(int j = 1; j <= respuestas.length; j++){
-                indexRespuesta = j; 
-                dresp = respuestas[j - 1]; 
-                String enunciadoRespuesta = dresp.getString("text"); 
-                boolean respuestaCorrecta = dresp.getBoolean("correcta"); 
-                if(respuestaCorrecta){
-                    respuestasCorrectas(); 
-                }
-                addEnunciadoRespuesta(enunciadoRespuesta, indexRespuesta);
-            }
-        }
+        dpregunta = preguntas[indexPregunta];  
+        String enunciadoPregunta = dpregunta.getString("text"); 
+        Pregunta pregunta = con.obtenerPregunta("text", enunciadoPregunta);
+        Document [] respuestas = pregunta.getRespuestas(); 
+        addEnunciadoPregunta(enunciadoPregunta);  
+        for(int indexRespuesta = 1; indexRespuesta <= respuestas.length; indexRespuesta++){
+             dresp = respuestas[indexRespuesta - 1]; 
+             String enunciadoRespuesta = dresp.getString("text"); 
+             boolean respuestaCorrecta = dresp.getBoolean("correcta"); 
+             if(respuestaCorrecta == true){
+                 respuestasCorrectas(indexRespuesta);
+             } else {
+             }
+             addEnunciadoRespuesta(enunciadoRespuesta, indexRespuesta);
+       }
+       
     }
 
     public void setIndexPregunta(int indexPregunta) {
@@ -174,18 +172,20 @@ public class ResolucionQuizController implements Initializable {
          arrayRespuestasUsuario[indexPregunta] = respuestasUsuario; 
     }
 
-    public void respuestasCorrectas(){
+    public void respuestasCorrectas(int indexRespuesta){
         arrayRespuestasCorrectas[indexPregunta] = indexRespuesta; 
     }
     public void compararResultados(){
-        double nota = 10; 
         int numeroTotalPreguntas = preguntas.length;  
-        for(int i = 0; i < arrayRespuestasCorrectas.length; i++){
+        int nota = numeroTotalPreguntas; 
+        String notafraccion; 
+        for(int i = 0; i < numeroTotalPreguntas; i++){
                if(arrayRespuestasCorrectas[i] != arrayRespuestasUsuario[i]){
                    nota--; 
                } 
         }
-        mostrarAlerta(nota);
+        notafraccion = nota + "/" + numeroTotalPreguntas; 
+        mostrarAlerta(nota, notafraccion);
     }
     
     public void guardarRespuestasUsuario(){
@@ -202,14 +202,14 @@ public class ResolucionQuizController implements Initializable {
         respuestasDeUsuario(respuestaUsuario); 
     }
     
-    public void mostrarAlerta(double nota){
+    public void mostrarAlerta(double nota, String notafraccion){
         String header; 
         if(nota >= 5 ){ header = "ENHORABUENA"; } 
         else{ header = "LO SIENTO"; }
         Alert dialogoAlerta = new Alert(Alert.AlertType.CONFIRMATION); 
         dialogoAlerta.setTitle(null);
         dialogoAlerta.setHeaderText(header);
-        dialogoAlerta.setContentText("Tu nota es " + nota);
+        dialogoAlerta.setContentText("Tu nota es " + notafraccion);
         java.awt.Toolkit.getDefaultToolkit().beep();
         dialogoAlerta.showAndWait(); 
     }
