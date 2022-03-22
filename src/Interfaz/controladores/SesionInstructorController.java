@@ -5,6 +5,7 @@
 package Interfaz.controladores;
 
 import LogicaNegocio.modelo.Pregunta;
+import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
 import java.net.URL;
@@ -20,7 +21,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -36,18 +39,37 @@ public class SesionInstructorController implements Initializable {
     private Label instructor;
     
     private Conexion conexion;
-
+    @FXML
+    private Label quizzesDisponibles;
+    @FXML
+    private Button buttonQuiz;
+    @FXML
+    private Button buttonQuizAleatorio;
+    @FXML
+    private ImageView buttonPregunta;
+    
+    
+    private UsuarioInstructor i;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         conexion = Conexion.obtenerConexion();
+     
+        
+        
     }   
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-        instructor.setText(nombreUsuario);
+    public void setUsuario(UsuarioInstructor i) {
+        this.i = i;
+        instructor.setText(i.getNombre() + " " + i.getApellidos());
+        quizzesDisponibles.setText(i.getQuizzesDisponibles()+"");
+        if(i.getQuizzesDisponibles()== 0){
+            buttonQuiz.setDisable(true);
+            buttonQuizAleatorio.setDisable(true);
+        }
+        
     }
     
     public void setConexion(Conexion con) {
@@ -122,8 +144,9 @@ public class SesionInstructorController implements Initializable {
     @FXML
     private void crearQuiz(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/GenerarQuizNoAleatorio.fxml"));
-            Parent root = loader.load();
+        Parent root = loader.load();
         GenerarQuizNoAleatorioController controlador = loader.getController();
+        controlador.setUsuario(i); //sustituir por estadoGloba.setUsuarioInstructor()
         Scene scene = new Scene(root, 400, 600);
         Stage stage = new Stage();
         stage.setScene(scene);

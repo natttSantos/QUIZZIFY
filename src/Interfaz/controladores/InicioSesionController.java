@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 import main.Main;
 import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.UsuarioAlumno;
+import LogicaNegocio.modelo.UsuarioInstructor;
 import javafx.scene.control.Alert;
 
 
@@ -48,6 +49,9 @@ public class InicioSesionController implements Initializable {
     @FXML
     private PasswordField password;
     private Conexion con;
+    
+    public static UsuarioInstructor i;
+    public static UsuarioAlumno u;
 
     /**
      * Initializes the controller class.
@@ -69,13 +73,13 @@ public class InicioSesionController implements Initializable {
     @FXML
     private void pulsarIniciarSesion(ActionEvent event) throws IOException {
         //Refactoring hecho Extract Method
-        if(comprobarCredenciales()){
+        if(comprobarCredenciales(tipoUsuario)){
             Parent root = null;
             if(tipoUsuario.equals("Instructor")){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
                 root =(Parent) loader.load();
                 SesionInstructorController inicio = loader.<SesionInstructorController>getController();
-                inicio.setNombreUsuario(usuario.getText());
+                inicio.setUsuario(i);
             } else{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionEstudiante.fxml"));
                 root =(Parent) loader.load();
@@ -104,15 +108,22 @@ public class InicioSesionController implements Initializable {
         ((Node) event.getSource()).getScene().getWindow().hide();
      }
     
-    public boolean comprobarCredenciales(){
+    public boolean comprobarCredenciales(String tipo){
         //Refactoring variable descriptiva
         String user = usuario.getText();
         String pass = password.getText();
         if(user.equals("") || pass.equals("") ){
             envioAlerta("Debe insertar usuario y contraseña!");
-        } else {
-            UsuarioAlumno u = con.login(user ,pass);
+        } else if(tipo.equals("Estudiante")){
+            u = con.login(user ,pass);
             if(u!=null) {
+                return true;
+            } else {
+                envioAlerta("Usuario y/o contraseña incorrectos!");
+            }
+        } else if(tipo.equals("Instructor")){
+            i = con.loginInstructor(user ,pass);
+            if(i!=null) {
                 return true;
             } else {
                 envioAlerta("Usuario y/o contraseña incorrectos!");
@@ -120,13 +131,14 @@ public class InicioSesionController implements Initializable {
         }
         return false;
     }
+    
     public void envioAlerta(String msgError){ //extract method
-            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR); 
-            dialogoAlerta.setTitle(null);
-            dialogoAlerta.setHeaderText("Error");
-            dialogoAlerta.setContentText(msgError);
-            java.awt.Toolkit.getDefaultToolkit().beep();
-            dialogoAlerta.showAndWait(); 
+        Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR); 
+        dialogoAlerta.setTitle(null);
+        dialogoAlerta.setHeaderText("Error");
+        dialogoAlerta.setContentText(msgError);
+        java.awt.Toolkit.getDefaultToolkit().beep();
+        dialogoAlerta.showAndWait(); 
     }
     
 }  

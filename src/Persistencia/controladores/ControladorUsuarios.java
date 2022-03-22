@@ -29,7 +29,7 @@ public class ControladorUsuarios {
             d.append("contraseña", u.getContraseña());
             d.append("grupo", u.getGrupo());
             d.append("curso", u.getCurso());
-             d.append("tipo", "Alumno");
+            d.append("tipo", "Alumno");
             
             usuarios.insertOne(d);
             return true;
@@ -102,10 +102,11 @@ public class ControladorUsuarios {
         
         try {
             Document d = new Document("nombre",u.getNombre());
-            d.append("apelldios", u.getApellidos());
+            d.append("apellidos", u.getApellidos());
             d.append("email", u.getEmail());
             d.append("contraseña", u.getContraseña());
             d.append("tipo", "Instructor");
+            d.append("quizzesDisponibles", 20);
             
             
             /*String[] cursos = u.getCursos();
@@ -147,5 +148,44 @@ public class ControladorUsuarios {
             System.out.println("ERROR en login  " + e.getMessage());
         }
        return u; 
+    }
+    
+      public int reducirCantQuizzesDisponibles(String email) {
+        UsuarioInstructor u = null;
+        int quizzesDisponibles=0;
+        try {
+            
+            Document findDocument = new Document("email", email);
+            FindIterable<Document> resultDocument = usuarios.find(findDocument);
+
+            if(resultDocument != null){
+                
+                String json =  resultDocument.first().toJson();
+                System.out.println(json);
+                u = new Gson().fromJson(json, UsuarioInstructor.class);
+                
+                u.setQuizzesDisponibles(u.getQuizzesDisponibles() - 1);
+                
+
+                System.out.println(resultDocument.first().get("_id"));
+
+                Document d = new Document();
+                d.append("nombre", u.getNombre());
+                d.append("apellidos", u.getApellidos());
+                d.append("email", u.getEmail());
+                d.append("contraseña", u.getContraseña());
+                d.append("tipo", "Instructor");
+                d.append("quizzesDisponibles", u.getQuizzesDisponibles() - 1);
+                quizzesDisponibles = u.getQuizzesDisponibles() - 1; 
+                System.out.println(d);
+                System.out.println(resultDocument.first());
+                
+                usuarios.updateOne(resultDocument.first(), d);
+            }
+           
+        }catch(Exception e){
+            System.out.println("ERROR en login  " + e.getMessage());
+        }
+       return quizzesDisponibles;
     }
 }

@@ -6,6 +6,7 @@ package Interfaz.controladores;
 
 import LogicaNegocio.modelo.Pregunta;
 import LogicaNegocio.modelo.Quiz;
+import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import Persistencia.controladores.ControladorPreguntas;
 import Persistencia.controladores.ControladorQuizzes;
@@ -54,6 +55,8 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private ListView<String> listView2;
     @FXML
     private Button añadirAExamenButton1;
+    
+    private UsuarioInstructor instructor;
 
     /**
      * Initializes the controller class.
@@ -62,12 +65,17 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         con = Conexion.obtenerConexion();
         cargarLista();
+        //estadoGlobal.obtenerUusarioInstructor(); arquitectura
     }    
 
 
+    public void setUsuario(UsuarioInstructor i){
+        this.instructor = i;
+    }
+    
     @FXML
     private void crearPreguntaButtonClicked(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("\"/Interfaz/vista/CrearPreguntaController.fxml\""));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearPreguntaController.fxml"));
         Parent root = loader.load();
         CrearPreguntaController controlador = loader.getController();
         Scene scene = new Scene(root, 400, 600);
@@ -91,17 +99,22 @@ public class GenerarQuizNoAleatorioController implements Initializable {
             Pregunta pregunta = con.obtenerPregunta("text", text);
             Document d = new Document();
             d.append("text", pregunta.getText())
-            .append("dificultad", pregunta.getDificultad())
-            .append("tema", pregunta.getTema()) 
-            .append("respuestas", asList(pregunta.getRespuestas()));
-            
+                .append("dificultad", pregunta.getDificultad())
+                .append("tema", pregunta.getTema()) 
+                .append("respuestas", asList(pregunta.getRespuestas()));
             preguntas[i] = d;
             i++;            
         }
         try {
-             con.insertarQuiz(nombreTextField.getText(), preguntas);
-             enviarAlerta("Creado","Quizz creado correctamente!");
-             ((Node) event.getSource()).getScene().getWindow().hide();
+            if(!nombreTextField.getText().equals("")) {
+                con.insertarQuiz(nombreTextField.getText(), preguntas);
+                enviarAlerta("Creado","Quizz creado correctamente!");
+                //System.out.println(con.reducirCantQuizzesDisponibles(instructor.getEmail()));
+            ((Node) event.getSource()).getScene().getWindow().hide();
+            } else {
+                enviarAlerta("ERROR","Escriba un texto descriptivo para  crear el Quizz!");
+            }
+            
         }catch(Exception e){
             enviarAlerta("ERROR","Ha ocurrido un error en la creación del Quizz! : "+ e.getMessage() );
         }
@@ -116,8 +129,12 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     @FXML
     private void añadirAExamenButtonClicked(ActionEvent event) {
         String selectedItem = listView.getSelectionModel().getSelectedItem();
-        listView2.getItems().add(selectedItem);
-        
+        if(selectedItem != null){
+            listView2.getItems().add(selectedItem);
+        }else {
+            enviarAlerta("ERROR", "Debe seleccionar una pregunta para añadirla al examen!");
+        }
+       
     }
     
     public void cargarLista(){

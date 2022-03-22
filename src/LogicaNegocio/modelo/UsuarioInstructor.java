@@ -11,27 +11,40 @@ package LogicaNegocio.modelo;
  */
 public class UsuarioInstructor extends Usuario {
     
-    private String[] cursos;
     
-    public UsuarioInstructor(String nombre, String apellidos, String email, String contraseña, String[] cursos) {
+    private String tipo;
+    private int quizzesDisponibles;
+    
+    public UsuarioInstructor(String nombre, String apellidos, String email, String contraseña, String tipo, int quizzesDisponibles) {
         
         super(nombre, apellidos, email, contraseña);
-        this.cursos = cursos;
-    }
-    
-    public String[] getCursos() {
-        return this.cursos;
-    }
-    
-    public void setCursos(String[] cursos) {
-        this.cursos = cursos;
+        this.tipo = tipo;
+        this.quizzesDisponibles = quizzesDisponibles;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "cursos= " + cursos + '}';
+    public String getTipo() {
+        return tipo;
+    }
+
+    public int getQuizzesDisponibles() {
+        return quizzesDisponibles;
+    }
+
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setQuizzesDisponibles(int quizzesDisponibles) {
+        this.quizzesDisponibles = quizzesDisponibles;
     }
     
     
+    @Override
+    public String toString() {
+        return "UsuarioInstructor{" + super.toString() +  ", tipo=" + tipo + ", quizzesDisponibles=" + quizzesDisponibles + '}';
+    }
+
+  
     
 }

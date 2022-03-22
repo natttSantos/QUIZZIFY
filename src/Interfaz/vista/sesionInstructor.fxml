@@ -10,18 +10,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.SesionInstructorController">
+<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.SesionInstructorController">
    <children>
-      <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font></Label>
       <ImageView fitHeight="825.0" fitWidth="1233.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/fondo.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="272.0" layoutY="315.0" mnemonicParsing="false" onAction="#crearQuiz" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
+      <Label layoutX="982.0" layoutY="185.0" prefHeight="22.0" prefWidth="154.0" text="Quizzes disponibles:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Button fx:id="buttonQuiz" layoutX="272.0" layoutY="315.0" mnemonicParsing="false" onAction="#crearQuiz" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
          <graphic>
             <ImageView fitHeight="79.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -30,7 +30,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="563.0" layoutY="315.0" mnemonicParsing="false" onAction="#quizAleatorioPulsar" prefHeight="95.0" prefWidth="103.0" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
+      <Button fx:id="buttonQuizAleatorio" layoutX="563.0" layoutY="315.0" mnemonicParsing="false" onAction="#quizAleatorioPulsar" prefHeight="95.0" prefWidth="103.0" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
          <graphic>
             <ImageView fitHeight="77.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -41,7 +41,7 @@
       </Button>
       <Button layoutX="836.0" layoutY="314.0" mnemonicParsing="false" onAction="#crearPreguntaPulsar" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
          <graphic>
-            <ImageView fitHeight="82.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="buttonPregunta" fitHeight="82.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/question.png" />
                </image>
@@ -101,5 +101,15 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label fx:id="quizzesDisponibles" layoutX="1136.0" layoutY="185.0" prefHeight="22.0" prefWidth="49.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="instructor" layoutX="982.0" layoutY="153.0" prefHeight="22.0" prefWidth="154.0" text="Quizzes disponibles:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

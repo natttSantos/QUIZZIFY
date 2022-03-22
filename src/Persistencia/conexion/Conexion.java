@@ -32,7 +32,7 @@ public class Conexion {
     MongoCollection usuarios;
     MongoCollection quizzes;
         
-    public Conexion() {
+    private Conexion() {
         try {
             instanciaMongo = new MongoClient(URL);
             db = instanciaMongo.getDatabase(DB);
@@ -58,9 +58,6 @@ public class Conexion {
        return cp.obtenerPregunta(key, valor);
     }
     
-    /*public void insertarPregunta(String text, String dificultad, String [] respuestas) {
-        cp.insertPregunta(text, dificultad, respuestas);
-    }*/
     public void insertarPregunta(String text, String dificultad,String tema, RespuestaSeleccion respuestas) {
         cp.insertPregunta(text, dificultad, tema, respuestas);
     }
@@ -76,6 +73,9 @@ public class Conexion {
     public UsuarioAlumno login(String email, String contraseña) {
         return cu.loginAlumno(email, contraseña);
     }
+     public UsuarioInstructor loginInstructor(String email, String contraseña) {
+        return cu.loginInstructor(email, contraseña);
+    }
     
     public ArrayList<Pregunta> obtenerTodasPreguntas() {
         return cp.obtenerTodasPreguntas();
@@ -90,6 +90,11 @@ public class Conexion {
     }
     public ArrayList<Quiz> obtenerTodosQuizzes() {
         return cq.obtenerTodosLosQuizzes();
+    }
+    
+    public int reducirCantQuizzesDisponibles(String email) {
+        return cu.reducirCantQuizzesDisponibles(email);
+
     }
  
     

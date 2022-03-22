@@ -53,6 +53,8 @@ public class RegistroController implements Initializable {
     private TextField apellidos;
 
     private Conexion con;
+    
+    private UsuarioInstructor instructor;
 
     /**
      * Initializes the controller class.
@@ -87,8 +89,7 @@ public class RegistroController implements Initializable {
                 con.crearUsuarioAlumno(student);  
                 navegar_SesionEstudiante(event);
             } else{
-                String [] cursos = null; 
-                UsuarioInstructor instructor = new UsuarioInstructor(nombre.getText(), apellidos.getText(), email.getText(), password.getText(), cursos); 
+                instructor = new UsuarioInstructor(nombre.getText(), apellidos.getText(), email.getText(), password.getText(),"Instructor",20); 
                 con.crearUsuarioInstructor(instructor);
                 navegar_SesionInstructor(event);
             }
@@ -109,7 +110,8 @@ public class RegistroController implements Initializable {
      public void navegar_SesionInstructor(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
         Parent root =(Parent) loader.load();   
-        SesionInstructorController sesionEstudiante = loader.<SesionInstructorController>getController();
+        SesionInstructorController sesionInstructor = loader.<SesionInstructorController>getController();
+        sesionInstructor.setUsuario(instructor);
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);
