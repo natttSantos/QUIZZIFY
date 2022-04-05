@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaz.controladores;
 
+import LogicaNegocio.modelo.OpcionRespuestaSeleccion;
+import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
@@ -31,11 +29,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
-/**
- * FXML Controller class
- *
- * @author Jaime
- */
+
 public class CrearPreguntaController implements Initializable {
 
     @FXML
@@ -60,9 +54,8 @@ public class CrearPreguntaController implements Initializable {
     private Label instructor;
     @FXML
     private TextArea textoPregunta;
-    /**
-     * Initializes the controller class.
-     */
+   
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        respuestasItems.addAll("Respuesta 1", "Respuesta 2", "Respuesta 3", "Respuesta 4");
@@ -72,59 +65,41 @@ public class CrearPreguntaController implements Initializable {
        
     }    
 
-
     @FXML
     private void crearPregunta(ActionEvent event) {
         Conexion c = Conexion.obtenerConexion();
-        ArrayList<String> opciones = new ArrayList();
+       
+        if(!textoPregunta.getText().equals("") && dificultadPregunta.getValue() != null && !temaPregunta.getText().equals("")){
+            PreguntaAbstracta p = new PreguntaSeleccionMultiple(textoPregunta.getText(), dificultadPregunta.getValue(), temaPregunta.getText(), crearRespuestasSeleccion());
+            c.insertarPregunta(p);
+            enviarAlerta("Creado","Pregunta correctamente!");
+        } else {
+           enviarAlerta("ERROR","Inserta todos los campos necesarios!");
+        }
+       
+    }
+    
+    
+    //Extract Method funcionalidad unica
+    private ArrayList<OpcionRespuestaSeleccion> crearRespuestasSeleccion() {
+        ArrayList <OpcionRespuestaSeleccion> respuestasSeleccion = new ArrayList();
         if(!Res1.getText().equals("")){
-            opciones.add(Res1.getText());
+            OpcionRespuestaSeleccion op1 = new OpcionRespuestaSeleccion(Res1.getText(), respuestaCorrecta.getValue().equals("Respuesta 1"));
+            respuestasSeleccion.add(op1);
         }
         if(!Res2.getText().equals("")){
-            opciones.add(Res2.getText());
+            OpcionRespuestaSeleccion op2 = new OpcionRespuestaSeleccion(Res2.getText(), respuestaCorrecta.getValue().equals("Respuesta 2"));
+            respuestasSeleccion.add(op2);
         }
         if(!Res3.getText().equals("")){
-            opciones.add(Res3.getText());
+            OpcionRespuestaSeleccion op3 = new OpcionRespuestaSeleccion(Res3.getText(), respuestaCorrecta.getValue().equals("Respuesta 3"));
+            respuestasSeleccion.add(op3);
         }
         if(!Res4.getText().equals("")){
-            opciones.add(Res4.getText());
+            OpcionRespuestaSeleccion op4 = new OpcionRespuestaSeleccion(Res4.getText(), respuestaCorrecta.getValue().equals("Respuesta 4"));
+            respuestasSeleccion.add(op4);
         }
-       
-        ArrayList<Boolean> correctas = new ArrayList();
-        switch(respuestaCorrecta.getValue()){
-            case "Respuesta 1": 
-                correctas.add(true);
-                correctas.add(false);
-                correctas.add(false);
-                correctas.add(false);
-                break;
-            case "Respuesta 2": 
-                correctas.add(false);
-                correctas.add(true);
-                correctas.add(false);
-                correctas.add(false);
-                break;
-            case "Respuesta 3":
-                correctas.add(false);
-                correctas.add(false);
-                correctas.add(true);
-                correctas.add(false);
-                break;
-            case "Respuesta 4":
-               correctas.add(false);
-               correctas.add(false);
-               correctas.add(false);
-               correctas.add(true);
-               break;
-            default:
-                break;
-       }    
-       RespuestaSeleccion r = new RespuestaSeleccion("RespuestaSeleccion1", opciones, correctas);
-       c.insertarPregunta(textoPregunta.getText(), dificultadPregunta.getValue(), temaPregunta.getText(), r);
-       //JOptionPane.showMessageDialog(null,"¡Pregunta creada con éxito!");
-        enviarAlerta("Creado","Pregunta correctamente!");
-        //((Node) event.getSource()).getScene().getWindow().hide();
-       
+        return respuestasSeleccion;
     }
 
     @FXML
@@ -136,8 +111,8 @@ public class CrearPreguntaController implements Initializable {
         Conexion c = Conexion.obtenerConexion();
         Parent root = null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
-                root =(Parent) loader.load();
-                SesionInstructorController inicio = loader.<SesionInstructorController>getController();
+        root =(Parent) loader.load();
+        SesionInstructorController inicio = loader.<SesionInstructorController>getController();
     }
 
     @FXML

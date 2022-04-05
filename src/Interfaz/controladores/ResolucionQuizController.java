@@ -1,14 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package Interfaz.controladores;
 
-import LogicaNegocio.modelo.Pregunta;
-import LogicaNegocio.modelo.Quiz;
+import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.RespuestaAbstracta;
 import Persistencia.conexion.Conexion;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,25 +19,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.bson.Document;
 
-/**
- * FXML Controller class
- *
- * @author nata2
- */
 public class ResolucionQuizController implements Initializable {
     private Conexion con;
     private String nombreQuiz; 
-    private Document[] preguntas; 
+    private ArrayList <PreguntaAbstracta> preguntas; 
     private int indexPregunta; 
     private int [] arrayRespuestasUsuario = new int [50]; 
-    private int [] arrayRespuestasCorrectas = new int[50] ; 
+    private int [] arrayRespuestasCorrectas = new int[50]; 
     @FXML
     private Label instructor;
     @FXML
@@ -62,10 +53,7 @@ public class ResolucionQuizController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         con = Conexion.obtenerConexion();
-        
-        
     }    
 
     @FXML
@@ -86,7 +74,7 @@ public class ResolucionQuizController implements Initializable {
     private void pulsarContinuar(ActionEvent event) throws IOException {
         guardarRespuestasUsuario();
         indexPregunta++; 
-        if(indexPregunta < preguntas.length){
+        if(indexPregunta < preguntas.size()){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/ResolucionQuiz.fxml"));
             Parent root =(Parent) loader.load();      
             ResolucionQuizController resolucionQuiz = loader.<ResolucionQuizController>getController(); 
@@ -128,29 +116,41 @@ public class ResolucionQuizController implements Initializable {
         this.nombreQuiz = nombreQuiz;
     }
 
-    public void setPreguntas(Document[] preguntas) {
+    public void setPreguntas(ArrayList preguntas) {
         this.preguntas = preguntas;
     }
     
     public void cargarPreguntasEnQuiz(){
-        Document dpregunta; 
-        Document dresp; 
+        
+        System.out.println("cargarPregQuiz" + preguntas.toString());
+       
+        System.out.println("INDEX X" + indexPregunta);
         fraccionNumeroPreguntas();
-        dpregunta = preguntas[indexPregunta];  
-        String enunciadoPregunta = dpregunta.getString("text"); 
-        Pregunta pregunta = con.obtenerPregunta("text", enunciadoPregunta);
-        Document [] respuestas = pregunta.getRespuestas(); 
+        System.out.println("PREGUNTA X" + preguntas.get(indexPregunta));
+        String json = ""+preguntas.get(indexPregunta);  
+        PreguntaAbstracta preg = new Gson().fromJson(json, PreguntaSeleccionMultiple.class);
+        System.out.println("preg X" + preg.toString());
+        
+       
+        String enunciadoPregunta = pregunta.getText();
+        System.out.println("eNUNCIOADO X" + enunciadoPregunta);
+        
+        PreguntaAbstracta pregunta = con.obtenerPregunta("text", enunciadoPregunta);
+        ArrayList respuestas = pregunta.getRespuestas(); 
         addEnunciadoPregunta(enunciadoPregunta);  
-        for(int indexRespuesta = 1; indexRespuesta <= respuestas.length; indexRespuesta++){
-             dresp = respuestas[indexRespuesta - 1]; 
-             String enunciadoRespuesta = dresp.getString("text"); 
-             boolean respuestaCorrecta = dresp.getBoolean("correcta"); 
+        
+        /*for(int indexRespuesta = 1; indexRespuesta <= respuestas.size(); indexRespuesta++){
+            
+            RespuestaAbstracta resp = (RespuestaAbstracta)respuestas.get(indexRespuesta - 1);
+             
+             String enunciadoRespuesta = resp.obtenerDescricpion();
+             boolean respuestaCorrecta = resp.esCorrecta(indexRespuesta - 1); 
+             
              if(respuestaCorrecta == true){
                  respuestasCorrectas(indexRespuesta);
-             } else {
              }
              addEnunciadoRespuesta(enunciadoRespuesta, indexRespuesta);
-       }
+       }*/
        
     }
 
@@ -163,7 +163,7 @@ public class ResolucionQuizController implements Initializable {
     }
 
     public void fraccionNumeroPreguntas(){
-        int numeroTotalPreguntas = preguntas.length; 
+        int numeroTotalPreguntas = preguntas.size(); 
         int numeroPregunta = indexPregunta + 1; 
         fraccionPregunta.setText("Pregunta " + numeroPregunta + "/" + numeroTotalPreguntas);
     }
@@ -176,7 +176,7 @@ public class ResolucionQuizController implements Initializable {
         arrayRespuestasCorrectas[indexPregunta] = indexRespuesta; 
     }
     public void compararResultados(){
-        int numeroTotalPreguntas = preguntas.length;  
+        int numeroTotalPreguntas = preguntas.size();  
         int nota = numeroTotalPreguntas; 
         String notafraccion; 
         for(int i = 0; i < numeroTotalPreguntas; i++){
@@ -204,8 +204,11 @@ public class ResolucionQuizController implements Initializable {
     
     public void mostrarAlerta(double nota, String notafraccion){
         String header; 
-        if(nota >= 5 ){ header = "ENHORABUENA"; } 
-        else{ header = "LO SIENTO"; }
+        if(nota >= 5 ){ 
+            header = "ENHORABUENA"; 
+        } else { 
+            header = "LO SIENTO"; 
+        }
         Alert dialogoAlerta = new Alert(Alert.AlertType.CONFIRMATION); 
         dialogoAlerta.setTitle(null);
         dialogoAlerta.setHeaderText(header);

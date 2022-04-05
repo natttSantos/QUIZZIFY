@@ -2,7 +2,7 @@ package main;
 
 import LogicaNegocio.modelo.UsuarioAlumno;
 import Persistencia.conexion.Conexion;
-import LogicaNegocio.modelo.Pregunta;
+import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import Persistencia.controladores.ControladorPreguntas;
 import com.mongodb.MongoClient;
@@ -57,9 +57,9 @@ public class NewMain {
             correctas.add(false);
             correctas.add(false);
            
-           RespuestaSeleccion r = new RespuestaSeleccion("RespuestaSeleccion1",opciones, correctas);
+           //RespuestaSeleccion r = new RespuestaSeleccion("RespuestaSeleccion1",opciones, correctas);
          
-           c.insertarPregunta("abc", "alta","PSW", r);
+           //c.insertarPregunta("abc", "alta","PSW", r);
         }
     }
 

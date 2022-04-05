@@ -1,21 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package Interfaz.controladores;
-
-import LogicaNegocio.modelo.Pregunta;
-import LogicaNegocio.modelo.Quiz;
+import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.QuizSeleccionMultiple;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
-import Persistencia.controladores.ControladorPreguntas;
-import Persistencia.controladores.ControladorQuizzes;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import java.util.ResourceBundle;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,11 +26,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.bson.Document;
 
-/**
- * FXML Controller class
- *
- * @author crivi
- */
 public class GenerarQuizNoAleatorioController implements Initializable {
 
     @FXML
@@ -57,15 +46,16 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private Button añadirAExamenButton1;
     
     private UsuarioInstructor instructor;
+    
+    
+    private ArrayList<PreguntaSeleccionMultiple> preguntas;
 
-    /**
-     * Initializes the controller class.
-     */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         con = Conexion.obtenerConexion();
+        preguntas = con.obtenerTodasPreguntas();
         cargarLista();
-        //estadoGlobal.obtenerUusarioInstructor(); arquitectura
     }    
 
 
@@ -95,18 +85,21 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         Document[] preguntas = new Document[lista.size()];
         int i = 0;
         for (String text:lista){
+            System.out.println("item " + text);
             
-            Pregunta pregunta = con.obtenerPregunta("text", text);
+            PreguntaAbstracta pregunta = con.obtenerPregunta("text", text);
             Document d = new Document();
             d.append("text", pregunta.getText())
                 .append("dificultad", pregunta.getDificultad())
                 .append("tema", pregunta.getTema()) 
                 .append("respuestas", asList(pregunta.getRespuestas()));
             preguntas[i] = d;
-            i++;            
+            i++; 
+            
         }
         try {
             if(!nombreTextField.getText().equals("")) {
+                //QuizAbstracto q = new QuizSeleccionMultiple(nombreTextField.getText(),preguntas);
                 con.insertarQuiz(nombreTextField.getText(), preguntas);
                 enviarAlerta("Creado","Quizz creado correctamente!");
                 //System.out.println(con.reducirCantQuizzesDisponibles(instructor.getEmail()));
@@ -119,6 +112,24 @@ public class GenerarQuizNoAleatorioController implements Initializable {
             enviarAlerta("ERROR","Ha ocurrido un error en la creación del Quizz! : "+ e.getMessage() );
         }
        
+    }
+    
+    private ArrayList<PreguntaAbstracta> insertarPreguntasEnQuizz() {
+        ArrayList<PreguntaAbstracta> preguntas = new ArrayList();
+        ObservableList<String> lista = listView2.getItems();
+        int i = 0;
+        for (String text:lista){
+            
+            //PreguntaAbstracta pregunta = con.obtenerPregunta("text", text);
+            /*Document d = new Document();
+            d.append("text", pregunta.getText())
+                .append("dificultad", pregunta.getDificultad())
+                .append("tema", pregunta.getTema()) 
+                .append("respuestas", asList(pregunta.getRespuestas()));
+            //preguntas[i] = d;
+            i++; */           
+        }
+        return preguntas;
     }
 
     @FXML
@@ -138,8 +149,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     }
     
     public void cargarLista(){
-        ArrayList<Pregunta> preguntas = con.obtenerTodasPreguntas();
-        for (Pregunta pregunta:preguntas ){
+        for (PreguntaSeleccionMultiple pregunta:preguntas ){
             listView.getItems().add(pregunta.getText());
         }
     }

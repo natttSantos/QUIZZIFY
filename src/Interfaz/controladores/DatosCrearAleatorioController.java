@@ -4,7 +4,8 @@
  */
 package Interfaz.controladores;
 
-import LogicaNegocio.modelo.Pregunta;
+import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import Persistencia.conexion.Conexion;
 import java.net.URL;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class DatosCrearAleatorioController implements Initializable {
     private String nombre, tema;
     private int numero;
     private boolean anulado, temaConcreto;
-    private ArrayList<Pregunta> listaPreguntas;
+    private ArrayList<PreguntaSeleccionMultiple> listaPreguntas;
     private Conexion conexion;
 
 
@@ -118,20 +119,20 @@ public class DatosCrearAleatorioController implements Initializable {
         return numero <= numeroPreguntas;
     }
     
-    public void crearQuizAleatorio(int num, String nombre, ArrayList<Pregunta> lista) {
+    public void crearQuizAleatorio(int num, String nombre, ArrayList<PreguntaSeleccionMultiple> lista) {
         Collections.shuffle(lista);
         Document[] preguntas = new Document[num];
         
         for (int i = 0; i < num; i++) {
             
-            Pregunta pregunta = lista.get(i);
+            PreguntaSeleccionMultiple pregunta = lista.get(i);
             Document d = new Document();
             
             d.append("text", pregunta.getText())
-            .append("dificultad", pregunta.getDificultad())
-            .append("tema", pregunta.getTema())
-            .append("respuestas", asList(pregunta.getRespuestas()));
-            preguntas[i] = d;
+                .append("dificultad", pregunta.getDificultad())
+                .append("tema", pregunta.getTema())
+                .append("respuestas", asList(pregunta.getRespuestas()));
+                preguntas[i] = d;
         }
         conexion.insertarQuiz(nombre, preguntas);
     }
@@ -152,7 +153,7 @@ public class DatosCrearAleatorioController implements Initializable {
         return numero;
     }
     
-    public void setListaPreguntas(ArrayList<Pregunta> lista) {
+    public void setListaPreguntas(ArrayList<PreguntaSeleccionMultiple> lista) {
         listaPreguntas = lista;
     }
     public void setConexion(Conexion con) {

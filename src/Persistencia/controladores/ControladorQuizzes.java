@@ -4,12 +4,13 @@
  */
 package Persistencia.controladores;
 
-import LogicaNegocio.modelo.Pregunta;
+import LogicaNegocio.modelo.PreguntaAbstracta;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import Persistencia.conexion.Conexion;
-import LogicaNegocio.modelo.Quiz;
+import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.QuizSeleccionMultiple;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCursor;
 import java.util.ArrayList;
@@ -26,22 +27,22 @@ public class ControladorQuizzes {
     }
     
     
-    public void insertarQuiz(String nombre, Document[] preguntas) {
+    public void insertarQuiz(String nombre, Document [] preguntas) {
         Document quiz = new Document();
         quiz.append("nombre", nombre)
-                .append("preguntas", asList(preguntas));
+            .append("preguntas", asList(preguntas));
         
         quizzes.insertOne(quiz);
     }
-     public ArrayList<Quiz> obtenerTodosLosQuizzes() {
-        ArrayList<Quiz> lista = new ArrayList();
+     public ArrayList<QuizAbstracto> obtenerTodosLosQuizzes() {
+        ArrayList<QuizAbstracto> lista = new ArrayList();
         MongoCursor<Document> cursor = quizzes.find().iterator();
         
         try {
             while (cursor.hasNext()) {
               Document otro = (Document) cursor.next();
               String json =  otro.toJson();
-              Quiz quiz = new Gson().fromJson(json, Quiz.class);
+              QuizAbstracto quiz = new Gson().fromJson(json, QuizSeleccionMultiple.class);
               lista.add(quiz);
             }
         }catch(Exception e){
@@ -51,12 +52,12 @@ public class ControladorQuizzes {
         }
         return lista;
     }
-    public Quiz obtenerQuiz(String key, String valor) {
+    public QuizAbstracto obtenerQuiz(String key, String valor) {
         Document findDocument = new Document(key, valor);
         FindIterable<Document> resultDocument = quizzes.find(findDocument);
         String json =  resultDocument.first().toJson();
         System.out.println(json);
-        Quiz quiz = new Gson().fromJson(json, Quiz.class);
+        QuizAbstracto quiz = new Gson().fromJson(json, QuizSeleccionMultiple.class);
         return quiz;
     }
     

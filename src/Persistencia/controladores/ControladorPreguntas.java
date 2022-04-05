@@ -1,9 +1,12 @@
 package Persistencia.controladores;
 
+import LogicaNegocio.modelo.OpcionRespuestaSeleccion;
 import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import LogicaNegocio.modelo.Pregunta;
+import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import com.mongodb.client.MongoCursor;
@@ -18,46 +21,47 @@ public class ControladorPreguntas {
        preguntas = collection;
     }
      
-    public Pregunta obtenerPregunta(String key, String valor) {
+    public PreguntaAbstracta obtenerPregunta(String key, String valor) {
         Document findDocument = new Document(key, valor);
         FindIterable<Document> resultDocument = preguntas.find(findDocument);
         String json =  resultDocument.first().toJson();
         System.out.println(json);
-        Pregunta p = new Gson().fromJson(json, Pregunta.class);
+        PreguntaAbstracta p = new Gson().fromJson(json, PreguntaSeleccionMultiple.class);
         return p;
     }
     
-    public void insertPregunta(String text, String dificultad,String tema,  RespuestaSeleccion respuesta) {
-         
-        Document [] d  = new Document[respuesta.getOpciones().size()]; 
+    public void insertPregunta(PreguntaAbstracta preg) {
+        
+ 
+        Document [] d  = new Document[preg.getRespuestas().size()]; 
       
-        for(int i = 0; i< respuesta.getOpciones().size();i++){
-           if(respuesta.getOpciones().get(i) != null){
-               d[i] = new Document("text",respuesta.getOpciones().get(i))
-                       .append("correcta",respuesta.getOpciones_correctas().get(i));
+        for(int i = 0; i< preg.getRespuestas().size();i++){
+           if(preg.getRespuestas().get(i) != null){
+               d[i] = new Document("text",((OpcionRespuestaSeleccion)preg.getRespuestas().get(i)).getDescripcion())
+                       .append("correcta",((OpcionRespuestaSeleccion)preg.getRespuestas().get(i)).isCorrecta());
              
               
            }
         }
       
         Document p = new Document();
-            p.append("text", text)
-            .append("dificultad", dificultad)
-            .append("tema", tema) 
+            p.append("text", preg.getText())
+            .append("dificultad", preg.getDificultad())
+            .append("tema", preg.getTema()) 
             .append("respuestas", asList(d));
           
         preguntas.insertOne(p);
     }
     
-    public ArrayList<Pregunta> obtenerTodasPreguntas() {
-        ArrayList<Pregunta> lista = new ArrayList();
+    public ArrayList<PreguntaSeleccionMultiple> obtenerTodasPreguntas() {
+        ArrayList<PreguntaSeleccionMultiple> lista = new ArrayList();
         MongoCursor<Document> cursor = preguntas.find().iterator();
         
         try {
             while (cursor.hasNext()) {
               Document otro = (Document) cursor.next();
               String json =  otro.toJson();
-              Pregunta pregunta = new Gson().fromJson(json, Pregunta.class);
+              PreguntaSeleccionMultiple pregunta = new Gson().fromJson(json, PreguntaSeleccionMultiple.class);
               lista.add(pregunta);
             }
         }catch(Exception e){

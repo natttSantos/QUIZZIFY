@@ -8,7 +8,7 @@ package LogicaNegocio.modelo;
  *
  * @author nata2
  */
-public class RespuestaAbierta extends Respuesta{
+public class RespuestaAbierta extends RespuestaAbstracta{
     
     protected int longitud_maxima; 
     public RespuestaAbierta(String descripcion, int longitud_maxima ){
@@ -19,6 +19,11 @@ public class RespuestaAbierta extends Respuesta{
     @Override
     public String obtenerDescricpion() {
        return descripcion; 
+    }
+
+    @Override
+    public boolean esCorrecta(int index) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

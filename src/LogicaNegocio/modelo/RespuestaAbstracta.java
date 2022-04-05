@@ -8,11 +8,12 @@ package LogicaNegocio.modelo;
  *
  * @author crivi
  */
-public abstract class Respuesta {
+public abstract class RespuestaAbstracta {
     protected String descripcion;
     
-    public Respuesta(String descripcion){
+    public RespuestaAbstracta(String descripcion){
         this.descripcion = descripcion; 
     }
-     public abstract String obtenerDescricpion(); 
+    public abstract String obtenerDescricpion(); 
+    public abstract boolean esCorrecta(int index);
 }

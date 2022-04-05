@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package Interfaz.controladores;
 
-import LogicaNegocio.modelo.Pregunta;
+import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
@@ -93,7 +90,7 @@ public class SesionInstructorController implements Initializable {
     @FXML
     private void quizAleatorioPulsar(ActionEvent event) throws IOException {
         
-        ArrayList<Pregunta> listaPreguntas = conexion.obtenerTodasPreguntas();
+        ArrayList<PreguntaSeleccionMultiple> listaPreguntas = conexion.obtenerTodasPreguntas();
         
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/DatosCrearAleatorio.fxml"));
         Parent root = miCargador.load();
@@ -146,7 +143,7 @@ public class SesionInstructorController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/GenerarQuizNoAleatorio.fxml"));
         Parent root = loader.load();
         GenerarQuizNoAleatorioController controlador = loader.getController();
-        controlador.setUsuario(i); //sustituir por estadoGloba.setUsuarioInstructor()
+        controlador.setUsuario(i);
         Scene scene = new Scene(root, 400, 600);
         Stage stage = new Stage();
         stage.setScene(scene);

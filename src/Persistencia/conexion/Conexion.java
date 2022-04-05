@@ -7,8 +7,10 @@ import com.mongodb.client.MongoDatabase;
 import javax.swing.JOptionPane;
 
 import Persistencia.controladores.ControladorPreguntas;
-import LogicaNegocio.modelo.Pregunta;
-import LogicaNegocio.modelo.Quiz;
+import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
@@ -54,12 +56,12 @@ public class Conexion {
         return conexion;
     }
     
-    public  Pregunta obtenerPregunta(String key, String valor){
+    public PreguntaAbstracta obtenerPregunta(String key, String valor){
        return cp.obtenerPregunta(key, valor);
     }
     
-    public void insertarPregunta(String text, String dificultad,String tema, RespuestaSeleccion respuestas) {
-        cp.insertPregunta(text, dificultad, tema, respuestas);
+    public void insertarPregunta(PreguntaAbstracta p) {
+        cp.insertPregunta(p);
     }
     
     public boolean crearUsuarioAlumno(UsuarioAlumno u) { 
@@ -77,18 +79,18 @@ public class Conexion {
         return cu.loginInstructor(email, contraseña);
     }
     
-    public ArrayList<Pregunta> obtenerTodasPreguntas() {
+    public ArrayList<PreguntaSeleccionMultiple> obtenerTodasPreguntas() {
         return cp.obtenerTodasPreguntas();
     }
     
-    public void insertarQuiz(String text, Document[] preguntas){
+    public void insertarQuiz(String text, Document [] preguntas){
         cq.insertarQuiz(text, preguntas);
     }
     
-    public Quiz obtenerQuiz(String key, String valor){
+    public QuizAbstracto obtenerQuiz(String key, String valor){
        return cq.obtenerQuiz(key, valor);
     }
-    public ArrayList<Quiz> obtenerTodosQuizzes() {
+    public ArrayList<QuizAbstracto> obtenerTodosQuizzes() {
         return cq.obtenerTodosLosQuizzes();
     }
     

@@ -1,23 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package LogicaNegocio.modelo;
 
-/**
- *
- * @author jaime
- */
-public class PreguntaSeleccionMultiple{ //extends PreguntaAbstracta//¡¡ {
+import java.util.ArrayList;
+import org.bson.Document;
+
+
+public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
+
     
-   /*public PreguntaSeleccionMultiple (String enunciado, String instrucciones, float puntuacion){
-        super(enunciado, instrucciones, puntuacion); 
+    public PreguntaSeleccionMultiple(String text, String dificultad, String tema, ArrayList respuestasSeleccion){
+        super(text, dificultad, tema, respuestasSeleccion);
     }
-
-
-    public Respuesta crearRespuesta(String descripcion) {
-         Respuesta respuesta = new RespuestaSeleccion(descripcion); 
-         return respuesta; 
-    }*/
- 
+    
+    
+    @Override
+    public RespuestaAbstracta crearRespuesta(String descripcion, ArrayList<OpcionRespuestaSeleccion> opciones) {
+        RespuestaAbstracta respuesta = new RespuestaSeleccion(descripcion, opciones);
+        return respuesta;
+    }
+  
 }

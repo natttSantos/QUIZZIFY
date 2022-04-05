@@ -1,25 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package LogicaNegocio.modelo;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
-/**
- *
- * @author jaime
- */
 public class QuizSeleccionMultiple extends QuizAbstracto {
     
-    public QuizSeleccionMultiple(String nombre){
-        super(nombre);
+    public QuizSeleccionMultiple(String nombre, ArrayList<PreguntaAbstracta> preguntas){
+        super(nombre, preguntas);
     }
 
     @Override
-    public PreguntaAbstracta crearPregunta(String enunciado, String instrucciones, float puntuacion) throws IOException {
-        //PreguntaAbstracta pregunta = new PreguntaSeleccionMultiple (enunciado, instrucciones, puntuacion);
-        return null;
+    public PreguntaAbstracta crearPregunta(String text, String dificultad, String tema, ArrayList respuestas) {
+        PreguntaAbstracta pregunta = new PreguntaSeleccionMultiple (text, dificultad, tema, respuestas);
+        return pregunta;
     }
     
 }
