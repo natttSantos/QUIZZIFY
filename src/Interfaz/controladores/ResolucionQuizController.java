@@ -1,13 +1,22 @@
 package Interfaz.controladores;
 
+import LogicaNegocio.modelo.OpcionRespuestaSeleccion;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.RespuestaAbstracta;
+import LogicaNegocio.modelo.RespuestaSeleccion;
 import Persistencia.conexion.Conexion;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.stream.JsonReader;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +31,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.bson.Document;
 
 public class ResolucionQuizController implements Initializable {
     private Conexion con;
@@ -116,44 +126,37 @@ public class ResolucionQuizController implements Initializable {
         this.nombreQuiz = nombreQuiz;
     }
 
-    public void setPreguntas(ArrayList preguntas) {
+    public void setPreguntas(ArrayList<PreguntaAbstracta> preguntas) {
         this.preguntas = preguntas;
     }
     
     public void cargarPreguntasEnQuiz(){
-        
-        System.out.println("cargarPregQuiz" + preguntas.toString());
-       
-        System.out.println("INDEX X" + indexPregunta);
         fraccionNumeroPreguntas();
-        System.out.println("PREGUNTA X" + preguntas.get(indexPregunta));
-        String json = ""+preguntas.get(indexPregunta);  
-        PreguntaAbstracta preg = new Gson().fromJson(json, PreguntaSeleccionMultiple.class);
-        System.out.println("preg X" + preg.toString());
-        
-       
-        String enunciadoPregunta = pregunta.getText();
-        System.out.println("eNUNCIOADO X" + enunciadoPregunta);
-        
-        PreguntaAbstracta pregunta = con.obtenerPregunta("text", enunciadoPregunta);
-        ArrayList respuestas = pregunta.getRespuestas(); 
+        final Gson gson = new Gson();
+	String representacionJSON_pregunta = gson.toJson(preguntas.get(indexPregunta)); // "{\"id\":46,\"nombre\":\"Miguel\",\"empresa\":\"Autentia\"}";
+        PreguntaAbstracta preg = new Gson().fromJson(representacionJSON_pregunta, PreguntaSeleccionMultiple.class);
+
+        String enunciadoPregunta = preg.getText();
+        ArrayList respuestas = preg.getRespuestas(); 
         addEnunciadoPregunta(enunciadoPregunta);  
-        
-        /*for(int indexRespuesta = 1; indexRespuesta <= respuestas.size(); indexRespuesta++){
+
+        for(int indexRespuesta = 1; indexRespuesta <= respuestas.size(); indexRespuesta++){
+            String representacionJSON_respuesta =  gson.toJson(respuestas.get(indexRespuesta - 1));
+            RespuestaAbstracta resp = new Gson().fromJson(representacionJSON_respuesta, RespuestaSeleccion.class);
+            OpcionRespuestaSeleccion opcion = new Gson().fromJson(representacionJSON_respuesta, OpcionRespuestaSeleccion.class);
             
-            RespuestaAbstracta resp = (RespuestaAbstracta)respuestas.get(indexRespuesta - 1);
+            String enunciadoRespuesta = resp.obtenerText(); 
+            opcion.isCorrecta(); 
+            boolean respuestaCorrecta = opcion.isCorrecta(); 
              
-             String enunciadoRespuesta = resp.obtenerDescricpion();
-             boolean respuestaCorrecta = resp.esCorrecta(indexRespuesta - 1); 
-             
-             if(respuestaCorrecta == true){
+            if(respuestaCorrecta == true){
                  respuestasCorrectas(indexRespuesta);
              }
              addEnunciadoRespuesta(enunciadoRespuesta, indexRespuesta);
-       }*/
+       }
        
     }
-
+    
     public void setIndexPregunta(int indexPregunta) {
         this.indexPregunta = indexPregunta;
     }

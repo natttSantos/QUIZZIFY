@@ -56,9 +56,4 @@ public abstract class PreguntaAbstracta {
     public String toString() {
         return "Pregunta{" + "text=" + text + ", dificultad=" + dificultad + ", tema=" + tema + ", respuestas=" + respuestas + '}';
     }
-
-    //anyadir_respuesta()
-    //eliminar_respuesta()
-    //obtener_descripcion()
-    
 }

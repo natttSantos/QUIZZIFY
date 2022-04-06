@@ -17,8 +17,8 @@ public class RespuestaAbierta extends RespuestaAbstracta{
     }
 
     @Override
-    public String obtenerDescricpion() {
-       return descripcion; 
+    public String obtenerText() {
+       return text; 
     }
 
     @Override

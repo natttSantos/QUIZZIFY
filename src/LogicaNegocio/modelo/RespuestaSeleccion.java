@@ -7,18 +7,17 @@ public class RespuestaSeleccion extends RespuestaAbstracta{
    
     protected ArrayList<OpcionRespuestaSeleccion> opciones;
     
-    public RespuestaSeleccion(String descripcion, ArrayList<OpcionRespuestaSeleccion> opciones){
-        super(descripcion); 
+    public RespuestaSeleccion(String text, ArrayList<OpcionRespuestaSeleccion> opciones){
+        super(text); 
         this.opciones = opciones;
     }
 
     public ArrayList<OpcionRespuestaSeleccion> getOpciones() {
         return opciones;
     }
-
-    @Override
-    public String obtenerDescricpion() {
-        return descripcion; 
+  
+    public String obtenerText() {
+        return text; 
     }
 
    
@@ -26,10 +25,10 @@ public class RespuestaSeleccion extends RespuestaAbstracta{
         this.opciones = opciones;
     }
 
-    @Override
-    public String toString() {
-        return "RespuestaSeleccion{" + "opciones=" + opciones + '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "RespuestaSeleccion{" + "correcta=" + opciones + '}';
+//    }
 
     
     public boolean esCorrecta(int index) {

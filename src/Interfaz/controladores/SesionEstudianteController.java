@@ -1,5 +1,6 @@
 package Interfaz.controladores;
 
+import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.QuizAbstracto;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
@@ -98,10 +99,10 @@ public class SesionEstudianteController implements Initializable {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
     
-    public ArrayList cargarPreguntasQuiz(){
+    public ArrayList<PreguntaAbstracta> cargarPreguntasQuiz(){
         String nombrequizSeleccionado = listaQuizes.getSelectionModel().getSelectedItem();
         QuizAbstracto quizSeleccionado = con.obtenerQuiz("nombre", nombrequizSeleccionado);
-        ArrayList preguntas = quizSeleccionado.getPreguntas();
+        ArrayList<PreguntaAbstracta> preguntas = quizSeleccionado.getPreguntas();
         System.out.println("PREGUNTAS " + preguntas.toString());
         return preguntas;
     }
