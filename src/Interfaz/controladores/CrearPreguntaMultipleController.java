@@ -65,14 +65,24 @@ public class CrearPreguntaMultipleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         conexion = Conexion.obtenerConexion();
+        
         numeroDeRespuestas = 0;
         addButton.setDisable(true);
+        botonCrear.setDisable(true);
         
         respuestaText.textProperty().addListener((ObservableValue<? extends String> obs, String oldValue, String newValue) -> {
             if (newValue.equals("") || numeroDeRespuestas == 6){
                 addButton.setDisable(true);
             } else {
                 addButton.setDisable(false);
+            }
+        });
+        
+        textoPregunta.textProperty().addListener((ObservableValue<? extends String> obs, String oldValue, String newValue) -> {
+            if (newValue.equals("") || numeroDeRespuestas < 2){
+                botonCrear.setDisable(true);
+            } else {
+                botonCrear.setDisable(false);
             }
         });
         
@@ -102,6 +112,11 @@ public class CrearPreguntaMultipleController implements Initializable {
             case 2:
                 r2checkBox.setText(text);
                 r2checkBox.setVisible(true);
+                
+                if (!textoPregunta.getText().equals("")) {  // 2 respuestas es minimo para crear pregunta
+                    botonCrear.setDisable(false);
+                }
+                
                 break;
             case 3:
                 r3checkBox.setText(text);
