@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class QuizSeleccionMultiple extends QuizAbstracto {
     
-    public QuizSeleccionMultiple(String nombre, ArrayList<PreguntaAbstracta> preguntas){
-        super(nombre, preguntas);
+    public QuizSeleccionMultiple(String nombre, Curso curso, ArrayList<PreguntaAbstracta> preguntas){
+        super(nombre, curso, preguntas);
     }
 
     @Override

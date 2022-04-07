@@ -5,18 +5,17 @@
  */
 package LogicaNegocio.modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author margr
  */
 public class UsuarioInstructor extends Usuario {
-    
-    
     private String tipo;
     private int quizzesDisponibles;
     
     public UsuarioInstructor(String nombre, String apellidos, String email, String contraseña, String tipo, int quizzesDisponibles) {
-        
         super(nombre, apellidos, email, contraseña);
         this.tipo = tipo;
         this.quizzesDisponibles = quizzesDisponibles;

@@ -27,8 +27,6 @@ public class ControladorUsuarios {
             d.append("apelldios", u.getApellidos());
             d.append("email", u.getEmail());
             d.append("contraseña", u.getContraseña());
-            d.append("grupo", u.getGrupo());
-            d.append("curso", u.getCurso());
             d.append("tipo", "Alumno");
             
             usuarios.insertOne(d);
@@ -48,8 +46,6 @@ public class ControladorUsuarios {
             d.append("apellidos", u.getApellidos());
             d.append("email", u.getEmail());
             d.append("contraseña", u.getContraseña());
-            d.append("grupo", u.getGrupo());
-            d.append("curso", u.getCurso());
             usuarios.updateOne(resultDocument.first(), d);
             return true;
         }catch(Exception e) {
@@ -107,18 +103,6 @@ public class ControladorUsuarios {
             d.append("contraseña", u.getContraseña());
             d.append("tipo", "Instructor");
             d.append("quizzesDisponibles", 20);
-            
-            
-            /*String[] cursos = u.getCursos();
-            Document [] cursosDocument  = new Document[cursos.length]; 
-      
-            for(int i = 0; i< cursos.length; i++){
-                if(cursos[i] != null){
-                    cursosDocument[i] = new Document("cursos",cursos[i]);
-                }    
-            }
-            
-            d.append("cursos", asList(cursosDocument));*/
             usuarios.insertOne(d);
             return true;
             

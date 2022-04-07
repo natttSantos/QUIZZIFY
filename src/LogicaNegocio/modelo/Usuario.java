@@ -1,5 +1,7 @@
 package LogicaNegocio.modelo;
 
+import java.util.ArrayList;
+
 
 
 public abstract class Usuario {
@@ -7,7 +9,7 @@ public abstract class Usuario {
     private String nombre;
     private String apellidos;
     private String email;
-    private String contraseña;
+    String contraseña;
     
     public Usuario(String nombre, String apellidos, String email, String contraseña) {
         this.nombre = nombre;
@@ -47,6 +49,7 @@ public abstract class Usuario {
     public String getContraseña() {
         return contraseña;
     }
+
 
     @Override
     public String toString() {

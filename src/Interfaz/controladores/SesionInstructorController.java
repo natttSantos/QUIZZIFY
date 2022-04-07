@@ -52,10 +52,7 @@ public class SesionInstructorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        conexion = Conexion.obtenerConexion();
-     
-        
-        
+        conexion = Conexion.obtenerConexion();   
     }   
 
     public void setUsuario(UsuarioInstructor i) {
@@ -65,9 +62,10 @@ public class SesionInstructorController implements Initializable {
         if(i.getQuizzesDisponibles()== 0){
             buttonQuiz.setDisable(true);
             buttonQuizAleatorio.setDisable(true);
-        }
-        
+        }   
     }
+
+    
     
     public void setConexion(Conexion con) {
         conexion = con;
@@ -105,19 +103,7 @@ public class SesionInstructorController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Crear un quiz aleatorio");
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-        
-//        if (controlador.getAnulado()) {
-//            return;  //  si creación de quiz es anulado, no ejecuta codigo abajo
-//        }
-//        
-//        String nombre = controlador.getNombre();
-//        int numero = controlador.getNumero();
-//        boolean temaConcreto = controlador.getTemaConcreto();
-//        
-//        if (temaConcreto) {
-//            String tema = controlador.getTema();
-//        }    
+        stage.showAndWait();  
     }
 
     @FXML
@@ -153,5 +139,35 @@ public class SesionInstructorController implements Initializable {
         stage.setTitle("Crear un quiz");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+    }
+
+    @FXML
+    private void pulsarCrear(ActionEvent event) {
+    }
+
+    @FXML
+    private void pulsarGestionQuiz(ActionEvent event) {
+    }
+
+    @FXML
+    private void pulsarVerRespuestas(ActionEvent event) {
+    }
+
+    @FXML
+    private void pulsarCursos(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/Curso.fxml"));
+        Parent root = miCargador.load();
+        CursosController cursos = miCargador.getController();
+        cursos.setInstructorUser(i);
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+        stage.setTitle("Mis cursos");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
 }    

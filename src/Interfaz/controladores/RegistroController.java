@@ -85,7 +85,7 @@ public class RegistroController implements Initializable {
     private void pulsarRegistrar(ActionEvent event) throws IOException { 
         if(comprobarCredenciales()){
             if(tipoUsuario.equals("Estudiante")){
-                UsuarioAlumno student = new UsuarioAlumno(nombre.getText(), apellidos.getText(), email.getText(), password.getText(), "", ""); 
+                UsuarioAlumno student = new UsuarioAlumno(nombre.getText(), apellidos.getText(), email.getText(), password.getText()); 
                 con.crearUsuarioAlumno(student);  
                 navegar_SesionEstudiante(event);
             } else{

@@ -12,18 +12,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 
 
-public class CursosController implements Initializable {
+public class CrearCursoController implements Initializable {
     private UsuarioInstructor instructorUser; 
     private Curso curso; 
     @FXML
     private Label instructor;
     @FXML
-    private ListView<String> listaCursos;
+    private TextField nombreCurso;
     @FXML
-    private Label sinCursos;
+    private TextField emailEstudiante;
+    @FXML
+    private ListView<?> listaEstudiantes;
 
     
    
@@ -47,7 +50,7 @@ public class CursosController implements Initializable {
     }
 
     @FXML
-    private void pulsarAbrirCurso(ActionEvent event) {
+    private void pulsarAnyadirEstudiante(ActionEvent event) {
     }
 
 
