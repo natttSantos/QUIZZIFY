@@ -32,18 +32,6 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
         
-        // ========== test ==========
-        // Este código pone un instructor de ejemplo en base de dato
-        
-//        Conexion c = Conexion.obtenerConexion(); 
-//        if(c != null) {
-//
-//            UsuarioInstructor instructor;
-//            String[] grupos = {"A", "B"};
-//            instructor = new UsuarioInstructor("Jose", "Arcadio Morales", "email@email.com", "Password", grupos);
-//            boolean exito = c.crearUsuarioInstructor(instructor);
-//
-//        }
     
     }
     /**
