@@ -141,7 +141,9 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private void añadirAExamenButtonClicked(ActionEvent event) {
         String selectedItem = listView.getSelectionModel().getSelectedItem();
         if(selectedItem != null){
-            listView2.getItems().add(selectedItem);
+            if (!listView2.getItems().contains(selectedItem)) {
+                listView2.getItems().add(selectedItem);
+            } else { enviarAlerta("ERROR", "La pregunta seleccionada ya ha sido añadida al examen");}
         }else {
             enviarAlerta("ERROR", "Debe seleccionar una pregunta para añadirla al examen!");
         }
