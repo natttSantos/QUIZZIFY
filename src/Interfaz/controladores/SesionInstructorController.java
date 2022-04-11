@@ -42,11 +42,15 @@ public class SesionInstructorController implements Initializable {
     private Button buttonQuiz;
     @FXML
     private Button buttonQuizAleatorio;
-    @FXML
-    private ImageView buttonPregunta;
     
     
     private UsuarioInstructor i;
+    @FXML
+    private Button buttonPreguntaMultiple;
+    @FXML
+    private Button buttonPreguntaVF;
+    @FXML
+    private Button buttonPreguntaAbierta;
     /**
      * Initializes the controller class.
      */
@@ -106,7 +110,6 @@ public class SesionInstructorController implements Initializable {
         stage.showAndWait();  
     }
 
-    @FXML
     private void crearPreguntaPulsar(ActionEvent event) throws IOException{
     
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearPregunta.fxml"));
@@ -166,6 +169,61 @@ public class SesionInstructorController implements Initializable {
         stage.setMinWidth(600);
         stage.setMinHeight(400);
         stage.setTitle("Mis cursos");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+
+    @FXML
+    private void PreguntaMultipleClicked(ActionEvent event) throws IOException {
+        
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearPreguntaMultiple.fxml"));
+        Parent root = miCargador.load();
+        CrearPreguntaMultipleController controlador = miCargador.getController();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+        stage.setTitle("Crear pregunta mútiple");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
+        
+    }
+
+    @FXML
+    private void PreguntaVFClicked(ActionEvent event) throws IOException {
+        
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearPreguntaVF.fxml"));
+        Parent root = miCargador.load();
+        CrearPreguntaVFController controlador = miCargador.getController();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+        stage.setTitle("Crear pregunta verdadero/falso");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+
+    @FXML
+    private void PreguntaAbiertaClicked(ActionEvent event) throws IOException {
+        
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearPreguntaAbierta.fxml"));
+        Parent root = miCargador.load();
+        CrearPreguntaAbiertaController controlador = miCargador.getController();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+        stage.setTitle("Crear pregunta mútiple");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
