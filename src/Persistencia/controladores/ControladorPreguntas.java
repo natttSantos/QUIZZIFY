@@ -7,6 +7,7 @@ import com.mongodb.client.MongoCollection;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import com.mongodb.client.MongoCursor;
@@ -32,25 +33,41 @@ public class ControladorPreguntas {
     
     public void insertPregunta(PreguntaAbstracta preg) {
         
- 
-        Document [] d  = new Document[preg.getRespuestas().size()]; 
-      
-        for(int i = 0; i< preg.getRespuestas().size();i++){
-           if(preg.getRespuestas().get(i) != null){
-               d[i] = new Document("text",((OpcionRespuestaSeleccion)preg.getRespuestas().get(i)).getDescripcion())
-                       .append("correcta",((OpcionRespuestaSeleccion)preg.getRespuestas().get(i)).isCorrecta());
-             
-              
-           }
+        String tipo = preg.getTipo();   // abierta, vf, multiple
+        
+        switch (tipo) {
+            case "vf":
+                insertPreguntaVF((PreguntaVF) preg);
+                break;
+            default:
+                System.out.println("dupa");
+                
         }
-      
-        Document p = new Document();
-            p.append("text", preg.getText())
-            .append("dificultad", preg.getDificultad())
-            .append("tema", preg.getTema()) 
-            .append("respuestas", asList(d));
-          
-        preguntas.insertOne(p);
+        
+ 
+//        Document [] d  = new Document[preg.getRespuestas().size()]; 
+//      
+//        for(int i = 0; i< preg.getRespuestas().size();i++){
+//           if(preg.getRespuestas().get(i) != null){
+//               d[i] = new Document("text",((OpcionRespuestaSeleccion)preg.getRespuestas().get(i)).getDescripcion())
+//                       .append("correcta",((OpcionRespuestaSeleccion)preg.getRespuestas().get(i)).isCorrecta());
+//             
+//              
+//           }
+//        }
+//      
+//        Document p = new Document();
+//            p.append("text", preg.getText())
+//            .append("dificultad", preg.getDificultad())
+//            .append("tema", preg.getTema()) 
+//            .append("respuestas", asList(d));
+//          
+//        preguntas.insertOne(p);
+    }
+    
+    public void insertPreguntaVF(PreguntaVF pregunta) {
+        Document toInsert = pregunta.obtenerDocument();
+        preguntas.insertOne(toInsert);
     }
     
     public ArrayList<PreguntaSeleccionMultiple> obtenerTodasPreguntas() {

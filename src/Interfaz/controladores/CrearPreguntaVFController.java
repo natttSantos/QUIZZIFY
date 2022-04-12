@@ -5,11 +5,14 @@
  */
 package Interfaz.controladores;
 
+import LogicaNegocio.modelo.PreguntaVF;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +20,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
@@ -47,6 +52,10 @@ public class CrearPreguntaVFController implements Initializable {
     
     private Conexion conexion;
     private boolean respuestaVerdad;
+    @FXML
+    private ComboBox<String> dificultadComboBox;
+    
+    ObservableList<String> dificultadesItems = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -59,11 +68,11 @@ public class CrearPreguntaVFController implements Initializable {
         verdadRadioButton.setToggleGroup(toggleGroup);
         falsoRadioButton.setToggleGroup(toggleGroup);
         
-        verdadRadioButton.setSelected(true);
-        respuestaVerdad = true;
+        dificultadesItems.addAll("Baja", "Media", "Alta");
+        dificultadComboBox.setItems(dificultadesItems);
         
-        botonCrear.setDisable(true);
-
+        resetVentana();
+        
         toggleGroup.selectedToggleProperty().addListener((observable, oldVal, newVal) -> {
             if (newVal == verdadRadioButton) {
                 respuestaVerdad = true;
@@ -79,7 +88,19 @@ public class CrearPreguntaVFController implements Initializable {
                 botonCrear.setDisable(false);
             }
         });
-    }    
+        
+    }  
+    
+    public void resetVentana() {
+        verdadRadioButton.setSelected(true);
+        respuestaVerdad = true;
+        
+        botonCrear.setDisable(true);
+        
+        dificultadComboBox.getSelectionModel().selectFirst();
+        
+        textoPregunta.setText("");
+    }
 
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
@@ -97,10 +118,32 @@ public class CrearPreguntaVFController implements Initializable {
     @FXML
     private void crearPregunta(ActionEvent event) {
         String texto = textoPregunta.getText();
+        String dificultad = dificultadComboBox.getValue();
         
         // texto : enunciado de pregunta
         // respuestaVerdad : verdad o falso 
+        // 
         // falta subir pregunta a base de dato
+        
+        PreguntaVF pregunta = new PreguntaVF(texto, dificultad, respuestaVerdad);
+        conexion.insertarPregunta(pregunta);
+        enviarAlerta("Confirmación","Creado pregunta correctamente!");
+        
+        resetVentana();
+    }
+    
+    private void enviarAlerta(String header,String text) {
+        Alert dialogoAlerta;
+        if(header.equals("ERROR")){
+           dialogoAlerta = new Alert(Alert.AlertType.ERROR); 
+        }else {
+            dialogoAlerta = new Alert(Alert.AlertType.CONFIRMATION); 
+        }
+        dialogoAlerta.setTitle(null);
+        dialogoAlerta.setHeaderText(header);
+        dialogoAlerta.setContentText(text);
+//        java.awt.Toolkit.getDefaultToolkit().beep();
+        dialogoAlerta.showAndWait(); 
     }
     
 }

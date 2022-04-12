@@ -48,8 +48,8 @@
             <Font name="Impact" size="41.0" />
          </font>
       </Label>
-      <TextArea fx:id="textoPregunta" layoutX="144.0" layoutY="165.0" prefHeight="180.0" prefWidth="900.0" />
-      <HBox layoutX="143.0" layoutY="357.0" prefHeight="249.0" prefWidth="894.0" spacing="20.0">
+      <TextArea fx:id="textoPregunta" layoutX="144.0" layoutY="165.0" prefHeight="145.0" prefWidth="900.0" />
+      <HBox layoutX="143.0" layoutY="314.0" prefHeight="350.0" prefWidth="894.0" spacing="20.0">
          <children>
             <VBox prefHeight="166.0" prefWidth="513.0" spacing="20.0">
                <children>
@@ -74,6 +74,12 @@
                      </font>
                   </Label>
                   <ComboBox prefWidth="150.0" />
+                  <Label text="Seleccione la dificultad:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="dificultadComboBox" prefWidth="150.0" />
                </children>
             </VBox>
          </children>
