@@ -7,7 +7,9 @@ package Persistencia.controladores;
 
 import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.UsuarioAlumno;
+import LogicaNegocio.modelo.UsuarioInstructor;
 import com.mongodb.client.MongoCollection;
+import static java.util.Arrays.asList;
 import org.bson.Document;
 
 /**
@@ -21,12 +23,31 @@ public class ControladorCursos {
     public ControladorCursos(MongoCollection collection){
        cursos = collection;
     }
-    public void crearCurso(Curso c) {
+    public boolean crearCurso(Curso c) {
+        try{
           Document d = new Document("nombre",c.getNombreCurso());
-          d.append("instructor", c.getInstructorEnCurso());
           d.append("alumnos", c.getAlumnosEnCurso());
+          d.append("instructor", c.getInstructorEnCurso());
           d.append("quizzes", c.getQuizzesEnCurso()); 
           cursos.insertOne(d);  
+          return true; 
+           }catch(Exception e) {
+            System.out.println("ERROR al crear curso:  " + e.getMessage());
+            return false;
+        }
+    }
+    public boolean crearCursosSinQuiz(String nombre, Document[] estudiantes, Document instructor) {
+        try{
+          Document d = new Document(); 
+          d.append("nombre",nombre);
+          d.append("alumnos", asList(estudiantes));
+          d.append("instructor", instructor);
+          cursos.insertOne(d);  
+          return true; 
+           }catch(Exception e) {
+            System.out.println("ERROR al crear curso:  " + e.getMessage());
+            return false;
+        }
     }
     
 }

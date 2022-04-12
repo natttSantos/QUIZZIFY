@@ -13,15 +13,20 @@ import java.util.ArrayList;
  */
 public class Curso {
     private String nombreCurso;  
-    private ArrayList <UsuarioAlumno> alumnosEnCurso; 
+    private ArrayList alumnosEnCurso; 
     private UsuarioInstructor instructorEnCurso;
     private ArrayList <QuizAbstracto> quizzesEnCurso; 
 
-    public Curso(String nombreCurso, ArrayList<UsuarioAlumno> alumnosEnCurso, UsuarioInstructor instructorEnCurso, ArrayList<QuizAbstracto> quizzesEnCurso) {
+    public Curso(String nombreCurso, ArrayList alumnosEnCurso, UsuarioInstructor instructorEnCurso, ArrayList<QuizAbstracto> quizzesEnCurso) {
         this.nombreCurso = nombreCurso;
         this.alumnosEnCurso = alumnosEnCurso;
         this.instructorEnCurso = instructorEnCurso;
         this.quizzesEnCurso = quizzesEnCurso;
+    }
+    public Curso(String nombreCurso, ArrayList alumnosEnCurso, UsuarioInstructor instructorEnCurso) {
+        this.nombreCurso = nombreCurso;
+        this.alumnosEnCurso = alumnosEnCurso;
+        this.instructorEnCurso = instructorEnCurso;  
     }
 
     public String getNombreCurso() {
@@ -32,11 +37,11 @@ public class Curso {
         this.nombreCurso = nombreCurso;
     }
 
-    public ArrayList<UsuarioAlumno> getAlumnosEnCurso() {
+    public ArrayList getAlumnosEnCurso() {
         return alumnosEnCurso;
     }
 
-    public void setAlumnosEnCurso(ArrayList<UsuarioAlumno> alumnosEnCurso) {
+    public void setAlumnosEnCurso(ArrayList alumnosEnCurso) {
         this.alumnosEnCurso = alumnosEnCurso;
     }
 

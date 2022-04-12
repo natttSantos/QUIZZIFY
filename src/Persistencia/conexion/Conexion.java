@@ -1,4 +1,5 @@
 package Persistencia.conexion;
+import LogicaNegocio.modelo.Curso;
 import Persistencia.controladores.ControladorUsuarios;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
@@ -71,11 +72,11 @@ public class Conexion {
         cp.insertPregunta(p);
     }
     
-    public boolean crearUsuarioAlumno(UsuarioAlumno u) { 
+    public Document crearUsuarioAlumno(UsuarioAlumno u) { 
         return cu.crearUsuarioAlumno(u);
     }
     
-    public boolean crearUsuarioInstructor(UsuarioInstructor u) {
+    public Document crearUsuarioInstructor(UsuarioInstructor u) {
         return cu.crearUsuarioInstructor(u);
     }
     
@@ -112,8 +113,15 @@ public class Conexion {
     public ArrayList<UsuarioInstructor> obtenerTodosUsuariosInstructores() {
         return cu.obtenerTodosUsuariosInstructores();
     }
-    public Usuario obtenerUsuarioAlumno(String key, String valor){
+    public UsuarioAlumno obtenerUsuarioAlumno(String key, String valor){
        return cu.obtenerUsuarioAlumno(key, valor);
     }
+     public boolean crearCurso(Curso c) { 
+        return cc.crearCurso(c);
+    }
+    public boolean crearCursosSinQuiz(String nombre, Document[] estudiantes, Document instructor) {
+         return cc.crearCursosSinQuiz(nombre, estudiantes, instructor);
+    }
      
+    
 }

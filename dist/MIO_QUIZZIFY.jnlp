@@ -8,7 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+<<<<<<< HEAD
     <jar href="MIO_QUIZZIFY.jar" size="1307516" download="eager" />
+=======
+    <jar href="MIO_QUIZZIFY.jar" size="1306383" download="eager" />
+>>>>>>> a1fb84415058500bd8e2f1741c7f04dbc1521f30
     <jar href="lib\gson-2.8.0.jar" size="231952" download="eager" />
     <jar href="lib\javafx-swt.jar" size="37121" download="eager" />
     <jar href="lib\javafx.base.jar" size="745873" download="eager" />

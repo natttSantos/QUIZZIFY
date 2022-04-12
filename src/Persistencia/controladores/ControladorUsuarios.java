@@ -23,23 +23,39 @@ public class ControladorUsuarios {
     }
 
 
-    public boolean crearUsuarioAlumno(UsuarioAlumno u) {
-        
+    public Document crearUsuarioAlumno(UsuarioAlumno u) {
+        Document d = new Document(); 
         try {
-            Document d = new Document("nombre",u.getNombre());
+            d.append("nombre",u.getNombre());
             d.append("apelldios", u.getApellidos());
             d.append("email", u.getEmail());
             d.append("contraseña", u.getContraseña());
             d.append("tipo", "Alumno");
             
             usuarios.insertOne(d);
-            return true;
+      
         }catch(Exception e) {
             System.out.println("ERROR al crear usuario de tipo alumno:  " + e.getMessage());
-            return false;
+            
         }
+       return d; 
     }
-    
+     public Document crearUsuarioInstructor(UsuarioInstructor u) {
+         Document d = new Document(); 
+        try {
+            d.append("nombre",u.getNombre());
+            d.append("apellidos", u.getApellidos());
+            d.append("email", u.getEmail());
+            d.append("contraseña", u.getContraseña());
+            d.append("tipo", "Instructor");
+            d.append("quizzesDisponibles", 20);
+            usuarios.insertOne(d);
+            
+        } catch(Exception e) {
+            System.out.println("ERROR al crear usuario de tipo instructor:  " + e.getMessage());
+        }
+        return d; 
+    }
     public boolean modificarUsuarioAlumno(UsuarioAlumno u){
          try {
             Document prev = new Document("email", u.getEmail());
@@ -120,28 +136,7 @@ public class ControladorUsuarios {
         }
         return lista;
     }
-    
-    
-    public boolean crearUsuarioInstructor(UsuarioInstructor u) {
-        
-        try {
-            Document d = new Document("nombre",u.getNombre());
-            d.append("apellidos", u.getApellidos());
-            d.append("email", u.getEmail());
-            d.append("contraseña", u.getContraseña());
-            d.append("tipo", "Instructor");
-            d.append("quizzesDisponibles", 20);
-            usuarios.insertOne(d);
-            return true;
-            
-        } catch(Exception e) {
-            System.out.println("ERROR al crear usuario de tipo instructor:  " + e.getMessage());
-            return false;
-        }
-    }
-    
-    
-    
+
     public UsuarioInstructor loginInstructor(String email, String contraseña) {
         UsuarioInstructor u = null;
         try {
@@ -200,12 +195,12 @@ public class ControladorUsuarios {
         }
        return quizzesDisponibles;
     }
-      public Usuario obtenerUsuarioAlumno(String key, String valor) {
+      public UsuarioAlumno obtenerUsuarioAlumno(String key, String valor) {
         Document findDocument = new Document(key, valor);
         FindIterable<Document> resultDocument = usuarios.find(findDocument);
         String json =  resultDocument.first().toJson();
         System.out.println(json);
-        Usuario user = new Gson().fromJson(json, UsuarioAlumno.class);
+        UsuarioAlumno user = new Gson().fromJson(json, UsuarioAlumno.class);
         return user;
     }
 }
