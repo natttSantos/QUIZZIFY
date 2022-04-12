@@ -1,5 +1,8 @@
 package Persistencia.controladores;
 
+import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.QuizSeleccionMultiple;
+import LogicaNegocio.modelo.Usuario;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import com.google.gson.Gson;
@@ -82,9 +85,12 @@ public class ControladorUsuarios {
         try {
             while (cursor.hasNext()) {
               Document otro = (Document) cursor.next();
-              String json =  otro.toJson();
-              UsuarioAlumno u = new Gson().fromJson(json, UsuarioAlumno.class);
-              lista.add(u);
+              String tipoUser = otro.getString("tipo"); 
+              if(tipoUser.equals("Alumno")){
+                String json =  otro.toJson();
+                UsuarioAlumno u = new Gson().fromJson(json, UsuarioAlumno.class);
+                lista.add(u);
+              }
             }
         }catch(Exception e){
              System.out.println("ERROR al obtener todos los usuarios alumnos:   " + e.getMessage());
@@ -93,6 +99,28 @@ public class ControladorUsuarios {
         }
         return lista;
     }
+    public ArrayList<UsuarioInstructor> obtenerTodosUsuariosInstructores() {
+        ArrayList<UsuarioInstructor> lista = new ArrayList();
+        MongoCursor<Document> cursor = usuarios.find().iterator();
+        
+        try {
+            while (cursor.hasNext()) {
+              Document otro = (Document) cursor.next();
+              String tipoUser = otro.getString("tipo"); 
+              if(tipoUser.equals("Instructor")){
+                String json =  otro.toJson();
+                UsuarioInstructor u = new Gson().fromJson(json, UsuarioInstructor.class);
+                lista.add(u);
+              }
+            }
+        }catch(Exception e){
+             System.out.println("ERROR al obtener todos los usuarios instructores:   " + e.getMessage());
+        } finally {
+          cursor.close();
+        }
+        return lista;
+    }
+    
     
     public boolean crearUsuarioInstructor(UsuarioInstructor u) {
         
@@ -171,5 +199,13 @@ public class ControladorUsuarios {
             System.out.println("ERROR en login  " + e.getMessage());
         }
        return quizzesDisponibles;
+    }
+      public Usuario obtenerUsuarioAlumno(String key, String valor) {
+        Document findDocument = new Document(key, valor);
+        FindIterable<Document> resultDocument = usuarios.find(findDocument);
+        String json =  resultDocument.first().toJson();
+        System.out.println(json);
+        Usuario user = new Gson().fromJson(json, UsuarioAlumno.class);
+        return user;
     }
 }

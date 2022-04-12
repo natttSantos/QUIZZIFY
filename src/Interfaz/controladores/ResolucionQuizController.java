@@ -133,7 +133,7 @@ public class ResolucionQuizController implements Initializable {
     public void cargarPreguntasEnQuiz(){
         fraccionNumeroPreguntas();
         final Gson gson = new Gson();
-	String representacionJSON_pregunta = gson.toJson(preguntas.get(indexPregunta)); // "{\"id\":46,\"nombre\":\"Miguel\",\"empresa\":\"Autentia\"}";
+	String representacionJSON_pregunta = gson.toJson(preguntas.get(indexPregunta)); 
         PreguntaAbstracta preg = new Gson().fromJson(representacionJSON_pregunta, PreguntaSeleccionMultiple.class);
 
         String enunciadoPregunta = preg.getText();

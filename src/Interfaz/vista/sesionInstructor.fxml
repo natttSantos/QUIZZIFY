@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.SesionInstructorController">
+<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.SesionInstructorController">
    <children>
       <ImageView fitHeight="825.0" fitWidth="1233.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -42,12 +42,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="295.0" layoutY="315.0" minWidth="56.0" text="Quiz">
+      <Label layoutX="298.0" layoutY="329.0" minWidth="56.0" text="Quiz">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="556.0" layoutY="315.0" text="Quiz aleatorio">
+      <Label layoutX="556.0" layoutY="329.0" text="Quiz aleatorio">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -115,12 +115,50 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
                <children>
-                  <Button fx:id="buttonPreguntaMultiple" mnemonicParsing="false" onAction="#PreguntaMultipleClicked" text="Múltiple" />
-                  <Button fx:id="buttonPreguntaVF" mnemonicParsing="false" onAction="#PreguntaVFClicked" text="Verdadero/Falso" />
-                  <Button fx:id="buttonPreguntaAbierta" mnemonicParsing="false" onAction="#PreguntaAbiertaClicked" text="Abierta" />
+                  <Button fx:id="buttonPreguntaMultiple" layoutX="273.0" layoutY="220.0" mnemonicParsing="false" onAction="#PreguntaMultipleClicked" prefHeight="102.0" prefWidth="107.0" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
+                     <graphic>
+                        <ImageView fitHeight="86.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/MULTIPLE.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="buttonPreguntaVF" mnemonicParsing="false" onAction="#PreguntaVFClicked" prefHeight="100.0" prefWidth="121.0" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
+                     <graphic>
+                        <ImageView fitHeight="86.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/VERDADERO.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="buttonPreguntaAbierta" mnemonicParsing="false" onAction="#PreguntaAbiertaClicked" prefHeight="102.0" prefWidth="125.0" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
+                     <graphic>
+                        <ImageView fitHeight="86.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/ABIERTA.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </HBox>
          </children>
       </VBox>
+      <Label layoutX="326.0" layoutY="593.0" minWidth="56.0" text="Múltiple">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="524.0" layoutY="593.0" minWidth="56.0" text="Verdadero/Falso">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="785.0" layoutY="593.0" minWidth="56.0" text="Abierta">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

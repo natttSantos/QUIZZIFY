@@ -12,6 +12,7 @@ import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.RespuestaSeleccion;
+import LogicaNegocio.modelo.Usuario;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.controladores.ControladorCursos;
@@ -105,6 +106,14 @@ public class Conexion {
 
     }
  
-    
+    public ArrayList<UsuarioAlumno> obtenerTodosUsuariosAlumno() {
+        return cu.obtenerTodosUsuariosAlumno();
+    }
+    public ArrayList<UsuarioInstructor> obtenerTodosUsuariosInstructores() {
+        return cu.obtenerTodosUsuariosInstructores();
+    }
+    public Usuario obtenerUsuarioAlumno(String key, String valor){
+       return cu.obtenerUsuarioAlumno(key, valor);
+    }
      
 }
