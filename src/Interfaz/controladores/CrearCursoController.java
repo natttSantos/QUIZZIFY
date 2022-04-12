@@ -47,6 +47,7 @@ public class CrearCursoController implements Initializable {
     Conexion c = Conexion.obtenerConexion();
     @FXML
     private TextField nombreCurso;
+    
    
     
     @Override
@@ -74,20 +75,10 @@ public class CrearCursoController implements Initializable {
 
     @FXML
     private void pulsarCrearCurso(ActionEvent event) {
-         ObservableList <String> listaEstudiantes_EnCurso = listaEstudiantes.getItems(); 
-         ArrayList<Usuario> estudiantesEnCurso = new ArrayList();
-       
-        int i = 0;
-        for (String email: listaEstudiantes_EnCurso){
-            
-            
-            Usuario user = c.obtenerUsuarioAlumno("email", email); 
-            estudiantesEnCurso.set(i, user); 
-            i++; 
-//             final Gson gson = new Gson();
-//            String representacionJSON_pregunta = gson.toJson(preguntas.get(indexPregunta)); 
-//            PreguntaAbstracta preg = new Gson().fromJson(representacionJSON_pregunta, PreguntaSeleccionMultiple.class);          
-        }
+        ArrayList <Usuario> estudiantesEnCurso = cargarUsuariosEnCurso(); 
+        String nombre = nombreCurso.getText(); 
+        //instructorUser
+       //Cuando creo quiz se debe seleccionar el curso donde se almacenará el quiz
     }
 
     @FXML
@@ -112,6 +103,24 @@ public class CrearCursoController implements Initializable {
             menuEstudiantes.getItems().add(menuItem);
             menuItem.setOnAction(event);
         }
+    }
+    public ArrayList<Usuario> cargarUsuariosEnCurso(){
+         ObservableList <String> listaEmails_EnCurso = listaEstudiantes.getItems(); 
+         ArrayList<Usuario> estudiantesEnCurso = new ArrayList(); 
+         final Gson gson = new Gson();
+       
+        int i = 0;
+        for (String email: listaEmails_EnCurso){ 
+            Usuario user = c.obtenerUsuarioAlumno("email", email); 
+            estudiantesEnCurso.add(user); 
+            i++; 
+       }
+//        for (int j = 0; j < estudiantesEnCurso.size(); j++){
+//            String representacionJSON_usuario = gson.toJson(estudiantesEnCurso.get(j)); 
+//            Usuario user = new Gson().fromJson(representacionJSON_usuario, UsuarioAlumno.class);    
+//        } 
+        return estudiantesEnCurso; 
+    
     }
 
     

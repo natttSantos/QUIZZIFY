@@ -133,15 +133,14 @@ public class SesionInstructorController implements Initializable {
         Parent root = loader.load();
         GenerarQuizNoAleatorioController controlador = loader.getController();
         controlador.setUsuario(i);
-        Scene scene = new Scene(root, 400, 600);
+        Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setMinWidth(600);
-        stage.setMinHeight(400);
         stage.setTitle("Crear un quiz");
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
     @FXML
@@ -158,7 +157,7 @@ public class SesionInstructorController implements Initializable {
 
     @FXML
     private void pulsarCursos(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/Curso.fxml"));
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/Cursos.fxml"));
         Parent root = miCargador.load();
         CursosController cursos = miCargador.getController();
         cursos.setInstructorUser(i);
@@ -171,7 +170,6 @@ public class SesionInstructorController implements Initializable {
         stage.setTitle("Mis cursos");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
-        ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
     @FXML

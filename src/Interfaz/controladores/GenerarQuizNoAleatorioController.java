@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -35,8 +36,6 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     @FXML
     private Button aceptarButton;
     @FXML
-    private Button anularButton;     
-    @FXML
     private ListView<String> listView;
     
     private Conexion con;
@@ -45,9 +44,10 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     @FXML
     private Button añadirAExamenButton1;
     
-    private UsuarioInstructor instructor;
+//    @FXML
+//    private Label instructor;
     
-    
+    private UsuarioInstructor instructor; 
     private ArrayList<PreguntaSeleccionMultiple> preguntas;
 
     
@@ -132,7 +132,6 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         return preguntas;
     }
 
-    @FXML
     private void anularButtonClickedTest(ActionEvent event) {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
@@ -168,5 +167,18 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         dialogoAlerta.setContentText(text);
         java.awt.Toolkit.getDefaultToolkit().beep();
         dialogoAlerta.showAndWait(); 
+    }
+
+    @FXML
+    private void pulsarAtras(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
+        Parent root =(Parent) loader.load();      
+        SesionInstructorController sesionInstructor = loader.<SesionInstructorController>getController();
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
 }

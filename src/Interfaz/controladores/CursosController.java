@@ -63,6 +63,7 @@ public class CursosController implements Initializable {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearCurso.fxml"));
         Parent root = miCargador.load();
         CrearCursoController cursos = miCargador.getController();
+        cursos.setInstructorUser(instructorUser);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
