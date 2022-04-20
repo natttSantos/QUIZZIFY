@@ -4,8 +4,10 @@
  */
 package Interfaz.controladores;
 
+import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,6 +26,9 @@ import javafx.scene.input.MouseEvent;
 import javax.swing.JOptionPane;
 import org.bson.Document;
 import static java.util.Arrays.asList;
+import javafx.event.EventHandler;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 
 /**
  * FXML Controller class
@@ -51,7 +56,11 @@ public class DatosCrearAleatorioController implements Initializable {
     private int numero;
     private boolean anulado, temaConcreto;
     private ArrayList<PreguntaSeleccionMultiple> listaPreguntas;
-    private Conexion conexion;
+    private Conexion con;
+    @FXML
+    private MenuButton menuCurso;
+    
+    private UsuarioInstructor instructorConectado; 
 
 
     /**
@@ -59,6 +68,7 @@ public class DatosCrearAleatorioController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        con = Conexion.obtenerConexion();
         anulado = true; // si usuario cierra ventana con "X" accion es anulada por defecto
     }    
 
@@ -134,7 +144,7 @@ public class DatosCrearAleatorioController implements Initializable {
                 .append("respuestas", asList(pregunta.getRespuestas()));
                 preguntas[i] = d;
         }
-        conexion.insertarQuiz(nombre, preguntas);
+        con.insertarQuiz(nombre, obtenerCursoSelected(), preguntas);
     }
     
     public boolean getAnulado() {
@@ -157,6 +167,35 @@ public class DatosCrearAleatorioController implements Initializable {
         listaPreguntas = lista;
     }
     public void setConexion(Conexion con) {
-        conexion = con;
+        con = con;
     }
+    
+    public void addCursosToMenu(){
+        
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                menuCurso.setText(((MenuItem)e.getSource()).getText()); 
+            }
+        };
+        
+        ArrayList <Curso> cursosInstructor = con.obtenerCursosDeInstructor(instructorConectado); 
+        for(int i = 0; i < cursosInstructor.size() && cursosInstructor.size() > 0; i++){
+           Curso curso = cursosInstructor.get(i); 
+           MenuItem menuItem = new MenuItem(curso.getNombreCurso());
+           menuCurso.getItems().add(menuItem); 
+           menuItem.setOnAction(event);
+       }
+    }
+    
+    public Document obtenerCursoSelected(){
+        String nombreCurso = menuCurso.getText(); 
+        Curso curso = con.obtenerCurso("nombreCurso", nombreCurso); 
+        Document dcurso = curso.obtenerDocument(); 
+        return dcurso; 
+    }
+    public void setUsuario(UsuarioInstructor i){
+        this.instructorConectado = i;
+    }
+    
 }

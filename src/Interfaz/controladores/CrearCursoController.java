@@ -39,8 +39,7 @@ import org.bson.Document;
 
 public class CrearCursoController implements Initializable {
     private UsuarioInstructor instructorUser; 
-    @FXML
-    private Label instructor;
+    
     @FXML
     private MenuButton menuEstudiantes;
     @FXML
@@ -78,8 +77,11 @@ public class CrearCursoController implements Initializable {
     @FXML
     private void pulsarCrearCurso(ActionEvent event) {
         String nombre = nombreCurso.getText(); 
-        Document[] estudiantesEnCurso = cargarUsuariosEnCurso(); 
-        c.crearCursosSinQuiz(nombre, estudiantesEnCurso, c.crearUsuarioInstructor(instructorUser)); 
+        ArrayList estudiantesEnCurso = cargarUsuariosEnCurso(); 
+        Curso curso = new Curso(nombre, estudiantesEnCurso, instructorUser);
+        c.insertarCurso(curso);
+        
+        
     }
 
     @FXML
@@ -105,9 +107,9 @@ public class CrearCursoController implements Initializable {
             menuItem.setOnAction(event);
         }
     }
-    public Document[] cargarUsuariosEnCurso(){
+    public ArrayList cargarUsuariosEnCurso(){
          ObservableList <String> listaEmails_EnCurso = listaEstudiantes.getItems(); 
-         ArrayList<UsuarioAlumno> estudiantesEnCurso = new ArrayList(); 
+         ArrayList estudiantesEnCurso = new ArrayList(); 
        
         int i = 0;
         for (String email: listaEmails_EnCurso){ 
@@ -115,23 +117,6 @@ public class CrearCursoController implements Initializable {
             estudiantesEnCurso.add(user); 
             i++; 
        }
-        Document [] estudiantes = crearDocumentCon_estudiantes(estudiantesEnCurso); 
-        return estudiantes; 
-    
+        return estudiantesEnCurso; 
     }
-    public Document[] crearDocumentCon_estudiantes (ArrayList<UsuarioAlumno> estudiantesEnCurso ){
-        Document[] estudiantes = new Document[estudiantesEnCurso.size()];
-        int i = 0; 
-        for(UsuarioAlumno u: estudiantesEnCurso){
-            Document d = c.crearUsuarioAlumno(u); 
-            estudiantes[i] = d; 
-            i++;    
-    }
-        return estudiantes; 
-    }
-
-    
-   
-   
-    
 }

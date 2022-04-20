@@ -1,5 +1,6 @@
 package Interfaz.controladores;
 
+import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.UsuarioInstructor;
@@ -20,6 +21,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -51,6 +54,10 @@ public class SesionInstructorController implements Initializable {
     private Button buttonPreguntaVF;
     @FXML
     private Button buttonPreguntaAbierta;
+    @FXML
+    private MenuItem misCursos;
+    @FXML
+    private MenuBar myMenuBar;
     /**
      * Initializes the controller class.
      */
@@ -98,13 +105,16 @@ public class SesionInstructorController implements Initializable {
         Parent root = miCargador.load();
         
         DatosCrearAleatorioController controlador = miCargador.getController();
-        
+       
+        controlador.setUsuario(i);
         controlador.setListaPreguntas(listaPreguntas);
+        controlador.addCursosToMenu();
         controlador.setConexion(conexion);
                 
         Scene scene = new Scene(root, 400, 600);
         Stage stage = new Stage();
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.setTitle("Crear un quiz aleatorio");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();  
@@ -121,6 +131,7 @@ public class SesionInstructorController implements Initializable {
         stage.setResizable(false);
         stage.setMinWidth(600);
         stage.setMinHeight(400);
+        stage.setResizable(false);
         stage.setTitle("Crear un quiz aleatorio");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
@@ -133,6 +144,7 @@ public class SesionInstructorController implements Initializable {
         Parent root = loader.load();
         GenerarQuizNoAleatorioController controlador = loader.getController();
         controlador.setUsuario(i);
+        controlador.addCursosToMenu();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -157,19 +169,23 @@ public class SesionInstructorController implements Initializable {
 
     @FXML
     private void pulsarCursos(ActionEvent event) throws IOException {
+        ArrayList<Curso> listCursos = conexion.obtenerTodosLosCursos();
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/Cursos.fxml"));
         Parent root = miCargador.load();
         CursosController cursos = miCargador.getController();
-        cursos.setInstructorUser(i);
+        
+        cursos.setListaCursos(listCursos);
+        cursos.setInstructorConectado(i);
+        cursos.cargarCursosDeInstructor();
+
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setMinWidth(600);
-        stage.setMinHeight(400);
         stage.setTitle("Mis cursos");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
+        
     }
 
     @FXML

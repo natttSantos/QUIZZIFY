@@ -1,8 +1,13 @@
 package Interfaz.controladores;
+
+
+import Interfaz.controladores.CrearPreguntaController;
+import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.QuizSeleccionMultiple;
+import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
@@ -12,6 +17,7 @@ import static java.util.Arrays.asList;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -45,7 +52,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     @FXML
     private Button añadirAExamenButton1;
     
-    private UsuarioInstructor instructor; 
+    private UsuarioInstructor instructorConectado; 
     private ArrayList<PreguntaSeleccionMultiple> preguntas;
     @FXML
     private MenuButton menuCurso;
@@ -60,7 +67,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
 
 
     public void setUsuario(UsuarioInstructor i){
-        this.instructor = i;
+        this.instructorConectado = i;
     }
     
     @FXML
@@ -100,7 +107,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         try {
             if(!nombreTextField.getText().equals("")) {
                 //QuizAbstracto q = new QuizSeleccionMultiple(nombreTextField.getText(),preguntas);
-                con.insertarQuiz(nombreTextField.getText(), preguntas);
+                con.insertarQuiz(nombreTextField.getText(), obtenerCursoSelected(),preguntas);
                 enviarAlerta("Creado","Quizz creado correctamente!");
                 //System.out.println(con.reducirCantQuizzesDisponibles(instructor.getEmail()));
             ((Node) event.getSource()).getScene().getWindow().hide();
@@ -174,6 +181,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
         Parent root =(Parent) loader.load();      
         SesionInstructorController sesionInstructor = loader.<SesionInstructorController>getController();
+        sesionInstructor.setUsuario(instructorConectado);
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -182,4 +190,28 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
     
+    public void addCursosToMenu(){
+        
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                menuCurso.setText(((MenuItem)e.getSource()).getText()); 
+            }
+        };
+        
+        ArrayList <Curso> cursosInstructor = con.obtenerCursosDeInstructor(instructorConectado); 
+        for(int i = 0; i < cursosInstructor.size() && cursosInstructor.size() > 0; i++){
+           Curso curso = cursosInstructor.get(i); 
+           MenuItem menuItem = new MenuItem(curso.getNombreCurso());
+           menuCurso.getItems().add(menuItem); 
+           menuItem.setOnAction(event);
+       }
+    }
+    
+    public Document obtenerCursoSelected(){
+        String nombreCurso = menuCurso.getText(); 
+        Curso curso = con.obtenerCurso("nombreCurso", nombreCurso); 
+        Document dcurso = curso.obtenerDocument(); 
+        return dcurso; 
+    }
 }

@@ -27,9 +27,10 @@ public class ControladorQuizzes {
     }
     
     
-    public void insertarQuiz(String nombre, Document [] preguntas) {
+    public void insertarQuiz(String nombre, Document curso, Document [] preguntas) {
         Document quiz = new Document();
         quiz.append("nombre", nombre)
+            .append ("curso", curso)
             .append("preguntas", asList(preguntas));
         
         quizzes.insertOne(quiz);

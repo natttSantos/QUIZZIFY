@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -75,11 +74,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <MenuButton fx:id="menuCurso" layoutX="125.0" layoutY="278.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="176.0">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
-      </MenuButton>
+      <MenuButton fx:id="menuCurso" layoutX="125.0" layoutY="278.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="176.0" />
    </children>
 </AnchorPane>

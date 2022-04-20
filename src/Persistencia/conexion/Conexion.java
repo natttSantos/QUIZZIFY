@@ -91,8 +91,8 @@ public class Conexion {
         return cp.obtenerTodasPreguntas();
     }
     
-    public void insertarQuiz(String text, Document [] preguntas){
-        cq.insertarQuiz(text, preguntas);
+    public void insertarQuiz(String text, Document curso, Document [] preguntas){
+        cq.insertarQuiz(text, curso, preguntas);
     }
     
     public QuizAbstracto obtenerQuiz(String key, String valor){
@@ -116,12 +116,25 @@ public class Conexion {
     public UsuarioAlumno obtenerUsuarioAlumno(String key, String valor){
        return cu.obtenerUsuarioAlumno(key, valor);
     }
-     public boolean crearCurso(Curso c) { 
-        return cc.crearCurso(c);
+
+//    public boolean crearCurso(String nombre, Document[] estudiantes, Document instructor) {
+//         return cc.crearCurso(nombre, estudiantes, instructor);
+//    }
+    public void insertarCurso(Curso c) {
+        cc.insertarCurso(c);
     }
-    public boolean crearCursosSinQuiz(String nombre, Document[] estudiantes, Document instructor) {
-         return cc.crearCursosSinQuiz(nombre, estudiantes, instructor);
+    public ArrayList<Curso> obtenerTodosLosCursos() {
+        return cc.obtenerTodosLosCursos();
     }
-     
+    public ArrayList<Curso> obtenerCursosDeInstructor(UsuarioInstructor user) {
+        return cc.obtenerCursosDeInstructor(user);
+    }
+    public Curso obtenerCurso(String key, String valor){
+       return cc.obtenerCurso(key, valor);
+    }
+    
+    public void crearCursos(String nombre, Document[] estudiantesEnCurso, Document crearUsuarioInstructor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

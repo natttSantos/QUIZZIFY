@@ -6,9 +6,18 @@
 package Persistencia.controladores;
 
 import LogicaNegocio.modelo.Curso;
+import LogicaNegocio.modelo.OpcionRespuestaSeleccion;
+import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.QuizSeleccionMultiple;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
+import com.google.gson.Gson;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import org.bson.Document;
 
@@ -23,31 +32,48 @@ public class ControladorCursos {
     public ControladorCursos(MongoCollection collection){
        cursos = collection;
     }
-    public boolean crearCurso(Curso c) {
-        try{
-          Document d = new Document("nombre",c.getNombreCurso());
-          d.append("alumnos", c.getAlumnosEnCurso());
-          d.append("instructor", c.getInstructorEnCurso());
-          d.append("quizzes", c.getQuizzesEnCurso()); 
-          cursos.insertOne(d);  
-          return true; 
-           }catch(Exception e) {
-            System.out.println("ERROR al crear curso:  " + e.getMessage());
-            return false;
-        }
+    public void insertarCurso (Curso curso) {
+        Document toInsert = curso.obtenerDocument();
+        cursos.insertOne(toInsert);
     }
-    public boolean crearCursosSinQuiz(String nombre, Document[] estudiantes, Document instructor) {
-        try{
-          Document d = new Document(); 
-          d.append("nombre",nombre);
-          d.append("alumnos", asList(estudiantes));
-          d.append("instructor", instructor);
-          cursos.insertOne(d);  
-          return true; 
-           }catch(Exception e) {
-            System.out.println("ERROR al crear curso:  " + e.getMessage());
-            return false;
+
+    public ArrayList<Curso> obtenerTodosLosCursos() {
+        ArrayList<Curso> lista = new ArrayList();
+        MongoCursor<Document> cursor = cursos.find().iterator();
+        
+        try {
+            while (cursor.hasNext()) {
+              Document otro = (Document) cursor.next();
+              String json =  otro.toJson();
+              Curso c = new Gson().fromJson(json, Curso.class);
+              lista.add(c);
+            }
+        }catch(Exception e){
+             System.out.println("ERROR al obtener todas los cursos:   " + e.getMessage());
+        } finally {
+          cursor.close();
         }
+        return lista;
     }
     
+    public ArrayList <Curso> obtenerCursosDeInstructor(UsuarioInstructor instructorConectado){
+       ArrayList <Curso> listCursos = obtenerTodosLosCursos(); 
+       ArrayList <Curso> cursosInstructor = new ArrayList<>(); 
+       for(Curso curso: listCursos){
+           UsuarioInstructor instructorCurso = curso.getInstructorEnCurso(); 
+           if(instructorConectado.getEmail().equals(instructorCurso.getEmail())){
+               cursosInstructor.add(curso); 
+           }
+       }
+       return cursosInstructor; 
+    }
+    
+    public Curso obtenerCurso(String key, String valor) {
+        Document findDocument = new Document(key, valor);
+        FindIterable<Document> resultDocument = cursos.find(findDocument);
+        String json =  resultDocument.first().toJson();
+        System.out.println(json);
+        Curso curso = new Gson().fromJson(json, Curso.class);
+        return curso;
+    }
 }

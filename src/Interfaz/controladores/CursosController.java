@@ -1,8 +1,10 @@
 package Interfaz.controladores;
 
 import LogicaNegocio.modelo.Curso;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
+import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ import javafx.stage.Stage;
 
 
 public class CursosController implements Initializable {
-    private UsuarioInstructor instructorUser; 
+    private UsuarioInstructor instructorConectado; 
     private Curso curso; 
     @FXML
     private Label instructor;
@@ -31,22 +33,24 @@ public class CursosController implements Initializable {
     private ListView<String> listaCursos;
     @FXML
     private Label sinCursos;
+    private ArrayList<Curso> listCursos = new ArrayList<Curso>(); 
     
-    Conexion c = Conexion.obtenerConexion();
+    private Conexion con; 
+
     
    
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-       
+    public void initialize(URL url, ResourceBundle rb) { 
+        con = Conexion.obtenerConexion();
     }  
 
-    public void setInstructorUser(UsuarioInstructor instructorUser) {
-        this.instructorUser = instructorUser;
+    public void setInstructorConectado(UsuarioInstructor instructorConectado) {
+        this.instructorConectado = instructorConectado;
     }
 
     @FXML
-    private void pulsarAtras(ActionEvent event) throws IOException {
+    private void pulsarAtras(ActionEvent event) throws IOException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
         Parent root =(Parent) loader.load();      
         SesionInstructorController sesionInstructor = loader.<SesionInstructorController>getController();
@@ -54,8 +58,8 @@ public class CursosController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); 
-        ((Node) event.getSource()).getScene().getWindow().hide();
         stage.show();  
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
     @FXML
@@ -63,14 +67,11 @@ public class CursosController implements Initializable {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearCurso.fxml"));
         Parent root = miCargador.load();
         CrearCursoController cursos = miCargador.getController();
-        cursos.setInstructorUser(instructorUser);
+        cursos.setInstructorUser(instructorConectado);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setMinWidth(600);
-        stage.setMinHeight(400);
-        stage.setTitle("Mis cursos");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
@@ -80,9 +81,17 @@ public class CursosController implements Initializable {
     private void pulsarAbrirCurso(ActionEvent event) {
     }
 
+    public void cargarCursosDeInstructor(){
+       ArrayList <Curso> cursosInstructor = con.obtenerCursosDeInstructor(instructorConectado); 
+       for(int i = 0; i < cursosInstructor.size() && cursosInstructor.size() > 0; i++){
+           Curso curso = cursosInstructor.get(i); 
+           sinCursos.setVisible(false);
+           listaCursos.getItems().add(curso.getNombreCurso());
+       }
+    }
 
-    
-   
-   
-    
+    public void setListaCursos(ArrayList<Curso> listCursos) {
+        this.listCursos = listCursos;
+    }
+
 }
