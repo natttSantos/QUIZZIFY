@@ -94,4 +94,15 @@ public class CursosController implements Initializable {
         this.listCursos = listCursos;
     }
 
+    @FXML
+    private void pulsarClonarCurso(ActionEvent event) {
+        String nombreCurso = listaCursos.getSelectionModel().getSelectedItem();
+        if(nombreCurso != null) {
+            Curso curso =con.obtenerCurso("nombreCurso", nombreCurso);
+            Curso aux = curso;
+            aux.setNombreCurso("Copia de " + curso.getNombreCurso());
+            con.insertarCurso(aux);
+        }
+    }
+
 }
