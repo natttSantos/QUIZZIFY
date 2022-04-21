@@ -7,8 +7,10 @@ package Interfaz.controladores;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
+import LogicaNegocio.modelo.NotaQuizz;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,6 +57,8 @@ public class RegistroController implements Initializable {
     private Conexion con;
     
     private UsuarioInstructor instructor;
+    
+    private ArrayList<NotaQuizz> notas;
 
     /**
      * Initializes the controller class.
@@ -85,7 +89,7 @@ public class RegistroController implements Initializable {
     private void pulsarRegistrar(ActionEvent event) throws IOException { 
         if(comprobarCredenciales()){
             if(tipoUsuario.equals("Estudiante")){
-                UsuarioAlumno student = new UsuarioAlumno(nombre.getText(), apellidos.getText(), email.getText(), password.getText()); 
+                UsuarioAlumno student = new UsuarioAlumno(nombre.getText(), apellidos.getText(), email.getText(), password.getText(), notas ); 
                 con.crearUsuarioAlumno(student);  
                 navegar_SesionEstudiante(event);
             } else{

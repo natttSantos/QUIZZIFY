@@ -1,5 +1,6 @@
 package Persistencia.controladores;
 
+import LogicaNegocio.modelo.NotaQuizz;
 import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.QuizSeleccionMultiple;
 import LogicaNegocio.modelo.Usuario;
@@ -25,12 +26,24 @@ public class ControladorUsuarios {
 
     public Document crearUsuarioAlumno(UsuarioAlumno u) {
         Document d = new Document(); 
+        ArrayList<NotaQuizz> aux = u.getNotas();
+        Document [] notas = new Document[u.getNotas().size()];
+        int i = 0;
+        
+        for (NotaQuizz nota:aux){
+            Document daux = new Document();
+            daux.append("quizz", nota.getQuizz())
+                    .append("nota", nota.getNota());
+            notas[i] = daux;
+            i++;
+        }
         try {
             d.append("nombre",u.getNombre());
             d.append("apelldios", u.getApellidos());
             d.append("email", u.getEmail());
             d.append("contraseña", u.getContraseña());
             d.append("tipo", "Alumno");
+            d.append("notas", notas);
             
             usuarios.insertOne(d);
       
