@@ -4,6 +4,7 @@
  */
 package Persistencia.controladores;
 
+import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -62,4 +63,14 @@ public class ControladorQuizzes {
         return quiz;
     }
     
+    public ArrayList<QuizAbstracto> obtenerQuizzesDeCurso(Curso curso){
+        ArrayList<QuizAbstracto> quizzes = obtenerTodosLosQuizzes();
+        ArrayList<QuizAbstracto> lista = new ArrayList();
+        for (QuizAbstracto quiz:quizzes) {
+            if (quiz.getCurso().equals(curso)) {
+                lista.add(quiz);
+            }
+        }
+        return lista;
+    }
 }

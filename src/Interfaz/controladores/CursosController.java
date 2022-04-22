@@ -78,7 +78,23 @@ public class CursosController implements Initializable {
     }
 
     @FXML
-    private void pulsarAbrirCurso(ActionEvent event) {
+    private void pulsarAbrirCurso(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/GestionQuizzes.fxml"));
+        Parent root = miCargador.load();
+        GestionQuizzesController  quizzes= miCargador.getController();
+        quizzes.setIntructorConectado(instructorConectado);
+        String nombreCurso = listaCursos.getSelectionModel().getSelectedItem();
+        if (nombreCurso != null) {
+            Curso curso = con.obtenerCurso("nombreCurso", nombreCurso);
+            quizzes.setCursoSeleccionado(curso);
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            ((Node) event.getSource()).getScene().getWindow().hide();
+        }
     }
 
     public void cargarCursosDeInstructor(){

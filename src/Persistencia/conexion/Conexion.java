@@ -132,7 +132,9 @@ public class Conexion {
     public Curso obtenerCurso(String key, String valor){
        return cc.obtenerCurso(key, valor);
     }
-    
+    public ArrayList<QuizAbstracto> obtenerQuizzesDeCurso(Curso curso){
+        return cq.obtenerQuizzesDeCurso(curso);
+    }
     public void crearCursos(String nombre, Document[] estudiantesEnCurso, Document crearUsuarioInstructor) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
