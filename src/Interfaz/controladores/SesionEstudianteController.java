@@ -1,7 +1,9 @@
 package Interfaz.controladores;
 
+import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.UsuarioAlumno;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
 import java.net.URL;
@@ -39,6 +41,7 @@ public class SesionEstudianteController implements Initializable {
     private Conexion con;
     @FXML
     private Button realizarQuizBoton;
+    private UsuarioAlumno estudianteConectado; 
 
 
     /**
@@ -46,20 +49,7 @@ public class SesionEstudianteController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    con = Conexion.obtenerConexion();    
-    if(con.obtenerTodosQuizzes().isEmpty()){
-        imagenReloj.setVisible(true);
-        textoEspera.setVisible(true);
-        listaQuizes.setVisible(false);
-    }
-    else{
-        cargarLista();
-        imagenReloj.setVisible(false);
-        textoEspera.setVisible(false);
-        listaQuizes.setVisible(true);
-        listaQuizes.setDisable(false);
-    
-        }    
+    con = Conexion.obtenerConexion();      
     }    
     
     public void setUsuario(String usuario){
@@ -79,10 +69,22 @@ public class SesionEstudianteController implements Initializable {
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
-     public void cargarLista(){
-        ArrayList<QuizAbstracto> quizzes = con.obtenerTodosQuizzes();
-        for (QuizAbstracto quiz:quizzes ){
-            listaQuizes.getItems().add(quiz.getNombre());
+     public void cargarListaCursos(){
+        ArrayList<Curso> cursosEstudiante = con.obtenerCursosDeEstudiante(estudianteConectado);
+        if(cursosEstudiante.isEmpty()){
+            imagenReloj.setVisible(true);
+            textoEspera.setVisible(true);
+            listaQuizes.setVisible(false);
+        }
+        else{
+            imagenReloj.setVisible(false);
+            textoEspera.setVisible(false);
+            listaQuizes.setVisible(true);
+            listaQuizes.setDisable(false);
+        }  
+ 
+        for (Curso curso: cursosEstudiante ){
+            listaQuizes.getItems().add(curso.getNombreCurso());
         }
     }
 
@@ -113,4 +115,9 @@ public class SesionEstudianteController implements Initializable {
         return preguntas;
     }
 
+    public void setEstudianteConectado(UsuarioAlumno estudianteConectado) {
+        this.estudianteConectado = estudianteConectado;
+    }
+    
+    
 }

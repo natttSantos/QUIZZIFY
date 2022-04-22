@@ -129,6 +129,9 @@ public class Conexion {
     public ArrayList<Curso> obtenerCursosDeInstructor(UsuarioInstructor user) {
         return cc.obtenerCursosDeInstructor(user);
     }
+    public ArrayList<Curso> obtenerCursosDeEstudiante(UsuarioAlumno user) {
+        return cc.obtenerCursosDeEstudiante(user);
+    }
     public Curso obtenerCurso(String key, String valor){
        return cc.obtenerCurso(key, valor);
     }

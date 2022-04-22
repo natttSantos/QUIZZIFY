@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -46,6 +47,9 @@
                </items>
             </Menu>
         </menus>
+         <effect>
+            <Blend opacity="0.0" />
+         </effect>
       </MenuBar>
       <Label fx:id="instructor" layoutX="1104.0" layoutY="158.0" textFill="WHITE">
          <font>
@@ -63,7 +67,7 @@
       </Button>
       <Label fx:id="textoEspera" layoutX="447.0" layoutY="443.0" text="Espere a que el instructor lance el quiz">
          <font>
-            <Font name="System Bold" size="22.0" />
+            <Font name="System Italic" size="22.0" />
          </font>
       </Label>
       <Label layoutX="569.0" layoutY="309.0" />
@@ -72,16 +76,11 @@
             <Image url="@../images/waiting.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="68.0" fitWidth="63.0" layoutX="1118.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/estudiante.png" />
-         </image>
-      </ImageView>
       <Button fx:id="realizarQuizBoton" layoutX="555.0" layoutY="643.0" mnemonicParsing="false" onAction="#entrarQuiz" prefHeight="40.0" prefWidth="125.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Continuar">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Label layoutX="491.0" layoutY="85.0" text="QUIZZES PENDIENTES">
+      <Label layoutX="471.0" layoutY="91.0" text="QUIZZES PENDIENTES">
          <font>
             <Font name="Impact" size="37.0" />
          </font>

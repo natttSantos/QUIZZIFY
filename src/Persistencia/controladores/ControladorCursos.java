@@ -68,6 +68,21 @@ public class ControladorCursos {
        return cursosInstructor; 
     }
     
+    public ArrayList <Curso> obtenerCursosDeEstudiante(UsuarioAlumno estudianteConectado){
+       ArrayList <Curso> listCursos = obtenerTodosLosCursos(); 
+       ArrayList <Curso> cursosEstudiante = new ArrayList<>(); 
+       for(Curso curso: listCursos){
+           ArrayList <UsuarioAlumno> estudiantesCurso = curso.getAlumnosEnCurso(); 
+           for(UsuarioAlumno estudianteCurso : estudiantesCurso){
+                if(estudianteConectado.getEmail().equals(estudianteCurso.getEmail())){
+                    cursosEstudiante.add(curso); 
+                }
+           
+            }
+       }
+       return cursosEstudiante; 
+    }
+    
     public Curso obtenerCurso(String key, String valor) {
         Document findDocument = new Document(key, valor);
         FindIterable<Document> resultDocument = cursos.find(findDocument);
