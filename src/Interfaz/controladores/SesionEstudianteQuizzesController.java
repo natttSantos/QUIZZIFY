@@ -24,7 +24,7 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class SesionEstudianteController implements Initializable {
+public class SesionEstudianteQuizzesController implements Initializable {
 
     private Stage stage = new Stage(); 
     private TilePane tilePane = new TilePane(); 
@@ -36,14 +36,14 @@ public class SesionEstudianteController implements Initializable {
     private Label textoEspera;
     @FXML
     private ImageView imagenReloj;
+    @FXML
+    private ListView<String> listaQuizes;
     private Conexion con;
+    @FXML
+    private Button realizarQuizBoton;
     private UsuarioAlumno estudianteConectado; 
-    @FXML
-    private Label textoSeleccionar;
-    @FXML
-    private Button botonContinuar;
-    @FXML
-    private ListView<String> listaCursos;
+    
+    private String cursoSelected; 
 
 
     /**
@@ -76,29 +76,31 @@ public class SesionEstudianteController implements Initializable {
         if(cursosEstudiante.isEmpty()){
             imagenReloj.setVisible(true);
             textoEspera.setVisible(true);
-            listaCursos.setVisible(false);
-            textoSeleccionar.setVisible(false);
-            botonContinuar.setVisible(false);
+            listaQuizes.setVisible(false);
         }
         else{
             imagenReloj.setVisible(false);
             textoEspera.setVisible(false);
-            listaCursos.setVisible(true);
-            textoSeleccionar.setVisible(true);
-            listaCursos.setDisable(false);
+            listaQuizes.setVisible(true);
+            listaQuizes.setDisable(false);
         }  
  
         for (Curso curso: cursosEstudiante ){
-            listaCursos.getItems().add(curso.getNombreCurso());
+            listaQuizes.getItems().add(curso.getNombreCurso());
         }
     }
 
-    private void entrarCurso (ActionEvent event) throws IOException {
-        String cursoSelected = listaCursos.getSelectionModel().getSelectedItem();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionEstudianteQuizzes.fxml"));
+    @FXML
+    private void entrarQuiz(ActionEvent event) throws IOException {
+        String nombrequizSeleccionado = listaQuizes.getSelectionModel().getSelectedItem();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/ResolucionQuiz.fxml"));
         Parent root =(Parent) loader.load();      
-        SesionEstudianteQuizzesController sesionQuizzes = loader.<SesionEstudianteQuizzesController>getController();
-        sesionQuizzes.setCursoSelected(cursoSelected);
+        ResolucionQuizController resolucionQuiz = loader.<ResolucionQuizController>getController();
+        resolucionQuiz.setUsuario(usuario);
+        resolucionQuiz.setNombreQuiz(nombrequizSeleccionado);
+        resolucionQuiz.setPreguntas(cargarPreguntasQuiz());
+        resolucionQuiz.setIndexPregunta(0);
+        resolucionQuiz.cargarPreguntasEnQuiz();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -108,7 +110,7 @@ public class SesionEstudianteController implements Initializable {
     }
     
     public ArrayList<PreguntaAbstracta> cargarPreguntasQuiz(){
-        String nombrequizSeleccionado = listaCursos.getSelectionModel().getSelectedItem();
+        String nombrequizSeleccionado = listaQuizes.getSelectionModel().getSelectedItem();
         QuizAbstracto quizSeleccionado = con.obtenerQuiz("nombre", nombrequizSeleccionado);
         ArrayList<PreguntaAbstracta> preguntas = quizSeleccionado.getPreguntas();
         System.out.println("PREGUNTAS " + preguntas.toString());
@@ -119,6 +121,9 @@ public class SesionEstudianteController implements Initializable {
         this.estudianteConectado = estudianteConectado;
     }
 
-
+    public void setCursoSelected(String cursoSelected) {
+        this.cursoSelected = cursoSelected;
+    }
+    
     
 }

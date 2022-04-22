@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.SesionEstudianteController">
+<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.SesionEstudianteQuizzesController">
    <children>
       <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
          <font>
@@ -23,7 +23,7 @@
             <Image url="@../images/fondo.jpg" />
          </image>
       </ImageView>
-      <ListView fx:id="listaCursos" disable="true" layoutX="320.0" layoutY="208.0" prefHeight="399.0" prefWidth="590.0" visible="false" />
+      <ListView fx:id="listaQuizes" disable="true" layoutX="320.0" layoutY="185.0" prefHeight="422.0" prefWidth="590.0" visible="false" />
       <MenuBar layoutX="-3.0" prefHeight="40.0" prefWidth="1236.0" styleClass="recordar" stylesheets="@../css/hojaEstilo.css">
         <menus>
           <Menu mnemonicParsing="false" text="Calificaciones">
@@ -65,7 +65,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="textoEspera" layoutX="447.0" layoutY="443.0" text="No ha sido registrado en ningún curso">
+      <Label fx:id="textoEspera" layoutX="447.0" layoutY="443.0" text="Espere a que el instructor lance el quiz">
          <font>
             <Font name="System Italic" size="22.0" />
          </font>
@@ -76,18 +76,13 @@
             <Image url="@../images/waiting.png" />
          </image>
       </ImageView>
-      <Button fx:id="botonContinuar" layoutX="555.0" layoutY="643.0" mnemonicParsing="false" onAction="#entrarCurso" prefHeight="40.0" prefWidth="125.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Continuar">
+      <Button fx:id="realizarQuizBoton" layoutX="555.0" layoutY="643.0" mnemonicParsing="false" onAction="#entrarQuiz" prefHeight="40.0" prefWidth="125.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Continuar">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Label layoutX="527.0" layoutY="104.0" text="MIS CURSOS">
+      <Label layoutX="471.0" layoutY="91.0" text="QUIZZES PENDIENTES">
          <font>
             <Font name="Impact" size="37.0" />
-         </font>
-      </Label>
-      <Label fx:id="textoSeleccionar" layoutX="328.0" layoutY="172.0" text="Seleccione el curso que desee abrir" textFill="#7c6c6c">
-         <font>
-            <Font name="System Italic" size="18.0" />
          </font>
       </Label>
    </children>
