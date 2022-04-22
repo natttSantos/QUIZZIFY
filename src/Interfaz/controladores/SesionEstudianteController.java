@@ -26,6 +26,7 @@ public class SesionEstudianteController implements Initializable {
 
     private Stage stage = new Stage(); 
     private TilePane tilePane = new TilePane(); 
+    private String usuario;
     
     @FXML
     private Label instructor;
@@ -60,7 +61,11 @@ public class SesionEstudianteController implements Initializable {
     
         }    
     }    
-
+    
+    public void setUsuario(String usuario){
+        this.usuario = usuario; 
+    }
+    
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/InicioSesion.fxml"));
@@ -87,6 +92,7 @@ public class SesionEstudianteController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/ResolucionQuiz.fxml"));
         Parent root =(Parent) loader.load();      
         ResolucionQuizController resolucionQuiz = loader.<ResolucionQuizController>getController();
+        resolucionQuiz.setUsuario(usuario);
         resolucionQuiz.setNombreQuiz(nombrequizSeleccionado);
         resolucionQuiz.setPreguntas(cargarPreguntasQuiz());
         resolucionQuiz.setIndexPregunta(0);

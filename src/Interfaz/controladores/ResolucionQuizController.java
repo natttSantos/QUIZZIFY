@@ -5,6 +5,7 @@ import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.RespuestaAbstracta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
+import LogicaNegocio.modelo.NotaQuizz;
 import Persistencia.conexion.Conexion;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -40,6 +41,7 @@ public class ResolucionQuizController implements Initializable {
     private int indexPregunta; 
     private int [] arrayRespuestasUsuario = new int [50]; 
     private int [] arrayRespuestasCorrectas = new int[50]; 
+    private String usuario;
     @FXML
     private Label instructor;
     @FXML
@@ -65,7 +67,11 @@ public class ResolucionQuizController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         con = Conexion.obtenerConexion();
     }    
-
+    
+    public void setUsuario(String usuario){
+        this.usuario = usuario; 
+    }
+    
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/InicioSesion.fxml"));
@@ -187,8 +193,13 @@ public class ResolucionQuizController implements Initializable {
                    nota--; 
                } 
         }
+        subirRespuestas(nota);
         notafraccion = nota + "/" + numeroTotalPreguntas; 
         mostrarAlerta(nota, notafraccion);
+    }
+    
+    public void subirRespuestas(int nota){
+        con.subirNotaQuiz(nombreQuiz, nota, usuario);
     }
     
     public void guardarRespuestasUsuario(){

@@ -137,4 +137,7 @@ public class Conexion {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public void subirNotaQuiz(String quiz, int nota, String usuario){
+        cu.subirNotaQuiz(quiz, nota, usuario);
+    }
 }

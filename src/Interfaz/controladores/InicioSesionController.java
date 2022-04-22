@@ -84,6 +84,7 @@ public class InicioSesionController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionEstudiante.fxml"));
                 root =(Parent) loader.load();
                 SesionEstudianteController inicio = loader.<SesionEstudianteController>getController(); 
+                inicio.setUsuario(usuario.getText());
              }
             Scene scene = new Scene (root);
             Stage stage = new Stage();

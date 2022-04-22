@@ -16,5 +16,7 @@ public class UsuarioAlumno extends Usuario {
         return notas;
     }
 
-    
+    public void AddNota(NotaQuizz nota){
+        this.notas.add(nota);
+    }
 }

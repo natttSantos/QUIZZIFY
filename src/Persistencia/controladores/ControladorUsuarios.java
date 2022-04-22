@@ -6,6 +6,7 @@ import LogicaNegocio.modelo.QuizSeleccionMultiple;
 import LogicaNegocio.modelo.Usuario;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
+import LogicaNegocio.modelo.NotaQuizz;
 import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -43,7 +44,7 @@ public class ControladorUsuarios {
             d.append("email", u.getEmail());
             d.append("contraseña", u.getContraseña());
             d.append("tipo", "Alumno");
-            d.append("notas", notas);
+            d.append("notas", asList(notas));
             
             usuarios.insertOne(d);
       
@@ -78,6 +79,7 @@ public class ControladorUsuarios {
             d.append("apellidos", u.getApellidos());
             d.append("email", u.getEmail());
             d.append("contraseña", u.getContraseña());
+            d.append("notas", u.getNotas());
             usuarios.updateOne(resultDocument.first(), d);
             return true;
         }catch(Exception e) {
@@ -216,4 +218,10 @@ public class ControladorUsuarios {
         UsuarioAlumno user = new Gson().fromJson(json, UsuarioAlumno.class);
         return user;
     }
+      public void subirNotaQuiz(String quiz, int nota, String usuario){
+          NotaQuizz notaObjecto = new NotaQuizz(quiz,nota);
+          UsuarioAlumno alumno = obtenerUsuarioAlumno("nombre",usuario);
+          alumno.AddNota(notaObjecto);
+          modificarUsuarioAlumno(alumno);        
+      }
 }
