@@ -39,6 +39,9 @@ public class ControladorPreguntas {
             case "vf":
                 insertPreguntaVF((PreguntaVF) preg);
                 break;
+            case "multiple":
+                insertPreguntaMultiple((PreguntaSeleccionMultiple) preg); 
+                break;
             default:
                 System.out.println("dupa");
                 
@@ -87,6 +90,11 @@ public class ControladorPreguntas {
           cursor.close();
         }
         return lista;
+    }
+
+    private void insertPreguntaMultiple(PreguntaSeleccionMultiple pregunta) {
+        Document toInsert = pregunta.obtenerDocument();
+        preguntas.insertOne(toInsert);
     }
 
 }

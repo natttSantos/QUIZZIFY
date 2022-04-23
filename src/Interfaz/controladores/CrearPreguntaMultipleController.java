@@ -5,6 +5,8 @@
  */
 package Interfaz.controladores;
 
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.Respuesta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
@@ -14,6 +16,8 @@ import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -59,12 +64,14 @@ public class CrearPreguntaMultipleController implements Initializable {
     private CheckBox r6checkBox;
     @FXML
     private TextField respuestaText;
+    @FXML
+    private ComboBox<String> dificultadComboBox;
     
     private int numeroDeRespuestas;
-    private RespuestaSeleccion respuestas;
-    protected ArrayList<String> opciones; 
-    protected ArrayList<Boolean> opcionesCorrectas; 
+    private ArrayList<Respuesta> respuestas;
     private Conexion conexion;
+    ObservableList<String> dificultadesItems = FXCollections.observableArrayList();
+    
     
     /**
      * Initializes the controller class.
@@ -73,9 +80,10 @@ public class CrearPreguntaMultipleController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         conexion = Conexion.obtenerConexion();
         
-        numeroDeRespuestas = 0;
-        addButton.setDisable(true);
-        botonCrear.setDisable(true);
+        dificultadesItems.addAll("Baja", "Media", "Alta");
+        dificultadComboBox.setItems(dificultadesItems);
+        
+        resetVentana();
         
         respuestaText.textProperty().addListener((ObservableValue<? extends String> obs, String oldValue, String newValue) -> {
             if (newValue.equals("") || numeroDeRespuestas == 6){
@@ -93,7 +101,26 @@ public class CrearPreguntaMultipleController implements Initializable {
             }
         });
         
-    }    
+    }
+
+    public void resetVentana() {
+        respuestas = new ArrayList<Respuesta>();
+        numeroDeRespuestas = 0;
+        
+        botonCrear.setDisable(true);
+        addButton.setDisable(true);
+        botonCrear.setDisable(true);
+
+        dificultadComboBox.getSelectionModel().selectFirst();
+        textoPregunta.setText("");
+        
+        CheckBox[] checkBoxes = {r1checkBox, r2checkBox, r3checkBox, r4checkBox, r5checkBox, r6checkBox};
+        for (CheckBox checkBox : checkBoxes) {
+            checkBox.setVisible(false);
+            checkBox.setText("");
+            checkBox.setSelected(false);
+        }
+    }
 
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
@@ -110,12 +137,27 @@ public class CrearPreguntaMultipleController implements Initializable {
 
     @FXML
     private void crearPregunta(ActionEvent event) {
-        // TODO
+        String texto = textoPregunta.getText();
+        String dificultad = dificultadComboBox.getValue();
+        
+        CheckBox[] checkBoxes = {r1checkBox, r2checkBox, r3checkBox, r4checkBox, r5checkBox, r6checkBox};
+
+        for (int i=0; i<numeroDeRespuestas; i++) {
+            respuestas.get(i).setEsCorrecta(checkBoxes[i].isSelected());
+        }
+        
+        PreguntaSeleccionMultiple pregunta = new PreguntaSeleccionMultiple(texto, dificultad, respuestas);
+        conexion.insertarPregunta(pregunta);
+        
+        enviarAlerta("Confirmación","Creado pregunta correctamente!");
+        resetVentana();
+        
     }
 
     @FXML
     private void addButtonClicked(ActionEvent event) {
         String text = respuestaText.getText();
+        respuestas.add(new Respuesta(text));
         respuestaText.setText("");
         numeroDeRespuestas++;
         
@@ -151,6 +193,19 @@ public class CrearPreguntaMultipleController implements Initializable {
                 addButton.setDisable(true);
                 break;
         }
+    }
+    
+    private void enviarAlerta(String header,String text) {
+        Alert dialogoAlerta;
+        if(header.equals("ERROR")){
+           dialogoAlerta = new Alert(Alert.AlertType.ERROR); 
+        }else {
+            dialogoAlerta = new Alert(Alert.AlertType.CONFIRMATION); 
+        }
+        dialogoAlerta.setTitle(null);
+        dialogoAlerta.setHeaderText(header);
+        dialogoAlerta.setContentText(text);
+        dialogoAlerta.showAndWait(); 
     }
 
     
