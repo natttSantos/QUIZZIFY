@@ -199,7 +199,7 @@ public class ResolucionQuizController implements Initializable {
     }
     
     public void subirRespuestas(int nota){
-        con.subirNotaQuiz(nombreQuiz, nota, usuario, arrayRespuestasUsuario);
+
     }
     
     public void guardarRespuestasUsuario(){

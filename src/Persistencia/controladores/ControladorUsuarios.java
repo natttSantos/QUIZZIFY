@@ -27,24 +27,13 @@ public class ControladorUsuarios {
 
     public Document crearUsuarioAlumno(UsuarioAlumno u) {
         Document d = new Document(); 
-        ArrayList<NotaQuizz> aux = u.getNotas();
-        Document [] notas = new Document[u.getNotas().size()];
-        int i = 0;
-        
-        for (NotaQuizz nota:aux){
-            Document daux = new Document();
-            daux.append("quizz", nota.getQuizz())
-                    .append("nota", nota.getNota());
-            notas[i] = daux;
-            i++;
-        }
         try {
             d.append("nombre",u.getNombre());
             d.append("apelldios", u.getApellidos());
             d.append("email", u.getEmail());
             d.append("contraseña", u.getContraseña());
             d.append("tipo", "Alumno");
-            d.append("notas", asList(notas));
+
             
             usuarios.insertOne(d);
       
@@ -79,7 +68,6 @@ public class ControladorUsuarios {
             d.append("apellidos", u.getApellidos());
             d.append("email", u.getEmail());
             d.append("contraseña", u.getContraseña());
-            d.append("notas", u.getNotas());
             usuarios.updateOne(resultDocument.first(), d);
             return true;
         }catch(Exception e) {
@@ -218,11 +206,5 @@ public class ControladorUsuarios {
         UsuarioAlumno user = new Gson().fromJson(json, UsuarioAlumno.class);
         return user;
     }
-      public void subirNotaQuiz(String quiz, int nota, String usuario, int[] respuestas){
-          NotaQuizz notaObjecto = new NotaQuizz(quiz,nota, respuestas);
-          UsuarioAlumno alumno = obtenerUsuarioAlumno("nombre",usuario);
-          alumno.AddNota(notaObjecto);
-          modificarUsuarioAlumno(alumno);        
-      }
       
 }

@@ -8,6 +8,7 @@ package Interfaz.controladores;
 import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.NotaQuizz;
 import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaRespondida;
 import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
@@ -62,11 +63,13 @@ public class GestionQuizzesController implements Initializable {
     @FXML
     private Button botonVolverAQuizzes;
     @FXML
-    private TextField textField;
-    @FXML
     private Button botonAlumnos;
     @FXML
     private Button botonRespuestas;
+    @FXML
+    private Button botonClonarQuiz;
+    @FXML
+    private TableView<PreguntaRespondida> tablaNotas;
 
     /**
      * Initializes the controller class.
@@ -110,7 +113,58 @@ public class GestionQuizzesController implements Initializable {
        }
     }
 
-    private void pulsarClonarQuiz(ActionEvent event) {
+
+    @FXML
+    private void volverAQuizzes(ActionEvent event) {
+        listaAlumnos.setVisible(false);
+        listaQuizzes.setVisible(true);
+        textTitulo.setText("QUIZZES DEL CURSO SELECCIONADO");
+        texto.setText("Seleccione el curso que quera ver las respuestas de los estudiantes");
+        botonAlumnos.setVisible(true);
+        botonVolverAQuizzes.setVisible(false);
+        botonClonarQuiz.setVisible(true);
+    }
+
+    @FXML
+    private void pulsarMostrarAlumnos(ActionEvent event) {
+        String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
+        if (nombreQuiz != null){
+            QuizAbstracto quiz = con.obtenerQuiz("nombre", nombreQuiz);
+            quizSeleccionado = quiz;
+            ArrayList<NotaQuizz> notas = con.obtenerNotasDeQuiz(quiz);
+            for (NotaQuizz nota:notas){
+                String texto = nota.getAlumno();
+                listaAlumnos.getItems().add(texto);
+            }
+            listaAlumnos.setVisible(true);
+        listaQuizzes.setVisible(false);
+        textTitulo.setText("ESTUDIANTES QUE HAN RESPONDIDO AL QUIZ SELECCIONADO");
+        texto.setText("Seleccione el estudiante que quera ver sus respuestas");
+        botonAlumnos.setVisible(false);
+        botonVolverAQuizzes.setVisible(true);
+        botonClonarQuiz.setVisible(false);
+        }
+    }
+
+    @FXML
+    private void pulsarMostrarRespuestas(ActionEvent event) {
+        String nombreAlumno = listaAlumnos.getSelectionModel().getSelectedItem();
+        if (nombreAlumno != null) {
+            tablaNotas.setVisible(true);
+            TableColumn<PreguntaRespondida, String> col = new TableColumn<>("Pregunta");
+            TableColumn<PreguntaRespondida, String> col1 = new TableColumn<>("Respuesta");
+            tablaNotas.getColumns().addAll(col,col1);
+            UsuarioAlumno alumno = con.obtenerUsuarioAlumno("nombre", nombreAlumno);
+            NotaQuizz nota = con.obtenerRespuestasDeQuizDeAlumno(alumno, quizSeleccionado);
+            ArrayList<PreguntaRespondida> respuestas = nota.getRespuestas();
+            for (PreguntaRespondida respuesta:respuestas){
+                tablaNotas.getItems().add(respuesta);
+            }
+        }
+    }
+
+    @FXML
+    private void clonarQuiz(ActionEvent event) {
         String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
         if(nombreQuiz != null) {
             QuizAbstracto quiz =con.obtenerQuiz("nombre", nombreQuiz);
@@ -130,73 +184,6 @@ public class GestionQuizzesController implements Initializable {
             }
             con.insertarQuiz(nombre, curso, preguntas);
             cargarQuizzesDelCurso();
-        }
-    }
-
-    @FXML
-    private void volverAQuizzes(ActionEvent event) {
-        listaAlumnos.setVisible(false);
-        listaQuizzes.setVisible(true);
-        textTitulo.setText("QUIZZES DEL CURSO SELECCIONADO");
-        texto.setText("Seleccione el curso que quera ver las respuestas de los estudiantes");
-        botonAlumnos.setVisible(true);
-        botonVolverAQuizzes.setVisible(false);
-        textField.setVisible(false);
-        
-    }
-
-    @FXML
-    private void pulsarMostrarAlumnos(ActionEvent event) {
-        String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
-        if (nombreQuiz != null) {
-            QuizAbstracto quiz = con.obtenerQuiz("nombre", nombreQuiz);
-            quizSeleccionado = quiz;
-            ArrayList<UsuarioAlumno> alumnosDelQuiz = new ArrayList();
-            ArrayList<UsuarioAlumno> alumnos = con.obtenerTodosUsuariosAlumno();
-            for (UsuarioAlumno alumno:alumnos){
-                ArrayList<NotaQuizz> notasAlumno = alumno.getNotas();
-                for (NotaQuizz nota:notasAlumno) {
-                   if(nota.getQuizz().equals(nombreQuiz)) {
-                       alumnosDelQuiz.add(alumno);
-                    }
-                }
-            }
-            for (int i = 0; i < alumnosDelQuiz.size() && alumnosDelQuiz.size() > 0; i++) {
-                UsuarioAlumno alumno = alumnosDelQuiz.get(i);               
-                listaAlumnos.getItems().add(alumno.getNombre());
-                
-            }
-            listaAlumnos.setVisible(true);
-            listaQuizzes.setVisible(false);
-            textTitulo.setText("ALUMNOS QUE HAN RESPONDIDO AL QUIZ");
-            texto.setText("Selecciona el alumno del que quiere ver las respuestas");
-            botonAlumnos.setVisible(false);
-            botonVolverAQuizzes.setVisible(true);
-            textField.setVisible(true);
-        }
-    }
-
-    @FXML
-    private void pulsarMostrarRespuestas(ActionEvent event) {
-        String nombreAlumno = listaAlumnos.getSelectionModel().getSelectedItem();
-        if (nombreAlumno != null){
-            UsuarioAlumno alumno = con.obtenerUsuarioAlumno("nombre", nombreAlumno);
-            ArrayList<NotaQuizz> notas = alumno.getNotas();
-            NotaQuizz respuesta;
-            for (NotaQuizz nota: notas) {
-                if (nota.getQuizz().equals(quizSeleccionado)) {
-                    respuesta = nota;
-                    int[] respuestas = respuesta.getRespuestas();
-                    String text = "";
-                    for (int i = 0; i < respuestas.length - 1; i++) {
-                        text+= "Pregunta " + i + respuestas[i];
-                    }
-                    textField.setText(text);
-                    break;
-                }
-            }
-            
-            
         }
     }
     
