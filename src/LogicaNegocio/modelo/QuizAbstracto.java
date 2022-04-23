@@ -27,6 +27,9 @@ public ArrayList getPreguntas() {
       return curso;
  }
 
+ public void setNombre(String nombre) {
+     this.nombre = nombre;
+ }
 
 public boolean añadirPregunta(PreguntaAbstracta pregunta){
     return preguntas.add(pregunta);

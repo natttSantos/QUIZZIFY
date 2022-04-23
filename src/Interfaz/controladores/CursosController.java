@@ -118,6 +118,7 @@ public class CursosController implements Initializable {
             Curso aux = curso;
             aux.setNombreCurso("Copia de " + curso.getNombreCurso());
             con.insertarCurso(aux);
+            cargarCursosDeInstructor();
         }
     }
 

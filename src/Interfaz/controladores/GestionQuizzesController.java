@@ -6,12 +6,14 @@
 package Interfaz.controladores;
 
 import LogicaNegocio.modelo.Curso;
+import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import static java.util.Arrays.asList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.bson.Document;
 
 /**
  * FXML Controller class
@@ -77,9 +80,6 @@ public class GestionQuizzesController implements Initializable {
     }
 
 
-    @FXML
-    private void pulsarClonarCurso(ActionEvent event) {
-    }
 
     @FXML
     private void pulsarCurso(ActionEvent event) {
@@ -92,5 +92,29 @@ public class GestionQuizzesController implements Initializable {
            sinQuizzes.setVisible(false);
            listaQuizzes.getItems().add(quiz.getNombre());
        }
+    }
+
+    @FXML
+    private void pulsarClonarQuiz(ActionEvent event) {
+        String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
+        if(nombreQuiz != null) {
+            QuizAbstracto quiz =con.obtenerQuiz("nombre", nombreQuiz);
+            String nombre = "Copia de " + quiz.getNombre();
+            Document curso = quiz.getCurso().obtenerDocument();
+            ArrayList<PreguntaAbstracta> lista = quiz.getPreguntas();
+            Document[] preguntas = new Document[lista.size()];
+            int i = 0;
+            for (PreguntaAbstracta pregunta:lista){
+                Document d = new Document();
+                d.append("text", pregunta.getText())
+                    .append("dificultad", pregunta.getDificultad())
+                    .append("tema", pregunta.getTema()) 
+                    .append("respuestas", asList(pregunta.getRespuestas()));
+                preguntas[i] = d;
+                i++;
+            }
+            con.insertarQuiz(nombre, curso, preguntas);
+            cargarQuizzesDelCurso();
+        }
     }
 }
