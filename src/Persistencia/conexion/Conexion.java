@@ -1,5 +1,6 @@
 package Persistencia.conexion;
 import LogicaNegocio.modelo.Curso;
+import LogicaNegocio.modelo.NotaQuizz;
 import Persistencia.controladores.ControladorUsuarios;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
@@ -17,6 +18,7 @@ import LogicaNegocio.modelo.Usuario;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.controladores.ControladorCursos;
+import Persistencia.controladores.ControladorNotasQuizzes;
 import Persistencia.controladores.ControladorQuizzes;
 import java.util.ArrayList;
 import org.bson.Document;
@@ -33,11 +35,13 @@ public class Conexion {
     ControladorUsuarios cu;
     ControladorQuizzes cq;
     ControladorCursos cc; 
+    ControladorNotasQuizzes cn;
     
     MongoCollection preguntas;
     MongoCollection usuarios;
     MongoCollection quizzes;
     MongoCollection cursos;
+    MongoCollection notas;
         
     private Conexion() {
         try {
@@ -47,6 +51,7 @@ public class Conexion {
             usuarios = db.getCollection("Usuarios");
             quizzes = db.getCollection("Quizzes");
             cursos = db.getCollection("Cursos");
+            notas = db.getCollection("Notas");
              
         }catch(MongoException e) {
             JOptionPane.showMessageDialog(null, "Error en conexión a MONGODB " + e.toString());
@@ -55,6 +60,7 @@ public class Conexion {
         cu = new ControladorUsuarios(usuarios);
         cq = new ControladorQuizzes(quizzes);
         cc = new ControladorCursos(cursos);
+        cn = new ControladorNotasQuizzes(notas);
     }
     
     public static Conexion obtenerConexion() {
@@ -136,9 +142,19 @@ public class Conexion {
         return cq.obtenerQuizzesDeCurso(curso);
     }
     
-    public void subirNotaQuiz(String quiz, int nota, String usuario, int[] respuestas){
-        cu.subirNotaQuiz(quiz, nota, usuario, respuestas);
+    public void insertarNota(NotaQuizz nota) {
+        cn.insertarNota(nota);
     }
-
     
+    public ArrayList<NotaQuizz> obtenerTodasLasNotas() {
+        return cn.obtenerTodasLasNotas();
+    }
+    
+    public ArrayList<NotaQuizz> obtenerNotasDeQuiz(QuizAbstracto quiz) {
+        return cn.obtenerNotasDeQuiz(quiz);
+    }
+    
+    public NotaQuizz obtenerRespuestasDeQuizDeAlumno (UsuarioAlumno alumno, QuizAbstracto quiz){
+        return cn.obtenerRespuestasDeQuizDeAlumno(alumno, quiz);
+    }
 }

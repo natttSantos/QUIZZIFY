@@ -50,7 +50,6 @@ public class Curso {
             d.append("email", user.getEmail()); 
             d.append("contraseña", user.getContraseña()); 
             d.append("tipo", "Alumno");
-            d.append("notas", asList(user.getNotas()));
             dUsers[i] = d; 
             i++; 
         }
