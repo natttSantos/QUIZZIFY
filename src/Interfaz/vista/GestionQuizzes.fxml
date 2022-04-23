@@ -30,7 +30,7 @@
          </graphic>
       </Button>
       <Label layoutX="569.0" layoutY="309.0" />
-      <Button fx:id="botonMostrarRespuestas" layoutX="303.0" layoutY="654.0" mnemonicParsing="false" onAction="#pulsarMostrarRespuestas" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Mostrar respuestas">
+      <Button fx:id="botonAlumnos" layoutX="303.0" layoutY="654.0" mnemonicParsing="false" onAction="#pulsarMostrarAlumnos" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Mostrar alumnos que han respondido">
          <font>
             <Font size="20.0" />
          </font>
@@ -51,13 +51,13 @@
             <Font name="System Italic" size="15.0" />
          </font>
       </Label>
-      <Button layoutX="763.0" layoutY="654.0" mnemonicParsing="false" onAction="#pulsarClonarQuiz" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Clonar quiz">
+      <Button fx:id="botonRespuestas" layoutX="303.0" layoutY="654.0" mnemonicParsing="false" onAction="#pulsarMostrarRespuestas" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Mostrar respuestas" visible="false">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
       <ListView fx:id="listaAlumnos" layoutX="278.0" layoutY="215.0" prefHeight="310.0" prefWidth="727.0" visible="false" />
-      <TextField layoutX="278.0" layoutY="560.0" prefHeight="31.0" prefWidth="727.0" />
+      <TextField fx:id="textField" layoutX="278.0" layoutY="560.0" prefHeight="31.0" prefWidth="727.0" visible="false" />
       <Button fx:id="botonVolverAQuizzes" layoutX="543.0" layoutY="654.0" mnemonicParsing="false" onAction="#volverAQuizzes" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Volver a quizzes" visible="false">
          <font>
             <Font size="20.0" />

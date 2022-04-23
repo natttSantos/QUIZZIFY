@@ -12,12 +12,14 @@ import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
+import com.sun.glass.events.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,6 +31,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.bson.Document;
@@ -43,6 +46,7 @@ public class GestionQuizzesController implements Initializable {
     private UsuarioInstructor instructorConectado;
     private Curso cursoSeleccionado;
     private Conexion con;
+    private QuizAbstracto quizSeleccionado;
     @FXML
     private Label instructor;
     @FXML
@@ -58,7 +62,11 @@ public class GestionQuizzesController implements Initializable {
     @FXML
     private Button botonVolverAQuizzes;
     @FXML
-    private Button botonMostrarRespuestas;
+    private TextField textField;
+    @FXML
+    private Button botonAlumnos;
+    @FXML
+    private Button botonRespuestas;
 
     /**
      * Initializes the controller class.
@@ -77,6 +85,7 @@ public class GestionQuizzesController implements Initializable {
     public void setCursoSeleccionado(Curso curso){
         this.cursoSeleccionado = cursoSeleccionado;
     }
+    
     
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
@@ -101,7 +110,6 @@ public class GestionQuizzesController implements Initializable {
        }
     }
 
-    @FXML
     private void pulsarClonarQuiz(ActionEvent event) {
         String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
         if(nombreQuiz != null) {
@@ -126,10 +134,23 @@ public class GestionQuizzesController implements Initializable {
     }
 
     @FXML
-    private void pulsarMostrarRespuestas(ActionEvent event) {
+    private void volverAQuizzes(ActionEvent event) {
+        listaAlumnos.setVisible(false);
+        listaQuizzes.setVisible(true);
+        textTitulo.setText("QUIZZES DEL CURSO SELECCIONADO");
+        texto.setText("Seleccione el curso que quera ver las respuestas de los estudiantes");
+        botonAlumnos.setVisible(true);
+        botonVolverAQuizzes.setVisible(false);
+        textField.setVisible(false);
+        
+    }
+
+    @FXML
+    private void pulsarMostrarAlumnos(ActionEvent event) {
         String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
         if (nombreQuiz != null) {
             QuizAbstracto quiz = con.obtenerQuiz("nombre", nombreQuiz);
+            quizSeleccionado = quiz;
             ArrayList<UsuarioAlumno> alumnosDelQuiz = new ArrayList();
             ArrayList<UsuarioAlumno> alumnos = con.obtenerTodosUsuariosAlumno();
             for (UsuarioAlumno alumno:alumnos){
@@ -149,19 +170,34 @@ public class GestionQuizzesController implements Initializable {
             listaQuizzes.setVisible(false);
             textTitulo.setText("ALUMNOS QUE HAN RESPONDIDO AL QUIZ");
             texto.setText("Selecciona el alumno del que quiere ver las respuestas");
-            botonMostrarRespuestas.setVisible(false);
+            botonAlumnos.setVisible(false);
             botonVolverAQuizzes.setVisible(true);
+            textField.setVisible(true);
         }
     }
 
     @FXML
-    private void volverAQuizzes(ActionEvent event) {
-        listaAlumnos.setVisible(false);
-        listaQuizzes.setVisible(true);
-        textTitulo.setText("QUIZZES DEL CURSO SELECCIONADO");
-        texto.setText("Seleccione el curso que quera ver las respuestas de los estudiantes");
-        botonMostrarRespuestas.setVisible(true);
-        botonVolverAQuizzes.setVisible(false);
-        
+    private void pulsarMostrarRespuestas(ActionEvent event) {
+        String nombreAlumno = listaAlumnos.getSelectionModel().getSelectedItem();
+        if (nombreAlumno != null){
+            UsuarioAlumno alumno = con.obtenerUsuarioAlumno("nombre", nombreAlumno);
+            ArrayList<NotaQuizz> notas = alumno.getNotas();
+            NotaQuizz respuesta;
+            for (NotaQuizz nota: notas) {
+                if (nota.getQuizz().equals(quizSeleccionado)) {
+                    respuesta = nota;
+                    int[] respuestas = respuesta.getRespuestas();
+                    String text = "";
+                    for (int i = 0; i < respuestas.length - 1; i++) {
+                        text+= "Pregunta " + i + respuestas[i];
+                    }
+                    textField.setText(text);
+                    break;
+                }
+            }
+            
+            
+        }
     }
+    
 }
