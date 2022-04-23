@@ -5,6 +5,8 @@
  */
 package LogicaNegocio.modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author crivi
@@ -12,9 +14,12 @@ package LogicaNegocio.modelo;
 public class NotaQuizz {
     private String quizz;
     private int nota;
-    public NotaQuizz(String quizz, int nota){
+    private int[] respuestas;
+    
+    public NotaQuizz(String quizz, int nota, int[] respuestas){
         this.quizz = quizz;
         this.nota = nota;
+        this.respuestas = respuestas;
     }
     public String getQuizz() {
         return quizz;
@@ -22,5 +27,9 @@ public class NotaQuizz {
     
     public int getNota() {
         return nota;
+    }
+    
+    public int[] getRespuestas() {
+        return this.respuestas;
     }
 }

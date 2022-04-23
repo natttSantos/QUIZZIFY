@@ -6,8 +6,10 @@
 package Interfaz.controladores;
 
 import LogicaNegocio.modelo.Curso;
+import LogicaNegocio.modelo.NotaQuizz;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
@@ -24,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.bson.Document;
@@ -44,6 +47,10 @@ public class GestionQuizzesController implements Initializable {
     private ListView<String> listaQuizzes;
     @FXML
     private Label sinQuizzes;
+    @FXML
+    private Label textTitulo;
+    @FXML
+    private TableView<UsuarioAlumno> tablaRespuestas;
 
     /**
      * Initializes the controller class.
@@ -52,6 +59,7 @@ public class GestionQuizzesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         con = Conexion.obtenerConexion();
         cargarQuizzesDelCurso();
+        
     }    
     
     public void setIntructorConectado(UsuarioInstructor instructorConectado){
@@ -75,15 +83,6 @@ public class GestionQuizzesController implements Initializable {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
-    @FXML
-    private void pulsarCrearCurso(ActionEvent event) {
-    }
-
-
-
-    @FXML
-    private void pulsarCurso(ActionEvent event) {
-    }
     
     public void cargarQuizzesDelCurso(){
        ArrayList<QuizAbstracto> quizzes = con.obtenerQuizzesDeCurso(cursoSeleccionado);
@@ -115,6 +114,22 @@ public class GestionQuizzesController implements Initializable {
             }
             con.insertarQuiz(nombre, curso, preguntas);
             cargarQuizzesDelCurso();
+        }
+    }
+
+    @FXML
+    private void pulsarMostrarRespuestas(ActionEvent event) {
+        String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
+        if (nombreQuiz != null) {
+            ArrayList<UsuarioAlumno> alumnos = con.obtenerTodosUsuariosAlumno();
+            ArrayList<NotaQuizz> notas = new ArrayList();
+            for (UsuarioAlumno alumno:alumnos){
+                ArrayList<NotaQuizz> notasAlumno = alumno.getNotas();
+                for (NotaQuizz nota:notasAlumno) {
+                    nota.getQuizz() == nombreQuiz;
+                }
+            }
+            tablaRespuestas.setDisable(false);
         }
     }
 }

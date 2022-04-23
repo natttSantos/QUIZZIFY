@@ -218,10 +218,17 @@ public class ControladorUsuarios {
         UsuarioAlumno user = new Gson().fromJson(json, UsuarioAlumno.class);
         return user;
     }
-      public void subirNotaQuiz(String quiz, int nota, String usuario){
-          NotaQuizz notaObjecto = new NotaQuizz(quiz,nota);
+      public void subirNotaQuiz(String quiz, int nota, String usuario, int[] respuestas){
+          NotaQuizz notaObjecto = new NotaQuizz(quiz,nota, respuestas);
           UsuarioAlumno alumno = obtenerUsuarioAlumno("nombre",usuario);
           alumno.AddNota(notaObjecto);
           modificarUsuarioAlumno(alumno);        
+      }
+      public ArrayList<NotaQuizz> obtenerTodasNotas(){
+          ArrayList<UsuarioAlumno> alumnos = obtenerTodosUsuariosAlumno();
+          ArrayList<NotaQuizz> notas = new ArrayList();
+          for (UsuarioAlumno alumno:alumnos){
+            
+          }
       }
 }
