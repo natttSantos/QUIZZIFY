@@ -1,5 +1,6 @@
 package Interfaz.controladores;
 
+import static Interfaz.controladores.InicioSesionController.u;
 import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.QuizAbstracto;
@@ -43,7 +44,7 @@ public class SesionEstudianteQuizzesController implements Initializable {
     private Button realizarQuizBoton;
     private UsuarioAlumno estudianteConectado; 
     
-    private String cursoSelected; 
+    private String nombreCursoSelected; 
 
 
     /**
@@ -60,10 +61,11 @@ public class SesionEstudianteQuizzesController implements Initializable {
     
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/InicioSesion.fxml"));
-        Parent root =(Parent) loader.load();      
-        InicioSesionController inicio = loader.<InicioSesionController>getController();
-        inicio.setTipoUsuario("Estudiante");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionEstudiante.fxml"));
+        Parent root =(Parent) loader.load();
+        SesionEstudianteController inicio = loader.<SesionEstudianteController>getController(); 
+        inicio.setEstudianteConectado(u);
+        inicio.cargarListaCursos();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -71,9 +73,10 @@ public class SesionEstudianteQuizzesController implements Initializable {
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
-     public void cargarListaCursos(){
-        ArrayList<Curso> cursosEstudiante = con.obtenerCursosDeEstudiante(estudianteConectado);
-        if(cursosEstudiante.isEmpty()){
+     public void cargarListaQuizzes(){
+        Curso cursoSelected = con.obtenerCurso("nombreCurso", nombreCursoSelected); 
+        ArrayList<QuizAbstracto> quizzesCurso = con.obtenerQuizzesDeCurso(cursoSelected);
+        if(quizzesCurso.isEmpty()){
             imagenReloj.setVisible(true);
             textoEspera.setVisible(true);
             listaQuizes.setVisible(false);
@@ -85,13 +88,13 @@ public class SesionEstudianteQuizzesController implements Initializable {
             listaQuizes.setDisable(false);
         }  
  
-        for (Curso curso: cursosEstudiante ){
-            listaQuizes.getItems().add(curso.getNombreCurso());
+        for (QuizAbstracto quiz: quizzesCurso ){
+            listaQuizes.getItems().add(quiz.getNombre());
         }
     }
 
     @FXML
-    private void entrarQuiz(ActionEvent event) throws IOException {
+    public void entrarQuiz(ActionEvent event) throws IOException {
         String nombrequizSeleccionado = listaQuizes.getSelectionModel().getSelectedItem();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/ResolucionQuiz.fxml"));
         Parent root =(Parent) loader.load();      
@@ -121,8 +124,9 @@ public class SesionEstudianteQuizzesController implements Initializable {
         this.estudianteConectado = estudianteConectado;
     }
 
-    public void setCursoSelected(String cursoSelected) {
-        this.cursoSelected = cursoSelected;
+    public void setNombreCursoSelected(String nombreCursoSelected) {
+        this.nombreCursoSelected = nombreCursoSelected; //Nombre curso selected
+        
     }
     
     

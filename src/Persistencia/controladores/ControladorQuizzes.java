@@ -65,12 +65,12 @@ public class ControladorQuizzes {
     
     public ArrayList<QuizAbstracto> obtenerQuizzesDeCurso(Curso curso){
         ArrayList<QuizAbstracto> quizzes = obtenerTodosLosQuizzes();
-        ArrayList<QuizAbstracto> lista = new ArrayList();
+        ArrayList<QuizAbstracto> quizzesCurso = new ArrayList();
         for (QuizAbstracto quiz:quizzes) {
-            if (quiz.getCurso().equals(curso)) {
-                lista.add(quiz);
+            if (quiz.getCurso().getNombreCurso().equals(curso.getNombreCurso())) {
+                quizzesCurso.add(quiz);
             }
         }
-        return lista;
+        return quizzesCurso;
     }
 }
