@@ -58,6 +58,12 @@
                      </font>
                   </Label>
                   <ComboBox prefWidth="150.0" />
+                  <Label text="Seleccione la dificultad:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="dificultadComboBox" prefWidth="150.0" />
                </children>
             </VBox>
          </children>

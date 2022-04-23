@@ -1,7 +1,6 @@
 package Interfaz.controladores;
 
 
-import Interfaz.controladores.CrearPreguntaController;
 import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;

@@ -27,6 +27,7 @@ public class PreguntaVF extends PreguntaAbstracta {
         this.tipo = "vf";
     }
     
+    @Override
     public Document obtenerDocument() {
         /**
          * Documento en este formato esta listo para meter en la base de datos

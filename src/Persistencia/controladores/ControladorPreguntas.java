@@ -33,45 +33,11 @@ public class ControladorPreguntas {
     
     public void insertPregunta(PreguntaAbstracta preg) {
         
-        String tipo = preg.getTipo();   // abierta, vf, multiple
-        
-        switch (tipo) {
-            case "vf":
-                insertPreguntaVF((PreguntaVF) preg);
-                break;
-            case "multiple":
-                insertPreguntaMultiple((PreguntaSeleccionMultiple) preg); 
-                break;
-            default:
-                System.out.println("dupa");
-                
-        }
-        
- 
-//        Document [] d  = new Document[preg.getRespuestas().size()]; 
-//      
-//        for(int i = 0; i< preg.getRespuestas().size();i++){
-//           if(preg.getRespuestas().get(i) != null){
-//               d[i] = new Document("text",((OpcionRespuestaSeleccion)preg.getRespuestas().get(i)).getDescripcion())
-//                       .append("correcta",((OpcionRespuestaSeleccion)preg.getRespuestas().get(i)).isCorrecta());
-//             
-//              
-//           }
-//        }
-//      
-//        Document p = new Document();
-//            p.append("text", preg.getText())
-//            .append("dificultad", preg.getDificultad())
-//            .append("tema", preg.getTema()) 
-//            .append("respuestas", asList(d));
-//          
-//        preguntas.insertOne(p);
+        Document toInsert = preg.obtenerDocument();
+        preguntas.insertOne(toInsert);
+
     }
     
-    public void insertPreguntaVF(PreguntaVF pregunta) {
-        Document toInsert = pregunta.obtenerDocument();
-        preguntas.insertOne(toInsert);
-    }
     
     public ArrayList<PreguntaSeleccionMultiple> obtenerTodasPreguntas() {
         ArrayList<PreguntaSeleccionMultiple> lista = new ArrayList();
@@ -92,9 +58,5 @@ public class ControladorPreguntas {
         return lista;
     }
 
-    private void insertPreguntaMultiple(PreguntaSeleccionMultiple pregunta) {
-        Document toInsert = pregunta.obtenerDocument();
-        preguntas.insertOne(toInsert);
-    }
 
 }

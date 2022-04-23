@@ -29,6 +29,8 @@ public abstract class PreguntaAbstracta {
         this.dificultad = dificultad;
     }
     
+    public abstract Document obtenerDocument();
+    
     
     public abstract RespuestaAbstracta crearRespuesta(String descripcion, ArrayList<OpcionRespuestaSeleccion> opciones); 
 

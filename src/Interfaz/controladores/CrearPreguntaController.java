@@ -69,13 +69,13 @@ public class CrearPreguntaController implements Initializable {
     private void crearPregunta(ActionEvent event) {
         Conexion c = Conexion.obtenerConexion();
        
-        if(!textoPregunta.getText().equals("") && dificultadPregunta.getValue() != null && !temaPregunta.getText().equals("")){
-            PreguntaAbstracta p = new PreguntaSeleccionMultiple(textoPregunta.getText(), dificultadPregunta.getValue(), temaPregunta.getText(), crearRespuestasSeleccion());
-            c.insertarPregunta(p);
-            enviarAlerta("Creado","Pregunta correctamente!");
-        } else {
-           enviarAlerta("ERROR","Inserta todos los campos necesarios!");
-        }
+//        if(!textoPregunta.getText().equals("") && dificultadPregunta.getValue() != null && !temaPregunta.getText().equals("")){
+//            PreguntaAbstracta p = new PreguntaSeleccionMultiple(textoPregunta.getText(), dificultadPregunta.getValue(), temaPregunta.getText(), crearRespuestasSeleccion());
+//            c.insertarPregunta(p);
+//            enviarAlerta("Creado","Pregunta correctamente!");
+//        } else {
+//           enviarAlerta("ERROR","Inserta todos los campos necesarios!");
+//        }
        
     }
     
