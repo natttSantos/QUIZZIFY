@@ -224,11 +224,5 @@ public class ControladorUsuarios {
           alumno.AddNota(notaObjecto);
           modificarUsuarioAlumno(alumno);        
       }
-      public ArrayList<NotaQuizz> obtenerTodasNotas(){
-          ArrayList<UsuarioAlumno> alumnos = obtenerTodosUsuariosAlumno();
-          ArrayList<NotaQuizz> notas = new ArrayList();
-          for (UsuarioAlumno alumno:alumnos){
-            
-          }
-      }
+      
 }

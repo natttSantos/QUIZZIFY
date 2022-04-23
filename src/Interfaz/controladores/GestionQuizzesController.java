@@ -126,7 +126,7 @@ public class GestionQuizzesController implements Initializable {
             for (UsuarioAlumno alumno:alumnos){
                 ArrayList<NotaQuizz> notasAlumno = alumno.getNotas();
                 for (NotaQuizz nota:notasAlumno) {
-                    nota.getQuizz() == nombreQuiz;
+                   
                 }
             }
             tablaRespuestas.setDisable(false);
