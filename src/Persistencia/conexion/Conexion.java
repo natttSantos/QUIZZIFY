@@ -117,9 +117,6 @@ public class Conexion {
        return cu.obtenerUsuarioAlumno(key, valor);
     }
 
-//    public boolean crearCurso(String nombre, Document[] estudiantes, Document instructor) {
-//         return cc.crearCurso(nombre, estudiantes, instructor);
-//    }
     public void insertarCurso(Curso c) {
         cc.insertarCurso(c);
     }
@@ -138,11 +135,10 @@ public class Conexion {
     public ArrayList<QuizAbstracto> obtenerQuizzesDeCurso(Curso curso){
         return cq.obtenerQuizzesDeCurso(curso);
     }
-    public void crearCursos(String nombre, Document[] estudiantesEnCurso, Document crearUsuarioInstructor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     public void subirNotaQuiz(String quiz, int nota, String usuario, int[] respuestas){
         cu.subirNotaQuiz(quiz, nota, usuario, respuestas);
     }
+
+    
 }

@@ -51,7 +51,7 @@
             <Blend opacity="0.0" />
          </effect>
       </MenuBar>
-      <Label fx:id="instructor" layoutX="1104.0" layoutY="158.0" textFill="WHITE">
+      <Label fx:id="instructor2" layoutX="1104.0" layoutY="158.0" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>

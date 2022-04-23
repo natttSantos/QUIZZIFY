@@ -26,8 +26,6 @@ import javafx.stage.Stage;
 
 public class SesionEstudianteController implements Initializable {
 
-    private Stage stage = new Stage(); 
-    private TilePane tilePane = new TilePane(); 
     private String usuario;
     
     @FXML
@@ -44,6 +42,8 @@ public class SesionEstudianteController implements Initializable {
     private Button botonContinuar;
     @FXML
     private ListView<String> listaCursos;
+    @FXML
+    private Label instructor2;
 
 
     /**
@@ -56,6 +56,10 @@ public class SesionEstudianteController implements Initializable {
     
     public void setUsuario(String usuario){
         this.usuario = usuario; 
+    }
+    
+    public void setEstudianteConectado(UsuarioAlumno estudianteConectado) {
+        this.estudianteConectado = estudianteConectado;
     }
     
     @FXML
@@ -93,12 +97,14 @@ public class SesionEstudianteController implements Initializable {
         }
     }
 
-    private void entrarCurso (ActionEvent event) throws IOException {
+   
+    public void entrarCurso (ActionEvent event) throws IOException {
         String cursoSelected = listaCursos.getSelectionModel().getSelectedItem();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionEstudianteQuizzes.fxml"));
         Parent root =(Parent) loader.load();      
         SesionEstudianteQuizzesController sesionQuizzes = loader.<SesionEstudianteQuizzesController>getController();
-        sesionQuizzes.setCursoSelected(cursoSelected);
+        sesionQuizzes.setNombreCursoSelected(cursoSelected);
+        sesionQuizzes.cargarListaQuizzes(); 
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -106,18 +112,7 @@ public class SesionEstudianteController implements Initializable {
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
-    
-    public ArrayList<PreguntaAbstracta> cargarPreguntasQuiz(){
-        String nombrequizSeleccionado = listaCursos.getSelectionModel().getSelectedItem();
-        QuizAbstracto quizSeleccionado = con.obtenerQuiz("nombre", nombrequizSeleccionado);
-        ArrayList<PreguntaAbstracta> preguntas = quizSeleccionado.getPreguntas();
-        System.out.println("PREGUNTAS " + preguntas.toString());
-        return preguntas;
-    }
 
-    public void setEstudianteConectado(UsuarioAlumno estudianteConectado) {
-        this.estudianteConectado = estudianteConectado;
-    }
 
 
     
