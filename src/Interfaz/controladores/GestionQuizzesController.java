@@ -24,8 +24,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -50,7 +52,13 @@ public class GestionQuizzesController implements Initializable {
     @FXML
     private Label textTitulo;
     @FXML
-    private TableView<UsuarioAlumno> tablaRespuestas;
+    private ListView<String> listaAlumnos;
+    @FXML
+    private Label texto;
+    @FXML
+    private Button botonVolverAQuizzes;
+    @FXML
+    private Button botonMostrarRespuestas;
 
     /**
      * Initializes the controller class.
@@ -121,15 +129,39 @@ public class GestionQuizzesController implements Initializable {
     private void pulsarMostrarRespuestas(ActionEvent event) {
         String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
         if (nombreQuiz != null) {
+            QuizAbstracto quiz = con.obtenerQuiz("nombre", nombreQuiz);
+            ArrayList<UsuarioAlumno> alumnosDelQuiz = new ArrayList();
             ArrayList<UsuarioAlumno> alumnos = con.obtenerTodosUsuariosAlumno();
-            ArrayList<NotaQuizz> notas = new ArrayList();
             for (UsuarioAlumno alumno:alumnos){
                 ArrayList<NotaQuizz> notasAlumno = alumno.getNotas();
                 for (NotaQuizz nota:notasAlumno) {
-                   
+                   if(nota.getQuizz().equals(nombreQuiz)) {
+                       alumnosDelQuiz.add(alumno);
+                    }
                 }
             }
-            tablaRespuestas.setDisable(false);
+            for (int i = 0; i < alumnosDelQuiz.size() && alumnosDelQuiz.size() > 0; i++) {
+                UsuarioAlumno alumno = alumnosDelQuiz.get(i);               
+                listaAlumnos.getItems().add(alumno.getNombre());
+                
+            }
+            listaAlumnos.setVisible(true);
+            listaQuizzes.setVisible(false);
+            textTitulo.setText("ALUMNOS QUE HAN RESPONDIDO AL QUIZ");
+            texto.setText("Selecciona el alumno del que quiere ver las respuestas");
+            botonMostrarRespuestas.setVisible(false);
+            botonVolverAQuizzes.setVisible(true);
         }
+    }
+
+    @FXML
+    private void volverAQuizzes(ActionEvent event) {
+        listaAlumnos.setVisible(false);
+        listaQuizzes.setVisible(true);
+        textTitulo.setText("QUIZZES DEL CURSO SELECCIONADO");
+        texto.setText("Seleccione el curso que quera ver las respuestas de los estudiantes");
+        botonMostrarRespuestas.setVisible(true);
+        botonVolverAQuizzes.setVisible(false);
+        
     }
 }
