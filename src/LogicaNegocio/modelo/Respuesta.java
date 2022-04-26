@@ -11,29 +11,29 @@ package LogicaNegocio.modelo;
  */
 public class Respuesta {
     
-    private String texto;
-    private boolean esCorrecta;
+    private String text;
+    private boolean correcta;
     
-    public Respuesta(String texto, boolean esCorrecta) {
-        this.texto = texto;
-        this.esCorrecta = esCorrecta;
+    public Respuesta(String text, boolean correcta) {
+        this.text = text;
+        this.correcta = correcta;
     }
     
-    public Respuesta(String texto) {
-        this.texto = texto;
-        this.esCorrecta = false;
+    public Respuesta(String text) {
+        this.text = text;
+        this.correcta = false;
     }
     
     public String getTexto() {
-        return texto;
+        return text;
     }
     
     public boolean getEsCorrecta() {
-        return esCorrecta;
+        return correcta;
     }
     
     public void setEsCorrecta(boolean correcta) {
-        this.esCorrecta = correcta;
+        this.correcta = correcta;
     }
     
 }

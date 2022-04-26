@@ -194,6 +194,7 @@ public class SesionInstructorController implements Initializable {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearPreguntaMultiple.fxml"));
         Parent root = miCargador.load();
         CrearPreguntaMultipleController controlador = miCargador.getController();
+        controlador.setInstructorConectado(i);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -213,6 +214,7 @@ public class SesionInstructorController implements Initializable {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearPreguntaVF.fxml"));
         Parent root = miCargador.load();
         CrearPreguntaVFController controlador = miCargador.getController();
+        controlador.setInstructorConectado(i);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -231,6 +233,7 @@ public class SesionInstructorController implements Initializable {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearPreguntaAbierta.fxml"));
         Parent root = miCargador.load();
         CrearPreguntaAbiertaController controlador = miCargador.getController();
+        controlador.setInstructorConectado(i);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);

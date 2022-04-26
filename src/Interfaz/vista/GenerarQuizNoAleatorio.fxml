@@ -16,7 +16,7 @@
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <ImageView fitHeight="886.0" fitWidth="1355.0" layoutX="-3.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="886.0" fitWidth="1355.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/fondo.jpg" />
          </image>
@@ -75,5 +75,24 @@
          </font>
       </Label>
       <MenuButton fx:id="menuCurso" layoutX="125.0" layoutY="278.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="176.0" />
+      <TextField fx:id="textoBuscar" layoutX="695.0" layoutY="173.0" prefHeight="31.0" prefWidth="226.0" />
+      <Label layoutX="695.0" layoutY="135.0" text="Buscador de preguntas: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="932.0" layoutY="173.0" mnemonicParsing="false" onAction="#pulsarBuscar" prefHeight="21.0" prefWidth="75.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Buscar" />
+      <Button layoutX="1025.0" layoutY="170.0" mnemonicParsing="false" onAction="#pulsarX" prefHeight="21.0" prefWidth="28.0" styleClass="miClase" stylesheets="@../css/hojaEstilo.css">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="26.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/xnegra.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

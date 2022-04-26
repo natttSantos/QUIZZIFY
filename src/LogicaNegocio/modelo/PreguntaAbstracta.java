@@ -9,7 +9,7 @@ public abstract class PreguntaAbstracta {
     String dificultad;
     String tema;
     String tipo;    // abierta, vf, multiple
-    private ArrayList respuestas;
+    ArrayList <Respuesta> respuestas;
     
     public PreguntaAbstracta(String text, String dificultad, String tema, ArrayList respuestas){
         this.text = text;
@@ -34,11 +34,11 @@ public abstract class PreguntaAbstracta {
     
     public abstract RespuestaAbstracta crearRespuesta(String descripcion, ArrayList<OpcionRespuestaSeleccion> opciones); 
 
-    public void setRespuestas(ArrayList respuestas) {
+    public void setRespuestas(ArrayList <Respuesta> respuestas) {
         this.respuestas = respuestas;
     }
 
-    public ArrayList getRespuestas() {
+    public ArrayList <Respuesta> getRespuestas() {
         return respuestas;
     }
 

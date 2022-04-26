@@ -12,7 +12,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
      -fx-border-color: white; 
     -fx-border-width: 0.95pt; 
 }
-
+.miClase:hover{
+    -fx-background-color: #cccccc;  
+   
+}
 .azul{
     -fx-background-color: #009999;  
     -fx-text-fill: white;  

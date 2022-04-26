@@ -55,6 +55,10 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private ArrayList<PreguntaSeleccionMultiple> preguntas;
     @FXML
     private MenuButton menuCurso;
+    @FXML
+    private Label instructor;
+    @FXML
+    private TextField textoBuscar;
 
     
     @Override
@@ -105,11 +109,10 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         }
         try {
             if(!nombreTextField.getText().equals("")) {
-                //QuizAbstracto q = new QuizSeleccionMultiple(nombreTextField.getText(),preguntas);
+               // QuizAbstracto q = new QuizSeleccionMultiple(nombreTextField.getText(), obtenerCursoSelected(), preguntas);
                 con.insertarQuiz(nombreTextField.getText(), obtenerCursoSelected(),preguntas);
                 enviarAlerta("Creado","Quizz creado correctamente!");
-                //System.out.println(con.reducirCantQuizzesDisponibles(instructor.getEmail()));
-            ((Node) event.getSource()).getScene().getWindow().hide();
+                //navegarFormInstructor(event); //REFACTORING
             } else {
                 enviarAlerta("ERROR","Escriba un texto descriptivo para  crear el Quizz!");
             }
@@ -156,11 +159,10 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     }
     
     public void cargarLista(){
-        for (PreguntaSeleccionMultiple pregunta:preguntas ){
-            listView.getItems().add(pregunta.getText());
+          for (PreguntaSeleccionMultiple pregunta:preguntas ){
+                listView.getItems().add(pregunta.getText());
         }
     }
-    
       private void enviarAlerta(String header,String text) {
         Alert dialogoAlerta;
         if(header.equals("ERROR")){
@@ -177,16 +179,8 @@ public class GenerarQuizNoAleatorioController implements Initializable {
 
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
-        Parent root =(Parent) loader.load();      
-        SesionInstructorController sesionInstructor = loader.<SesionInstructorController>getController();
-        sesionInstructor.setUsuario(instructorConectado);
-        Scene scene = new Scene (root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.initModality(Modality.APPLICATION_MODAL); 
-        stage.show();
-        ((Node) event.getSource()).getScene().getWindow().hide();
+        //Refactoring
+        navegarFormInstructor(event);
     }
     
     public void addCursosToMenu(){
@@ -213,4 +207,36 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         Document dcurso = curso.obtenerDocument(); 
         return dcurso; 
     }
+     @FXML
+    private void pulsarBuscar(ActionEvent event) {
+        String infoBuscar = textoBuscar.getText(); 
+        for (PreguntaSeleccionMultiple pregunta:preguntas ){
+            boolean contieneInfo = pregunta.getText().contains(infoBuscar); 
+            if(!contieneInfo){
+               listView.getItems().remove(pregunta.getText()); 
+            } 
+        }
+    }
+
+    @FXML
+    private void pulsarX(ActionEvent event) { //Limpiar registro
+        ObservableList <String> list = listView.getItems(); 
+        list.remove(0, list.size()); 
+        listView.setItems(list);
+        cargarLista(); 
+    }
+    
+    public void navegarFormInstructor (ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
+        Parent root =(Parent) loader.load();      
+        SesionInstructorController sesionInstructor = loader.<SesionInstructorController>getController();
+        sesionInstructor.setUsuario(instructorConectado);
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+    
 }

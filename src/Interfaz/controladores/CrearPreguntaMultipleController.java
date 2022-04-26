@@ -8,6 +8,7 @@ package Interfaz.controladores;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.Respuesta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
+import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
 import java.net.URL;
@@ -66,6 +67,8 @@ public class CrearPreguntaMultipleController implements Initializable {
     private TextField respuestaText;
     @FXML
     private ComboBox<String> dificultadComboBox;
+    
+    private UsuarioInstructor instructorConectado; 
     
     private int numeroDeRespuestas;
     private ArrayList<Respuesta> respuestas;
@@ -127,6 +130,7 @@ public class CrearPreguntaMultipleController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
         Parent root =(Parent) loader.load();      
         SesionInstructorController sesionInstructor = loader.<SesionInstructorController>getController();
+        sesionInstructor.setUsuario(instructorConectado);
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -208,5 +212,10 @@ public class CrearPreguntaMultipleController implements Initializable {
         dialogoAlerta.showAndWait(); 
     }
 
+    public void setInstructorConectado(UsuarioInstructor instructorConectado) {
+        this.instructorConectado = instructorConectado;
+    }
+
+    
     
 }
