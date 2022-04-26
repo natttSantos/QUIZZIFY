@@ -7,12 +7,12 @@ import org.bson.Document;
 
 public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
     
-    public PreguntaSeleccionMultiple(String text, String dificultad, String tema, ArrayList<Respuesta> respuestas){
+    public PreguntaSeleccionMultiple(String text, String dificultad, String tema, ArrayList <Respuesta> respuestas){
         super(text, dificultad, tema, respuestas);
         this.tipo = "multiple";
     }
     
-     public PreguntaSeleccionMultiple(String text, String dificultad, ArrayList<Respuesta> respuestas) {
+     public PreguntaSeleccionMultiple(String text, String dificultad, ArrayList <Respuesta> respuestas) {
         super(text, dificultad, "", respuestas);
         this.tipo = "multiple";
     }

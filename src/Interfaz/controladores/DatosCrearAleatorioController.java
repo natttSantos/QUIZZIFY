@@ -9,6 +9,7 @@ import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,8 +28,13 @@ import javax.swing.JOptionPane;
 import org.bson.Document;
 import static java.util.Arrays.asList;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -39,16 +45,11 @@ public class DatosCrearAleatorioController implements Initializable {
 
     @FXML
     private TextField numeroTextField;
-    @FXML
     private CheckBox checkbox;
-    @FXML
     private Label temaLabel;
-    @FXML
     private ChoiceBox<?> temaChoiceBox;
     @FXML
     private Button aceptarButton;
-    @FXML
-    private Button anularButton;
     @FXML
     private TextField nombreTextField;
     
@@ -61,6 +62,8 @@ public class DatosCrearAleatorioController implements Initializable {
     private MenuButton menuCurso;
     
     private UsuarioInstructor instructorConectado; 
+    @FXML
+    private Label instructor;
 
 
     /**
@@ -76,7 +79,6 @@ public class DatosCrearAleatorioController implements Initializable {
     private void numeroTextFieldClicked(ActionEvent event) {
     }
 
-    @FXML
     private void checkboxClicked(ActionEvent event) {
         if (checkbox.isSelected()) {
             temaLabel.setDisable(false);
@@ -87,23 +89,20 @@ public class DatosCrearAleatorioController implements Initializable {
         }
     }
 
-    @FXML
-    private void temaChoiceBoxClicked(MouseEvent event) {
-    }
 
     @FXML
     private void aceptarButtonClicked(ActionEvent event) {
         nombre = nombreTextField.getText();
         numero = Integer.parseInt(numeroTextField.getText());
         
-        if (checkbox.isSelected()) {
-            // tema concreto
-            temaConcreto = true;
-            // TODO
-        } else {
-            tema = null;
-            temaConcreto = false;
-        }
+//        if (checkbox.isSelected()) {
+//            // tema concreto
+//            temaConcreto = true;
+//            // TODO
+//        } else {
+//            tema = null;
+//            temaConcreto = false;
+//        }
         
         if (comprobarNumero()) {
             anulado = false;
@@ -114,7 +113,6 @@ public class DatosCrearAleatorioController implements Initializable {
         }
     }
 
-    @FXML
     private void anularButtonClickedTest(ActionEvent event) {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
@@ -196,6 +194,20 @@ public class DatosCrearAleatorioController implements Initializable {
     }
     public void setUsuario(UsuarioInstructor i){
         this.instructorConectado = i;
+    }
+
+    @FXML
+    private void pulsarAtras(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
+        Parent root =(Parent) loader.load();      
+        SesionInstructorController sesionInstructor = loader.<SesionInstructorController>getController();
+        sesionInstructor.setUsuario(instructorConectado);
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
     
 }

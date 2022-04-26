@@ -39,8 +39,6 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     @FXML
     private TextField nombreTextField;
     @FXML
-    private Button crearPreguntaButton;
-    @FXML
     private Button aceptarButton;
     @FXML
     private ListView<String> listView;
@@ -48,8 +46,6 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private Conexion con;
     @FXML
     private ListView<String> listView2;
-    @FXML
-    private Button añadirAExamenButton1;
     
     private UsuarioInstructor instructorConectado; 
     private ArrayList<PreguntaSeleccionMultiple> preguntas;
@@ -59,6 +55,10 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private Label instructor;
     @FXML
     private TextField textoBuscar;
+    @FXML
+    private Button crearPreguntaButton;
+    @FXML
+    private Button añadirAExamenButton1;
 
     
     @Override
@@ -98,11 +98,12 @@ public class GenerarQuizNoAleatorioController implements Initializable {
             System.out.println("item " + text);
             
             PreguntaAbstracta pregunta = con.obtenerPregunta("text", text);
-            Document d = new Document();
-            d.append("text", pregunta.getText())
-                .append("dificultad", pregunta.getDificultad())
-                .append("tema", pregunta.getTema()) 
-                .append("respuestas", asList(pregunta.getRespuestas()));
+            Document d = pregunta.obtenerDocument(); 
+            
+//            d.append("text", pregunta.getText())
+//                .append("dificultad", pregunta.getDificultad())
+//                .append("tema", pregunta.getTema()) 
+//                .append("respuestas", asList(pregunta.getRespuestas()));
             preguntas[i] = d;
             i++; 
             
@@ -207,7 +208,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         Document dcurso = curso.obtenerDocument(); 
         return dcurso; 
     }
-     @FXML
+    @FXML
     private void pulsarBuscar(ActionEvent event) {
         String infoBuscar = textoBuscar.getText(); 
         for (PreguntaSeleccionMultiple pregunta:preguntas ){
@@ -238,5 +239,6 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
+
     
 }

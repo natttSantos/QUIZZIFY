@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="635.0" prefWidth="661.0" spacing="30.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.DatosCrearAleatorioController">
+<AnchorPane id="AnchorPane" prefHeight="741.0" prefWidth="1181.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.DatosCrearAleatorioController">
    <children>
-      <Label text="Nombre de quiz:">
+      <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <ImageView fitHeight="752.0" fitWidth="1181.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/fondo.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="125.0" layoutY="51.0" mnemonicParsing="false" onAction="#pulsarAtras" prefHeight="47.0" prefWidth="61.0" styleClass="atras" stylesheets="@../css/hojaEstilo.css">
+         <graphic>
+            <ImageView fitHeight="47.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/atras.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="569.0" layoutY="309.0" />
+      <Label layoutX="467.0" layoutY="170.0" text="Nombre de quiz: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="nombreTextField" onAction="#nombreTextFieldClicked" prefHeight="31.0" prefWidth="230.0" />
-      <Label text="Número de preguntas:">
+      <Button fx:id="aceptarButton" layoutX="525.0" layoutY="618.0" mnemonicParsing="false" onAction="#aceptarButtonClicked" prefHeight="44.0" prefWidth="107.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Crear">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Label layoutX="419.0" layoutY="55.0" text="CREAR QUIZ ALEATORIO ">
+         <font>
+            <Font name="Impact" size="41.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nombreTextField" layoutX="467.0" layoutY="214.0" onAction="#nombreTextFieldClicked" />
+      <Label layoutX="474.0" layoutY="437.0" text="Seleccione el curso donde se añadirá el quiz: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="numeroTextField" maxWidth="150.0" minWidth="50.0" onAction="#numeroTextFieldClicked" prefWidth="50.0" />
-      <CheckBox fx:id="checkbox" mnemonicParsing="false" onAction="#checkboxClicked" text="Especificar el tema concreto">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </CheckBox>
-      <Label fx:id="temaLabel" disable="true" text="Tema de preguntas:">
+      <MenuButton fx:id="menuCurso" layoutX="473.0" layoutY="486.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="176.0" />
+      <Label layoutX="468.0" layoutY="306.0" text="Número de preguntas: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="temaChoiceBox" disable="true" onDragDetected="#temaChoiceBoxClicked" prefWidth="150.0" />
-      <Label text="Seleccione el curso donde se añadirá el quiz  ">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <MenuButton fx:id="menuCurso" mnemonicParsing="false" prefHeight="31.0" prefWidth="128.0" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
-         <children>
-            <Button fx:id="aceptarButton" minWidth="100.0" mnemonicParsing="false" onAction="#aceptarButtonClicked" prefWidth="100.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Aceptar">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="anularButton" minWidth="100.0" mnemonicParsing="false" onAction="#anularButtonClickedTest" prefWidth="100.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Anular">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
+      <TextField fx:id="numeroTextField" layoutX="467.0" layoutY="355.0" onAction="#numeroTextFieldClicked" prefHeight="31.0" prefWidth="69.0" />
    </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
-   </padding>
-</VBox>
+</AnchorPane>

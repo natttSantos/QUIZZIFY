@@ -34,11 +34,11 @@ public abstract class PreguntaAbstracta {
     
     public abstract RespuestaAbstracta crearRespuesta(String descripcion, ArrayList<OpcionRespuestaSeleccion> opciones); 
 
-    public void setRespuestas(ArrayList <Respuesta> respuestas) {
+    public void setRespuestas(ArrayList respuestas) {
         this.respuestas = respuestas;
     }
 
-    public ArrayList <Respuesta> getRespuestas() {
+    public ArrayList getRespuestas() {
         return respuestas;
     }
 
