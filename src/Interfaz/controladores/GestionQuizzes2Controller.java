@@ -42,30 +42,32 @@ import org.bson.Document;
  *
  * @author crivi
  */
-public class GestionQuizzesController implements Initializable {
-    
+public class GestionQuizzes2Controller implements Initializable {
+
     private UsuarioInstructor instructorConectado;
     private Curso cursoSeleccionado;
     private Conexion con;
     private QuizAbstracto quizSeleccionado;
     @FXML
     private Label instructor;
-    @FXML
     private ListView<String> listaQuizzes;
-    @FXML
     private Label sinQuizzes;
     @FXML
     private Label textTitulo;
+    @FXML
     private ListView<String> listaAlumnos;
     @FXML
     private Label texto;
-    private Button botonVolverAQuizzes;
-    private Button botonAlumnos;
     @FXML
-    private Button botonClonarQuiz;
+    private Button botonRespuestas;
+    @FXML
     private TableView<PreguntaRespondida> tablaNotas;
     @FXML
-    private Button gestionarQuiz;
+    private ListView<String> listaPreguntas;
+    @FXML
+    private Label texto1;
+    @FXML
+    private Button botonMostrarRespuestas;
 
     /**
      * Initializes the controller class.
@@ -73,7 +75,8 @@ public class GestionQuizzesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         con = Conexion.obtenerConexion();
-        cargarQuizzesDelCurso();
+        cargarPreguntasDelQuiz();
+        alumnosDelQuiz();
         
     }    
     
@@ -81,16 +84,20 @@ public class GestionQuizzesController implements Initializable {
         this.instructorConectado = instructorConectado;
     }
     
+    public void setQuizSeleccionado(QuizAbstracto quiz){
+        this.quizSeleccionado = quiz;
+    }
     public void setCursoSeleccionado(Curso curso){
         this.cursoSeleccionado = curso;
     }
     
-    
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/Cursos.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/GestionQuizzes.fxml"));
         Parent root =(Parent) loader.load();      
-        CursosController  cursos = loader.<CursosController>getController();
+        GestionQuizzesController  quizzes = loader.<GestionQuizzesController>getController();
+        quizzes.setIntructorConectado(instructorConectado);
+        quizzes.setCursoSeleccionado(cursoSeleccionado);
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -100,16 +107,24 @@ public class GestionQuizzesController implements Initializable {
     }
 
     
-    public void cargarQuizzesDelCurso(){
-       ArrayList<QuizAbstracto> quizzes = con.obtenerQuizzesDeCurso(cursoSeleccionado);
-       for (int i = 0; i < quizzes.size() && quizzes.size() > 0; i++) {
-           QuizAbstracto quiz = quizzes.get(i);
-           sinQuizzes.setVisible(false);
-           listaQuizzes.getItems().add(quiz.getNombre());
-       }
+    public void cargarPreguntasDelQuiz() {
+        ArrayList<PreguntaAbstracta> preguntas = quizSeleccionado.getPreguntas();
+        for (PreguntaAbstracta pregunta:preguntas){
+            String nombre = pregunta.getText();
+            listaPreguntas.getItems().add(nombre);
+        }
+        
+    }
+    
+    public void alumnosDelQuiz(){
+        ArrayList<NotaQuizz> notas = con.obtenerNotasDeQuiz(quizSeleccionado);
+        for (NotaQuizz nota:notas){
+            String texto = nota.getAlumno();
+            listaAlumnos.getItems().add(texto);
+        }
     }
 
-
+    @FXML
     private void pulsarMostrarRespuestas(ActionEvent event) {
         String nombreAlumno = listaAlumnos.getSelectionModel().getSelectedItem();
         if (nombreAlumno != null) {
@@ -126,49 +141,5 @@ public class GestionQuizzesController implements Initializable {
         }
     }
 
-    @FXML
-    private void clonarQuiz(ActionEvent event) {
-        String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
-        if(nombreQuiz != null) {
-            QuizAbstracto quiz =con.obtenerQuiz("nombre", nombreQuiz);
-            String nombre = "Copia de " + quiz.getNombre();
-            Document curso = quiz.getCurso().obtenerDocument();
-            ArrayList<PreguntaAbstracta> lista = quiz.getPreguntas();
-            Document[] preguntas = new Document[lista.size()];
-            int i = 0;
-            for (PreguntaAbstracta pregunta:lista){
-                Document d = new Document();
-                d.append("text", pregunta.getText())
-                    .append("dificultad", pregunta.getDificultad())
-                    .append("tema", pregunta.getTema()) 
-                    .append("respuestas", asList(pregunta.getRespuestas()));
-                preguntas[i] = d;
-                i++;
-            }
-            con.insertarQuiz(nombre, curso, preguntas);
-            cargarQuizzesDelCurso();
-        }
-    }
-
-    @FXML
-    private void pulsarGestionarQuiz(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/GestionQuizzes2.fxml"));
-        Parent root = miCargador.load();
-        GestionQuizzes2Controller  quizzes= miCargador.getController();
-        quizzes.setIntructorConectado(instructorConectado);
-        String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
-        if (nombreQuiz != null) {
-            QuizAbstracto quiz = con.obtenerQuiz("nombre", nombreQuiz);
-            quizzes.setQuizSeleccionado(quiz);
-            quizzes.setCursoSeleccionado(cursoSeleccionado);
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-            ((Node) event.getSource()).getScene().getWindow().hide();
-        }
-    }
     
 }

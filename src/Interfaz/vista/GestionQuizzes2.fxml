@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.GestionQuizzesController">
+<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.GestionQuizzes2Controller">
    <children>
       <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
          <font>
@@ -28,31 +28,32 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="gestionarQuiz" layoutX="278.0" layoutY="654.0" mnemonicParsing="false" onAction="#pulsarGestionarQuiz" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Gestionar Quiz">
+      <Button fx:id="botonMostrarRespuestas" layoutX="673.0" layoutY="576.0" mnemonicParsing="false" onAction="#pulsarMostrarRespuestas" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Mostrar respuestas">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Label fx:id="textTitulo" layoutX="364.0" layoutY="83.0" text="QUIZZES DEL CURSO SELECCIONADO">
+      <Label fx:id="textTitulo" layoutX="484.0" layoutY="83.0" text="GESTION DE QUIZ">
          <font>
             <Font name="Impact" size="41.0" />
          </font>
       </Label>
-      <Label fx:id="texto" layoutX="277.0" layoutY="174.0" text="Seleccione un quiz">
+      <Label fx:id="texto" layoutX="193.0" layoutY="175.0" prefHeight="27.0" prefWidth="163.0" text="Preguntas del quiz:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ListView fx:id="listaQuizzes" layoutX="277.0" layoutY="215.0" prefHeight="310.0" prefWidth="727.0" />
-      <Label fx:id="sinQuizzes" layoutX="581.0" layoutY="349.0" text="No hay cursos">
-         <font>
-            <Font name="System Italic" size="15.0" />
-         </font>
-      </Label>
-      <Button fx:id="botonClonarQuiz" layoutX="865.0" layoutY="654.0" mnemonicParsing="false" onAction="#clonarQuiz" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Clonar quiz">
+      <Button fx:id="botonRespuestas" layoutX="303.0" layoutY="654.0" mnemonicParsing="false" onAction="#pulsarMostrarRespuestas" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Mostrar respuestas" visible="false">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
+      <ListView fx:id="listaAlumnos" layoutX="673.0" layoutY="216.0" prefHeight="310.0" prefWidth="385.0" />
+      <ListView fx:id="listaPreguntas" layoutX="193.0" layoutY="216.0" prefHeight="310.0" prefWidth="385.0" />
+      <Label fx:id="texto1" layoutX="673.0" layoutY="175.0" prefHeight="27.0" prefWidth="316.0" text="Alumnos que han respondido al quiz:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
