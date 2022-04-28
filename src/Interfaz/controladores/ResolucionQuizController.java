@@ -6,6 +6,7 @@ import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.RespuestaAbstracta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.NotaQuizz;
+import LogicaNegocio.modelo.PreguntaRespondida;
 import Persistencia.conexion.Conexion;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -38,9 +39,12 @@ public class ResolucionQuizController implements Initializable {
     private Conexion con;
     private String nombreQuiz; 
     private ArrayList <PreguntaAbstracta> preguntas; 
+    private ArrayList<PreguntaRespondida> respuestas;
     private int indexPregunta; 
     private int [] arrayRespuestasUsuario = new int [50]; 
-    private int [] arrayRespuestasCorrectas = new int[50]; 
+    private int [] arrayRespuestasCorrectas = new int[50];
+    private int numeroPregunta;
+    private PreguntaRespondida aux;
     private String usuario;
     @FXML
     private Label instructor;
@@ -66,6 +70,7 @@ public class ResolucionQuizController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         con = Conexion.obtenerConexion();
+        respuestas = new ArrayList();
     }    
     
     public void setUsuario(String usuario){
@@ -173,7 +178,7 @@ public class ResolucionQuizController implements Initializable {
 
     public void fraccionNumeroPreguntas(){
         int numeroTotalPreguntas = preguntas.size(); 
-        int numeroPregunta = indexPregunta + 1; 
+        numeroPregunta = indexPregunta + 1; 
         fraccionPregunta.setText("Pregunta " + numeroPregunta + "/" + numeroTotalPreguntas);
     }
    
@@ -199,7 +204,8 @@ public class ResolucionQuizController implements Initializable {
     }
     
     public void subirRespuestas(int nota){
-
+        NotaQuizz notaQuizz = new NotaQuizz(nombreQuiz,usuario,nota,this.respuestas);
+        con.insertarNota(notaQuizz);
     }
     
     public void guardarRespuestasUsuario(){
@@ -213,6 +219,10 @@ public class ResolucionQuizController implements Initializable {
         }if(respuesta4.isSelected()){
             respuestaUsuario = 4; 
         }
+        String aux1 = numeroPregunta+"";
+        String aux2 = respuestaUsuario+"";
+        aux = new PreguntaRespondida(aux1,aux2);
+        respuestas.add(aux);
         respuestasDeUsuario(respuestaUsuario); 
     }
     
