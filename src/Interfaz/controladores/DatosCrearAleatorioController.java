@@ -7,6 +7,7 @@ package Interfaz.controladores;
 import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class DatosCrearAleatorioController implements Initializable {
     private String nombre, tema;
     private int numero;
     private boolean anulado, temaConcreto;
-    private ArrayList<PreguntaSeleccionMultiple> listaPreguntas;
+    private ArrayList<PreguntaAbstracta> listaPreguntas;
     private Conexion con;
     @FXML
     private MenuButton menuCurso;
@@ -127,20 +128,15 @@ public class DatosCrearAleatorioController implements Initializable {
         return numero <= numeroPreguntas;
     }
     
-    public void crearQuizAleatorio(int num, String nombre, ArrayList<PreguntaSeleccionMultiple> lista) {
+    public void crearQuizAleatorio(int num, String nombre, ArrayList<PreguntaAbstracta> lista) {
         Collections.shuffle(lista);
         Document[] preguntas = new Document[num];
         
         for (int i = 0; i < num; i++) {
             
-            PreguntaSeleccionMultiple pregunta = lista.get(i);
-            Document d = new Document();
-            
-            d.append("text", pregunta.getText())
-                .append("dificultad", pregunta.getDificultad())
-                .append("tema", pregunta.getTema())
-                .append("respuestas", asList(pregunta.getRespuestas()));
-                preguntas[i] = d;
+            PreguntaAbstracta pregunta = lista.get(i);
+            Document d = pregunta.obtenerDocument(); 
+            preguntas[i] = d;
         }
         con.insertarQuiz(nombre, obtenerCursoSelected(), preguntas);
     }
@@ -161,7 +157,7 @@ public class DatosCrearAleatorioController implements Initializable {
         return numero;
     }
     
-    public void setListaPreguntas(ArrayList<PreguntaSeleccionMultiple> lista) {
+    public void setListaPreguntas(ArrayList<PreguntaAbstracta> lista) {
         listaPreguntas = lista;
     }
     public void setConexion(Conexion con) {
@@ -209,5 +205,4 @@ public class DatosCrearAleatorioController implements Initializable {
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
-    
 }

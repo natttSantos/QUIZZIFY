@@ -74,8 +74,12 @@ public class Conexion {
        return cp.obtenerPregunta(key, valor);
     }
     
+    public PreguntaAbstracta obtenerPreguntaSegunTipo(String text){
+        return cp.obtenerPreguntaSegunTipo(text); 
+    }
+    
     public void insertarPregunta(PreguntaAbstracta p) {
-        cp.insertPregunta(p);
+        cp.insertarPregunta(p);
     }
     
     public Document crearUsuarioAlumno(UsuarioAlumno u) { 
@@ -93,7 +97,7 @@ public class Conexion {
         return cu.loginInstructor(email, contraseña);
     }
     
-    public ArrayList<PreguntaSeleccionMultiple> obtenerTodasPreguntas() {
+    public ArrayList<PreguntaAbstracta> obtenerTodasPreguntas() {
         return cp.obtenerTodasPreguntas();
     }
     

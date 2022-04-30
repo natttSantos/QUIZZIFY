@@ -99,7 +99,7 @@ public class SesionInstructorController implements Initializable {
     @FXML
     private void quizAleatorioPulsar(ActionEvent event) throws IOException {
         
-        ArrayList<PreguntaSeleccionMultiple> listaPreguntas = conexion.obtenerTodasPreguntas();
+        ArrayList<PreguntaAbstracta> listaPreguntas = conexion.obtenerTodasPreguntas();
         
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/DatosCrearAleatorio.fxml"));
         Parent root = miCargador.load();

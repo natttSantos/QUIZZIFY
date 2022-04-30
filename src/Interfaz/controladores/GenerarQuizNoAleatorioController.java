@@ -48,7 +48,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private ListView<String> listView2;
     
     private UsuarioInstructor instructorConectado; 
-    private ArrayList<PreguntaSeleccionMultiple> preguntas;
+    private ArrayList<PreguntaAbstracta> preguntas;
     @FXML
     private MenuButton menuCurso;
     @FXML
@@ -97,20 +97,14 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         for (String text:lista){
             System.out.println("item " + text);
             
-            PreguntaAbstracta pregunta = con.obtenerPregunta("text", text);
+            PreguntaAbstracta pregunta = con.obtenerPreguntaSegunTipo(text);
             Document d = pregunta.obtenerDocument(); 
-            
-//            d.append("text", pregunta.getText())
-//                .append("dificultad", pregunta.getDificultad())
-//                .append("tema", pregunta.getTema()) 
-//                .append("respuestas", asList(pregunta.getRespuestas()));
             preguntas[i] = d;
             i++; 
             
         }
         try {
             if(!nombreTextField.getText().equals("")) {
-               // QuizAbstracto q = new QuizSeleccionMultiple(nombreTextField.getText(), obtenerCursoSelected(), preguntas);
                 con.insertarQuiz(nombreTextField.getText(), obtenerCursoSelected(),preguntas);
                 enviarAlerta("Creado","Quizz creado correctamente!");
                 //navegarFormInstructor(event); //REFACTORING
@@ -160,7 +154,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     }
     
     public void cargarLista(){
-          for (PreguntaSeleccionMultiple pregunta:preguntas ){
+          for (PreguntaAbstracta pregunta:preguntas ){
                 listView.getItems().add(pregunta.getText());
         }
     }
@@ -211,7 +205,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     @FXML
     private void pulsarBuscar(ActionEvent event) {
         String infoBuscar = textoBuscar.getText(); 
-        for (PreguntaSeleccionMultiple pregunta:preguntas ){
+        for (PreguntaAbstracta pregunta:preguntas ){
             boolean contieneInfo = pregunta.getText().contains(infoBuscar); 
             if(!contieneInfo){
                listView.getItems().remove(pregunta.getText()); 

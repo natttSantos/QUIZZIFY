@@ -41,6 +41,18 @@ public class PreguntaVF extends PreguntaAbstracta {
         p.append("esVerdadera", this.respuestaVerdadera);
         return p;
     }
+
+    public boolean isRespuestaVerdadera() {
+        return respuestaVerdadera;
+    }
+
+    public void setRespuestaVerdadera(boolean respuestaVerdadera) {
+        this.respuestaVerdadera = respuestaVerdadera;
+    }
+    
+    
+    
+    
     
     @Override
     public RespuestaAbstracta crearRespuesta(String descripcion, ArrayList<OpcionRespuestaSeleccion> opciones) {
