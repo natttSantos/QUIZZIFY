@@ -66,6 +66,8 @@ public class GestionQuizzesController implements Initializable {
     private TableView<PreguntaRespondida> tablaNotas;
     @FXML
     private Button gestionarQuiz;
+    @FXML
+    private Button botonLanzarQuiz;
 
     /**
      * Initializes the controller class.
@@ -110,22 +112,6 @@ public class GestionQuizzesController implements Initializable {
     }
 
 
-    private void pulsarMostrarRespuestas(ActionEvent event) {
-        String nombreAlumno = listaAlumnos.getSelectionModel().getSelectedItem();
-        if (nombreAlumno != null) {
-            tablaNotas.setVisible(true);
-            TableColumn<PreguntaRespondida, String> col = new TableColumn<>("Pregunta");
-            TableColumn<PreguntaRespondida, String> col1 = new TableColumn<>("Respuesta");
-            tablaNotas.getColumns().addAll(col,col1);
-            UsuarioAlumno alumno = con.obtenerUsuarioAlumno("nombre", nombreAlumno);
-            NotaQuizz nota = con.obtenerRespuestasDeQuizDeAlumno(alumno, quizSeleccionado);
-            ArrayList<PreguntaRespondida> respuestas = nota.getRespuestas();
-            for (PreguntaRespondida respuesta:respuestas){
-                tablaNotas.getItems().add(respuesta);
-            }
-        }
-    }
-
     @FXML
     private void clonarQuiz(ActionEvent event) {
         String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
@@ -145,7 +131,7 @@ public class GestionQuizzesController implements Initializable {
                 preguntas[i] = d;
                 i++;
             }
-            con.insertarQuiz(nombre, curso, preguntas);
+            con.insertarQuiz(nombre,"En preparación", curso, preguntas);
             cargarQuizzesDelCurso();
         }
     }
@@ -169,6 +155,10 @@ public class GestionQuizzesController implements Initializable {
             stage.show();
             ((Node) event.getSource()).getScene().getWindow().hide();
         }
+    }
+
+    @FXML
+    private void lanzarQuiz(ActionEvent event) {
     }
     
 }

@@ -60,7 +60,6 @@ public class GestionQuizzes2Controller implements Initializable {
     private Label texto;
     @FXML
     private Button botonRespuestas;
-    @FXML
     private TableView<PreguntaRespondida> tablaNotas;
     @FXML
     private ListView<String> listaPreguntas;
@@ -68,6 +67,8 @@ public class GestionQuizzes2Controller implements Initializable {
     private Label texto1;
     @FXML
     private Button botonMostrarRespuestas;
+    @FXML
+    private Button botonDetectarPregunta;
 
     /**
      * Initializes the controller class.
@@ -125,20 +126,31 @@ public class GestionQuizzes2Controller implements Initializable {
     }
 
     @FXML
-    private void pulsarMostrarRespuestas(ActionEvent event) {
+    private void pulsarMostrarRespuestas(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/MostrarRespuestas.fxml"));
+        Parent root = miCargador.load();
+        MostrarRespuestasController  respuestas= miCargador.getController();
         String nombreAlumno = listaAlumnos.getSelectionModel().getSelectedItem();
         if (nombreAlumno != null) {
-            tablaNotas.setVisible(true);
-            TableColumn<PreguntaRespondida, String> col = new TableColumn<>("Pregunta");
-            TableColumn<PreguntaRespondida, String> col1 = new TableColumn<>("Respuesta");
-            tablaNotas.getColumns().addAll(col,col1);
             UsuarioAlumno alumno = con.obtenerUsuarioAlumno("nombre", nombreAlumno);
-            NotaQuizz nota = con.obtenerRespuestasDeQuizDeAlumno(alumno, quizSeleccionado);
-            ArrayList<PreguntaRespondida> respuestas = nota.getRespuestas();
-            for (PreguntaRespondida respuesta:respuestas){
-                tablaNotas.getItems().add(respuesta);
-            }
+            respuestas.setAlumnnoSeleccionado(alumno);
+            respuestas.setCursoSeleccionado(cursoSeleccionado);
+            respuestas.setIntructorConectado(instructorConectado);
+            respuestas.setQuizSeleccionado(quizSeleccionado);
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            ((Node) event.getSource()).getScene().getWindow().hide();
         }
+    }
+
+    @FXML
+    private void pulsarDetectarPregunta(ActionEvent event) {
+        String tituloPregunta = listaPreguntas.getSelectionModel().getSelectedItem();
+       
     }
 
     

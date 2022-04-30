@@ -54,5 +54,10 @@
             <Font size="20.0" />
          </font>
       </Button>
+      <Button fx:id="botonLanzarQuiz" layoutX="577.0" layoutY="654.0" mnemonicParsing="false" onAction="#lanzarQuiz" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Lanzar quiz">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

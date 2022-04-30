@@ -55,5 +55,10 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Button fx:id="botonDetectarPregunta" layoutX="193.0" layoutY="576.0" mnemonicParsing="false" onAction="#pulsarDetectarPregunta" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Detectar pregunta en otro test">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
