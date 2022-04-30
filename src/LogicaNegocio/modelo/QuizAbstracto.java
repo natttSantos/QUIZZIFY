@@ -4,7 +4,7 @@ package LogicaNegocio.modelo;
 import java.util.ArrayList;
 
 
-public abstract class QuizAbstracto {
+public class QuizAbstracto {
     protected String nombre;
     protected ArrayList preguntas;
     protected Curso curso; 
@@ -39,6 +39,7 @@ public boolean añadirPregunta(PreguntaAbstracta pregunta){
 public boolean eliminarPregunta(PreguntaAbstracta pregunta){
     return preguntas.remove(pregunta);
 }
-
-public abstract PreguntaAbstracta crearPregunta(String text, String dificultad, String tema, ArrayList respuestas);
 }
+
+//public abstract PreguntaAbstracta crearPregunta(String text, String dificultad, String tema, ArrayList respuestas);
+//}

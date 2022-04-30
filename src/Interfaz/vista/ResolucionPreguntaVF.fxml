@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,11 +25,6 @@
          </graphic>
       </Button>
       <Label layoutX="569.0" layoutY="309.0" />
-      <ImageView fitHeight="68.0" fitWidth="63.0" layoutX="1081.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/estudiante.png" />
-         </image>
-      </ImageView>
       <Label layoutX="450.0" layoutY="90.0">
          <font>
             <Font name="Impact" size="42.0" />
@@ -41,31 +35,26 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Label layoutX="475.0" layoutY="66.0" text="SELECCIÓN MÚLTIPLE">
+      <Label layoutX="475.0" layoutY="66.0" text="VERDADERO/FALSO">
          <font>
             <Font name="Impact" size="40.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="220.0" layoutY="150.0" prefHeight="519.0" prefWidth="815.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="534.0" prefWidth="815.0">
+      <ScrollPane layoutX="276.0" layoutY="161.0" prefHeight="462.0" prefWidth="752.0">
+         <content>
+            <AnchorPane prefHeight="460.0" prefWidth="750.0">
                <children>
-                  <Label fx:id="fraccionPregunta" layoutX="70.0" layoutY="47.0" text="NumeroPregunta">
+                  <Label fx:id="fraccionPregunta" layoutX="71.0" layoutY="58.0" text="NumeroPregunta">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="respuesta1" layoutX="60.0" layoutY="179.0" mnemonicParsing="false" text="Respuesta1">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="grupoToggle" />
-                     </toggleGroup></RadioButton>
-                  <RadioButton fx:id="respuesta2" layoutX="60.0" layoutY="259.0" mnemonicParsing="false" text="Respuesta2" toggleGroup="$grupoToggle" />
-                  <RadioButton fx:id="respuesta3" layoutX="60.0" layoutY="337.0" mnemonicParsing="false" text="Respuesta3" toggleGroup="$grupoToggle" />
-                  <RadioButton fx:id="respuesta4" layoutX="60.0" layoutY="413.0" mnemonicParsing="false" text="Respuesta4" toggleGroup="$grupoToggle" />
-                  <Label fx:id="pregunta" layoutX="70.0" layoutY="106.0" text="Pregunta" />
+                  <Label fx:id="pregunta" layoutX="71.0" layoutY="118.0" text="Pregunta" />
+                  <RadioButton fx:id="verdadero" layoutX="96.0" layoutY="186.0" mnemonicParsing="false" text="Verdadero" />
+                  <RadioButton fx:id="falso" layoutX="96.0" layoutY="243.0" mnemonicParsing="false" text="Falso" />
                </children>
             </AnchorPane>
-        </content>
+         </content>
       </ScrollPane>
    </children>
 </AnchorPane>

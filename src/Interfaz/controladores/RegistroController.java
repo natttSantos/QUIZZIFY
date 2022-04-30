@@ -42,8 +42,6 @@ public class RegistroController implements Initializable {
 
     private String tipoUsuario; 
     @FXML
-    private ComboBox<String> comboBoxCurso;
-    @FXML
     private TextField nombre;
     @FXML
     private TextField email;
@@ -59,6 +57,8 @@ public class RegistroController implements Initializable {
     private UsuarioInstructor instructor;
     
     private ArrayList<NotaQuizz> notas;
+    @FXML
+    private Label tipoUsuarioLabel;
 
     /**
      * Initializes the controller class.

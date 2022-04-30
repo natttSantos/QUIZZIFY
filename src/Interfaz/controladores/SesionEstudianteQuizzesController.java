@@ -3,9 +3,14 @@ package Interfaz.controladores;
 import static Interfaz.controladores.InicioSesionController.u;
 import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.RespuestaAbstracta;
+import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import Persistencia.conexion.Conexion;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -96,14 +101,33 @@ public class SesionEstudianteQuizzesController implements Initializable {
     @FXML
     public void entrarQuiz(ActionEvent event) throws IOException {
         String nombrequizSeleccionado = listaQuizes.getSelectionModel().getSelectedItem();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/ResolucionQuiz.fxml"));
-        Parent root =(Parent) loader.load();      
-        ResolucionQuizController resolucionQuiz = loader.<ResolucionQuizController>getController();
-        resolucionQuiz.setUsuario(usuario);
-        resolucionQuiz.setNombreQuiz(nombrequizSeleccionado);
-        resolucionQuiz.setPreguntas(cargarPreguntasQuiz());
-        resolucionQuiz.setIndexPregunta(0);
-        resolucionQuiz.cargarPreguntasEnQuiz();
+        QuizAbstracto quiz = con.obtenerQuiz("nombre", nombrequizSeleccionado); 
+        PreguntaAbstracta preg1 = cargarPrimeraPregunta(quiz); 
+        
+        Gson gson = new Gson(); 
+        String json =  gson.toJson(preg1);
+        FXMLLoader loader = null; 
+        Parent root = null; 
+        
+        switch(preg1.getTipo()){
+            case "multiple": 
+                loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/ResolucionPreguntaMultiple.fxml"));
+                root =(Parent) loader.load(); 
+                ResolucionPreguntaMultipleController resolucionMultiple = loader.<ResolucionPreguntaMultipleController>getController();
+                resolucionMultiple.setUsuario(estudianteConectado.getEmail());
+                resolucionMultiple.setNombreQuiz(nombrequizSeleccionado);
+                resolucionMultiple.setPreguntas(quiz.getPreguntas());
+                resolucionMultiple.setIndexPregunta(0);
+                resolucionMultiple.cargarPreguntasEnQuiz();
+                break; 
+                
+            case "vf": 
+                loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/ResolucionPreguntaVF.fxml"));
+                root =(Parent) loader.load(); 
+                ResolucionPreguntaVFController resolucionVF = loader.<ResolucionPreguntaVFController>getController();
+                break; 
+        
+        }
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -112,14 +136,18 @@ public class SesionEstudianteQuizzesController implements Initializable {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
     
-    public ArrayList<PreguntaAbstracta> cargarPreguntasQuiz(){
-        String nombrequizSeleccionado = listaQuizes.getSelectionModel().getSelectedItem();
-        QuizAbstracto quizSeleccionado = con.obtenerQuiz("nombre", nombrequizSeleccionado);
-        ArrayList<PreguntaAbstracta> preguntas = quizSeleccionado.getPreguntas();
-        System.out.println("PREGUNTAS " + preguntas.toString());
-        return preguntas;
+    public PreguntaAbstracta cargarPrimeraPregunta (QuizAbstracto quiz){    
+        Gson gson = new Gson(); 
+        
+        String jsonQuiz = gson.toJson(quiz); 
+        QuizAbstracto quizSelected = new Gson().fromJson(jsonQuiz, QuizAbstracto.class);
+        
+        ArrayList <PreguntaAbstracta> preguntasQuizSelected = quizSelected.getPreguntas();
+        String enunaciadoPreg1 = preguntasQuizSelected.get(0).getText(); 
+        PreguntaAbstracta preg1 = con.obtenerPreguntaSegunTipo(enunaciadoPreg1); 
+        return preg1;
     }
-
+    
     public void setEstudianteConectado(UsuarioAlumno estudianteConectado) {
         this.estudianteConectado = estudianteConectado;
     }
@@ -128,6 +156,5 @@ public class SesionEstudianteQuizzesController implements Initializable {
         this.nombreCursoSelected = nombreCursoSelected; //Nombre curso selected
         
     }
-    
-    
+
 }

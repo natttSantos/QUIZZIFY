@@ -11,7 +11,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.QuizAbstracto;
-import LogicaNegocio.modelo.QuizSeleccionMultiple;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCursor;
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class ControladorQuizzes {
             while (cursor.hasNext()) {
               Document otro = (Document) cursor.next();
               String json =  otro.toJson();
-              QuizAbstracto quiz = new Gson().fromJson(json, QuizSeleccionMultiple.class);
+              QuizAbstracto quiz = new Gson().fromJson(json, QuizAbstracto.class);
               lista.add(quiz);
             }
         }catch(Exception e){
@@ -58,8 +57,7 @@ public class ControladorQuizzes {
         Document findDocument = new Document(key, valor);
         FindIterable<Document> resultDocument = quizzes.find(findDocument);
         String json =  resultDocument.first().toJson();
-        System.out.println(json);
-        QuizAbstracto quiz = new Gson().fromJson(json, QuizSeleccionMultiple.class);
+        QuizAbstracto quiz = new Gson().fromJson(json, QuizAbstracto.class);
         return quiz;
     }
     
@@ -73,4 +71,5 @@ public class ControladorQuizzes {
         }
         return quizzesCurso;
     }
+    
 }

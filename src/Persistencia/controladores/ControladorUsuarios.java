@@ -2,7 +2,6 @@ package Persistencia.controladores;
 
 import LogicaNegocio.modelo.NotaQuizz;
 import LogicaNegocio.modelo.QuizAbstracto;
-import LogicaNegocio.modelo.QuizSeleccionMultiple;
 import LogicaNegocio.modelo.Usuario;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
