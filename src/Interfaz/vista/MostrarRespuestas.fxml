@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -29,27 +29,16 @@
          </graphic>
       </Button>
       <Label layoutX="569.0" layoutY="309.0" />
-      <Button fx:id="aceptarButton" layoutX="625.0" layoutY="749.0" mnemonicParsing="false" onAction="#aceptarButtonClicked" prefHeight="44.0" prefWidth="107.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Crear">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <Label layoutX="365.0" layoutY="76.0" text="Ver respuestas de los quizzes creados:">
+      <Label layoutX="476.0" layoutY="81.0" text="Respuestas del alumno:">
          <font>
             <Font name="Impact" size="41.0" />
          </font>
       </Label>
-      <Label layoutX="127.0" layoutY="240.0" text="Quizzes:">
+      <Label layoutX="630.0" layoutY="187.0" text="Respuestas">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="525.0" layoutY="240.0" text="Respuestas">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <ListView fx:id="listView" layoutX="125.0" layoutY="274.0" prefHeight="314.0" prefWidth="399.0" />
-      <ListView fx:id="listView2" layoutX="525.0" layoutY="274.0" prefHeight="314.0" prefWidth="563.0" />
+      <TableView fx:id="tablaNotas" layoutX="197.0" layoutY="257.0" prefHeight="332.0" prefWidth="908.0" />
    </children>
 </AnchorPane>
