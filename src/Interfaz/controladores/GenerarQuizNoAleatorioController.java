@@ -10,6 +10,7 @@ import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import java.util.ResourceBundle;
@@ -24,6 +25,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
@@ -58,6 +60,16 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private Button crearPreguntaButton;
     @FXML
     private Button añadirAExamenButton1;
+    @FXML
+    private CheckBox goBackButton;
+    @FXML
+    private CheckBox restaButton;
+    @FXML
+    private Button fechaYTiempobutton;
+    private boolean back=false;
+    private boolean penalizacion=false;
+    private LocalDate newFechaIni, newFechaFin;
+    private int newMins;
 
     
     @Override
@@ -231,6 +243,36 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL); 
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+
+    @FXML
+    private void PermitirBack(ActionEvent event) {
+        back=true;
+    }
+
+    @FXML
+    private void ActivarResta(ActionEvent event) {
+        penalizacion=true;
+    }
+
+    @FXML
+    private void GoFechaYTiempo(ActionEvent event) throws IOException {
+         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/FechaYTiempoQuiz.fxml"));
+        Parent root = cargador.load();
+        FechaYTiempoQuizController FechaController = cargador.getController();
+        Scene scene = new Scene(root, 700, 700);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Ver datos persona");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        
+        if (!FechaController.getCancelar()) {
+          newFechaIni = FechaController.getfechaIni();
+          newFechaFin = FechaController.getfechaFIn();
+          newMins = FechaController.getMins();
+        
+    }
     }
 
     
