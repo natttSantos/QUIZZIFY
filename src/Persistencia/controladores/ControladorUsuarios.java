@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 
@@ -159,50 +160,34 @@ public class ControladorUsuarios {
        return u; 
     }
     
-      public int reducirCantQuizzesDisponibles(String email) {
-        UsuarioInstructor u = null;
-        int quizzesDisponibles=0;
+      public void reducirCantQuizzesDisponibles(String email, int quizzesDisponibles) {
         try {
             
             Document findDocument = new Document("email", email);
-            FindIterable<Document> resultDocument = usuarios.find(findDocument);
-
-            if(resultDocument != null){
-                
-                String json =  resultDocument.first().toJson();
-                System.out.println(json);
-                u = new Gson().fromJson(json, UsuarioInstructor.class);
-                
-                u.setQuizzesDisponibles(u.getQuizzesDisponibles() - 1);
-                
-
-                System.out.println(resultDocument.first().get("_id"));
-
-                Document d = new Document();
-                d.append("nombre", u.getNombre());
-                d.append("apellidos", u.getApellidos());
-                d.append("email", u.getEmail());
-                d.append("contraseña", u.getContraseña());
-                d.append("tipo", "Instructor");
-                d.append("quizzesDisponibles", u.getQuizzesDisponibles() - 1);
-                quizzesDisponibles = u.getQuizzesDisponibles() - 1; 
-                System.out.println(d);
-                System.out.println(resultDocument.first());
-                
-                usuarios.updateOne(resultDocument.first(), d);
-            }
+            Document quizzes = new Document("quizzesDisponibles", quizzesDisponibles - 1);
+            usuarios.updateOne(eq("email", email), new Document("$set", quizzes));
            
         }catch(Exception e){
             System.out.println("ERROR en login  " + e.getMessage());
         }
-       return quizzesDisponibles;
+    
+       
     }
-      public UsuarioAlumno obtenerUsuarioAlumno(String key, String valor) {
+    public UsuarioAlumno obtenerUsuarioAlumno(String key, String valor) {
         Document findDocument = new Document(key, valor);
         FindIterable<Document> resultDocument = usuarios.find(findDocument);
         String json =  resultDocument.first().toJson();
         System.out.println(json);
         UsuarioAlumno user = new Gson().fromJson(json, UsuarioAlumno.class);
+        return user;
+    }
+      
+    public UsuarioInstructor obtenerUsuarioInstructor(String key, String valor) {
+        Document findDocument = new Document(key, valor);
+        FindIterable<Document> resultDocument = usuarios.find(findDocument);
+        String json =  resultDocument.first().toJson();
+        System.out.println(json);
+        UsuarioInstructor user = new Gson().fromJson(json, UsuarioInstructor.class);
         return user;
     }
       

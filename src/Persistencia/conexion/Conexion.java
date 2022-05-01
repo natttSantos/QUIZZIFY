@@ -112,8 +112,8 @@ public class Conexion {
         return cq.obtenerTodosLosQuizzes();
     }
     
-    public int reducirCantQuizzesDisponibles(String email) {
-        return cu.reducirCantQuizzesDisponibles(email);
+    public void reducirCantQuizzesDisponibles(String email, int quizzesDisponibles) {
+        cu.reducirCantQuizzesDisponibles(email, quizzesDisponibles);
 
     }
  
@@ -125,6 +125,9 @@ public class Conexion {
     }
     public UsuarioAlumno obtenerUsuarioAlumno(String key, String valor){
        return cu.obtenerUsuarioAlumno(key, valor);
+    }
+    public UsuarioInstructor obtenerUsuarioInstructor(String key, String valor){
+       return cu.obtenerUsuarioInstructor(key, valor);
     }
 
     public void insertarCurso(Curso c) {

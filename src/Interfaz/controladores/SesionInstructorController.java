@@ -47,7 +47,7 @@ public class SesionInstructorController implements Initializable {
     private Button buttonQuizAleatorio;
     
     
-    private UsuarioInstructor i;
+    public UsuarioInstructor i;
     @FXML
     private Button buttonPreguntaMultiple;
     @FXML
@@ -63,11 +63,16 @@ public class SesionInstructorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        conexion = Conexion.obtenerConexion();   
+        conexion = Conexion.obtenerConexion();
+        this.i = conexion.obtenerUsuarioInstructor("email", Interfaz.controladores.InicioSesionController.i.getEmail());
+        rellenarDatosInstruc(i);
     }   
 
     public void setUsuario(UsuarioInstructor i) {
-        this.i = i;
+       System.out.println("SE INTENTA FER UN SET USUARIO XD");
+    }
+    
+    public void rellenarDatosInstruc(UsuarioInstructor i) {
         instructor.setText(i.getNombre() + " " + i.getApellidos());
         quizzesDisponibles.setText(i.getQuizzesDisponibles()+"");
         if(i.getQuizzesDisponibles()== 0){
