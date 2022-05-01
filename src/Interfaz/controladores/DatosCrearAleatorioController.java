@@ -92,7 +92,7 @@ public class DatosCrearAleatorioController implements Initializable {
 
 
     @FXML
-    private void aceptarButtonClicked(ActionEvent event) {
+    private void aceptarButtonClicked(ActionEvent event) throws IOException {
         nombre = nombreTextField.getText();
         numero = Integer.parseInt(numeroTextField.getText());
         
@@ -109,6 +109,7 @@ public class DatosCrearAleatorioController implements Initializable {
             anulado = false;
             crearQuizAleatorio(numero, nombre, listaPreguntas);
             ((Node) event.getSource()).getScene().getWindow().hide();
+            navegarFormInstructor(event);
         } else {
             JOptionPane.showMessageDialog(null, "No hay tantas preguntas en la bateria!","Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -139,6 +140,9 @@ public class DatosCrearAleatorioController implements Initializable {
             preguntas[i] = d;
         }
         con.insertarQuiz(nombre, obtenerCursoSelected(), preguntas);
+        instructorConectado.setQuizzesDisponibles(instructorConectado.getQuizzesDisponibles() - 1);
+        con.reducirCantQuizzesDisponibles(instructorConectado.getEmail(), instructorConectado.getQuizzesDisponibles());
+        
     }
     
     public boolean getAnulado() {
@@ -194,6 +198,18 @@ public class DatosCrearAleatorioController implements Initializable {
 
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
+        Parent root =(Parent) loader.load();      
+        SesionInstructorController sesionInstructor = loader.<SesionInstructorController>getController();
+        sesionInstructor.setUsuario(instructorConectado);
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+       public void navegarFormInstructor (ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionInstructor.fxml"));
         Parent root =(Parent) loader.load();      
         SesionInstructorController sesionInstructor = loader.<SesionInstructorController>getController();

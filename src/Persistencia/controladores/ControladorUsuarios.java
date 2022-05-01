@@ -164,7 +164,7 @@ public class ControladorUsuarios {
         try {
             
             Document findDocument = new Document("email", email);
-            Document quizzes = new Document("quizzesDisponibles", quizzesDisponibles - 1);
+            Document quizzes = new Document("quizzesDisponibles", quizzesDisponibles);
             usuarios.updateOne(eq("email", email), new Document("$set", quizzes));
            
         }catch(Exception e){
