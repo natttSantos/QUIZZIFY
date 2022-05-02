@@ -48,10 +48,18 @@ public class ControladorQuizzes {
         return lista;
     }
     public QuizAbstracto obtenerQuiz(String key, String valor) {
+        QuizAbstracto quiz = null;
         Document findDocument = new Document(key, valor);
+        System.out.println(findDocument);
         FindIterable<Document> resultDocument = quizzes.find(findDocument);
-        String json =  resultDocument.first().toJson();
-        QuizAbstracto quiz = new Gson().fromJson(json, QuizAbstracto.class);
+        
+        MongoCursor<Document> cursor = resultDocument.iterator();
+        if (cursor.hasNext()) {
+            String json =  resultDocument.first().toJson();
+            System.out.println(json);
+            quiz = new Gson().fromJson(json, QuizAbstracto.class);
+            System.out.println(quiz.getNombre());
+        }
         return quiz;
     }
     

@@ -13,8 +13,8 @@ import org.bson.Document;
  * @author crivi
  */
 public class NotaQuizz {
-    private String quizz;
-    private String alumno;
+    private String quizz; //nombrequiz
+    private String alumno; //nombreAlum
     private int nota;
     private ArrayList<PreguntaRespondida> respuestas;
     

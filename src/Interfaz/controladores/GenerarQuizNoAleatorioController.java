@@ -33,6 +33,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 import org.bson.Document;
 
 public class GenerarQuizNoAleatorioController implements Initializable {
@@ -153,14 +154,26 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private void anularButtonClickedTest(ActionEvent event) {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
-
     @FXML
     private void añadirAExamenButtonClicked(ActionEvent event) {
+        QuizAbstracto quiz = null;
         String selectedItem = listView.getSelectionModel().getSelectedItem();
         if(selectedItem != null){
             if (!listView2.getItems().contains(selectedItem)) {
-                listView2.getItems().add(selectedItem);
-            } else { enviarAlerta("ERROR", "La pregunta seleccionada ya ha sido añadida al examen");}
+                quiz = con.obtenerQuiz("preguntas.text", selectedItem);
+                
+                if(quiz != null){
+                   
+                    int reply = JOptionPane.showConfirmDialog(null, "La pregunta que va a insertar en el Quiz ya está en otro quizz!. Quieres añadirla de todas formas?", "Pregunta ya en uso!", JOptionPane.YES_NO_OPTION);
+                    if (reply == JOptionPane.YES_OPTION) {
+                        listView2.getItems().add(selectedItem);
+                    }
+                } else {
+                    listView2.getItems().add(selectedItem);
+                }
+            } else { 
+                enviarAlerta("ERROR", "La pregunta seleccionada ya ha sido añadida al examen");
+            }
         }else {
             enviarAlerta("ERROR", "Debe seleccionar una pregunta para añadirla al examen!");
         }

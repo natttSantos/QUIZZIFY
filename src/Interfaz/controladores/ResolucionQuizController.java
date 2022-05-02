@@ -46,6 +46,7 @@ public class ResolucionQuizController implements Initializable {
     private ArrayList<PreguntaRespondida> respuestas;
     private int indexPreguntaMultiple = 0; 
     private int indexPreguntaVF = 0; 
+    
     private int [] arrayRespuestasUsuario = new int [50]; 
     private int [] arrayRespuestasCorrectas = new int[50];
     private int numeroPregunta;
@@ -222,7 +223,6 @@ public class ResolucionQuizController implements Initializable {
              }
              addEnunciadoRespuestaMultiple(enunciadoRespuesta, indexRespuesta);
        }
-       
     }
     public void cargarPreguntasVF(){ 
         fraccionNumeroPreguntas();
@@ -269,7 +269,7 @@ public class ResolucionQuizController implements Initializable {
         }
         subirRespuestas(nota);
         notafraccion = nota + "/" + numeroTotalPreguntas; 
-        mostrarAlerta(nota, notafraccion);
+       
     }
     
     public void subirRespuestas(int nota){
@@ -288,26 +288,12 @@ public class ResolucionQuizController implements Initializable {
         }if(respuesta4.isSelected()){
             respuestaUsuario = 4; 
         }
-        String aux1 = numeroPregunta+"";
+        String aux1 = pregunta.getText()+"";
         String aux2 = respuestaUsuario+"";
         aux = new PreguntaRespondida(aux1,aux2);
         respuestas.add(aux);
         respuestasDeUsuario(respuestaUsuario); 
-    }
-    
-    public void mostrarAlerta(double nota, String notafraccion){
-        String header; 
-        if(nota >= 5 ){ 
-            header = "ENHORABUENA"; 
-        } else { 
-            header = "LO SIENTO"; 
-        }
-        Alert dialogoAlerta = new Alert(Alert.AlertType.CONFIRMATION); 
-        dialogoAlerta.setTitle(null);
-        dialogoAlerta.setHeaderText(header);
-        dialogoAlerta.setContentText("Tu nota es " + notafraccion);
-        java.awt.Toolkit.getDefaultToolkit().beep();
-        dialogoAlerta.showAndWait(); 
+        System.out.println("");
     }
 
     public void setNumeroPreguntas(int numeroPreguntas) {
