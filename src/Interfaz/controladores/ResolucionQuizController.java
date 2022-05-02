@@ -124,6 +124,7 @@ public class ResolucionQuizController implements Initializable {
             resolucion.addEnunciadoRespuestaVF();
             
         } 
+        resolucion.setNombreQuiz(nombreQuiz);
         resolucion.setIndexPreguntaVF(indexPreguntaVF);
         resolucion.setIndexPreguntaMultiple(indexPreguntaMultiple);
         resolucion.setNombreCursoSelected(nombreCursoSelected);
@@ -133,6 +134,7 @@ public class ResolucionQuizController implements Initializable {
         resolucion.setTipoPregunta(tipoPregunta);
         resolucion.setArrayRespuestasCorrectas(arrayRespuestasCorrectas);
         resolucion.setRespuestas(respuestas);
+        resolucion.setEstudianteConectado(estudianteConectado);
         resolucion.validarTipoPregunta();
         Scene scene = new Scene (root);
         Stage stage = new Stage();

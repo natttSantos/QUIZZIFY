@@ -34,7 +34,6 @@ import java.lang.reflect.Type;
 
 public class SesionEstudianteQuizzesController implements Initializable {
 
-    private String usuario;
     private ArrayList<PreguntaAbstracta> preguntas;
     
     @FXML
@@ -62,9 +61,7 @@ public class SesionEstudianteQuizzesController implements Initializable {
     preguntas = con.obtenerTodasPreguntas();
     }    
     
-    public void setUsuario(String usuario){
-        this.usuario = usuario; 
-    }
+    
     
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
@@ -122,7 +119,7 @@ public class SesionEstudianteQuizzesController implements Initializable {
                 root =(Parent) loader.load(); 
                 ResolucionQuizController resolucion = loader.<ResolucionQuizController>getController();
                 resolucion.setNombreCursoSelected(nombreCursoSelected);
-                
+                resolucion.setEstudianteConectado(estudianteConectado);
                 
                 resolucion.setNombreQuiz(nombrequizSeleccionado);
                 resolucion.setPreguntasMultiple(preguntasMultiples);
@@ -130,6 +127,7 @@ public class SesionEstudianteQuizzesController implements Initializable {
                 resolucion.setTipoPregunta(tipoPregunta);
                 resolucion.setNumeroPreguntas(preguntasMultiples.size() + preguntasVF.size());
                 resolucion.validarTipoPregunta();
+                resolucion.setEstudianteConectado(estudianteConectado);
                 
                 
        

@@ -104,6 +104,7 @@ public class SesionEstudianteController implements Initializable {
         Parent root =(Parent) loader.load();      
         SesionEstudianteQuizzesController sesionQuizzes = loader.<SesionEstudianteQuizzesController>getController();
         sesionQuizzes.setNombreCursoSelected(cursoSelected);
+        sesionQuizzes.setEstudianteConectado(estudianteConectado);
         sesionQuizzes.cargarListaQuizzes(); 
         Scene scene = new Scene (root);
         Stage stage = new Stage();
