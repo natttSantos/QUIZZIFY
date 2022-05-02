@@ -8,6 +8,7 @@ import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.PreguntaVF;
+import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.RespuestaAbstracta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.UsuarioAlumno;
@@ -59,6 +60,46 @@ public class ControladorPreguntas {
         }
       return p; 
     }
+    
+    
+     public ArrayList <PreguntaSeleccionMultiple> obtenerPreguntasQuiz_Multiples (QuizAbstracto quiz){    
+        Gson gson = new Gson(); 
+
+        String tipoPregunta = null; 
+        ArrayList <PreguntaAbstracta> preguntasQuizSelected = quiz.getPreguntas();
+        ArrayList <PreguntaSeleccionMultiple> preguntasMultiples = new ArrayList(); 
+        
+        int i; 
+        String json; 
+        for(i = 0; i < preguntasQuizSelected.size(); i++ ){
+            json = gson.toJson(preguntasQuizSelected.get(i));
+            PreguntaSeleccionMultiple preguntaMul = new Gson().fromJson(json, PreguntaSeleccionMultiple.class);
+            if(preguntaMul.getTipo().equals("multiple")){
+               preguntasMultiples.add(preguntaMul);  
+            } 
+        }
+        return preguntasMultiples; 
+    }
+    public ArrayList <PreguntaVF> obtenerPreguntasQuiz_VF (QuizAbstracto quiz){    
+        Gson gson = new Gson(); 
+
+        String tipoPregunta = null; 
+        ArrayList <PreguntaAbstracta> preguntasQuizSelected = quiz.getPreguntas();
+        ArrayList <PreguntaVF> preguntasVF = new ArrayList(); 
+        
+        int i; 
+        String json; 
+        for(i = 0; i < preguntasQuizSelected.size(); i++ ){
+            json = gson.toJson(preguntasQuizSelected.get(i));
+            PreguntaSeleccionMultiple preguntaMul = new Gson().fromJson(json, PreguntaSeleccionMultiple.class);
+            if(preguntaMul.getTipo().equals("vf")){
+               PreguntaVF preguntaVF = new Gson().fromJson(json, PreguntaVF.class);
+               preguntasVF.add(preguntaVF); 
+            } 
+        }
+        return preguntasVF; 
+    }
+    
     
     public ArrayList<PreguntaAbstracta> obtenerTodasPreguntas() {
         ArrayList<PreguntaAbstracta> lista = new ArrayList();

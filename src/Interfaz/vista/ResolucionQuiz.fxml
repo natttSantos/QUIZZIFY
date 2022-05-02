@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="contenedor" prefHeight="834.0" prefWidth="1233.0" styleClass="azul" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.ResolucionQuizController">
+   <children>
+      <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Button layoutX="82.0" layoutY="66.0" mnemonicParsing="false" onAction="#pulsarAtras" prefHeight="47.0" prefWidth="61.0" styleClass="atras" stylesheets="@../css/hojaEstilo.css">
+         <graphic>
+            <ImageView fitHeight="47.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/atras.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="569.0" layoutY="309.0" />
+      <Label layoutX="450.0" layoutY="90.0">
+         <font>
+            <Font name="Impact" size="42.0" />
+         </font>
+      </Label>
+      <Button layoutX="664.0" layoutY="729.0" mnemonicParsing="false" onAction="#pulsarContinuar" prefHeight="39.0" prefWidth="135.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Continuar">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="labelTipo" layoutX="475.0" layoutY="66.0" text="SELECCIÓN MÚLTIPLE">
+         <font>
+            <Font name="Impact" size="40.0" />
+         </font>
+      </Label>
+      <Button layoutX="475.0" layoutY="729.0" mnemonicParsing="false" onAction="#pulsarFinalizar" prefHeight="39.0" prefWidth="135.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Finalizar">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Pane layoutX="244.0" layoutY="166.0" prefHeight="502.0" prefWidth="827.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css">
+         <children>
+            <Label fx:id="fraccionPregunta" layoutX="58.0" layoutY="47.0" text="NumeroPregunta">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="pregunta" layoutX="78.0" layoutY="104.0" text="Pregunta" />
+            <RadioButton fx:id="respuesta1" layoutX="99.0" layoutY="192.0" mnemonicParsing="false" text="Respuesta1">
+               <toggleGroup>
+                  <ToggleGroup fx:id="grupoToggle" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="respuesta2" layoutX="99.0" layoutY="263.0" mnemonicParsing="false" text="Respuesta2" toggleGroup="$grupoToggle" />
+            <RadioButton fx:id="respuesta3" layoutX="99.0" layoutY="333.0" mnemonicParsing="false" text="Respuesta3" toggleGroup="$grupoToggle" />
+            <RadioButton fx:id="respuesta4" layoutX="99.0" layoutY="403.0" mnemonicParsing="false" text="Respuesta4" toggleGroup="$grupoToggle" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -12,6 +12,7 @@ import Persistencia.controladores.ControladorPreguntas;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.Usuario;
@@ -100,6 +101,13 @@ public class Conexion {
     public ArrayList<PreguntaAbstracta> obtenerTodasPreguntas() {
         return cp.obtenerTodasPreguntas();
     }
+     public ArrayList <PreguntaVF> obtenerPreguntasQuiz_VF (QuizAbstracto quiz){
+         return cp.obtenerPreguntasQuiz_VF(quiz); 
+     }
+     
+        public ArrayList <PreguntaSeleccionMultiple> obtenerPreguntasQuiz_Multiples (QuizAbstracto quiz){
+         return cp.obtenerPreguntasQuiz_Multiples (quiz); 
+     }
     
     public void insertarQuiz(String text, Document curso, Document [] preguntas){
         cq.insertarQuiz(text, curso, preguntas);

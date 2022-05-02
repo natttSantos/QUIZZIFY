@@ -33,24 +33,18 @@ public class ControladorQuizzes {
             .append ("curso", curso)
             .append("preguntas", asList(preguntas));
         
+        
         quizzes.insertOne(quiz);
     }
      public ArrayList<QuizAbstracto> obtenerTodosLosQuizzes() {
         ArrayList<QuizAbstracto> lista = new ArrayList();
         MongoCursor<Document> cursor = quizzes.find().iterator();
-        
-        try {
             while (cursor.hasNext()) {
               Document otro = (Document) cursor.next();
               String json =  otro.toJson();
               QuizAbstracto quiz = new Gson().fromJson(json, QuizAbstracto.class);
               lista.add(quiz);
             }
-        }catch(Exception e){
-             System.out.println("ERROR al obtener todos los quizzes:   " + e.getMessage());
-        } finally {
-          cursor.close();
-        }
         return lista;
     }
     public QuizAbstracto obtenerQuiz(String key, String valor) {

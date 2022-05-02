@@ -92,6 +92,7 @@ public class InicioSesionController implements Initializable {
             stage.setScene(scene);
             stage.setTitle("Sesion " + tipoUsuario);
             stage.initModality(Modality.APPLICATION_MODAL); 
+            stage.setResizable(false);
             stage.show();
             ((Node) event.getSource()).getScene().getWindow().hide();
         }
@@ -106,6 +107,7 @@ public class InicioSesionController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.setResizable(false);
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
      }

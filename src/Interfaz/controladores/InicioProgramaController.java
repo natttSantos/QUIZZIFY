@@ -50,6 +50,7 @@ public class InicioProgramaController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.setResizable(false);
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
@@ -72,6 +73,7 @@ public class InicioProgramaController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Inicio sesión " + usuario);
         stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.setResizable(false);
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
 

@@ -19,7 +19,7 @@ public String getNombre() {
     return nombre;
 }
 
-public ArrayList getPreguntas() {
+public ArrayList <PreguntaAbstracta> getPreguntas() {
     return preguntas;
 }
 
@@ -39,7 +39,9 @@ public boolean añadirPregunta(PreguntaAbstracta pregunta){
 public boolean eliminarPregunta(PreguntaAbstracta pregunta){
     return preguntas.remove(pregunta);
 }
-}
+
 
 //public abstract PreguntaAbstracta crearPregunta(String text, String dificultad, String tema, ArrayList respuestas);
-//}
+
+
+}
