@@ -31,7 +31,7 @@
             <Font name="Impact" size="42.0" />
          </font>
       </Label>
-      <Button layoutX="664.0" layoutY="729.0" mnemonicParsing="false" onAction="#pulsarContinuar" prefHeight="39.0" prefWidth="135.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Continuar">
+      <Button fx:id="botonContinuar" layoutX="664.0" layoutY="729.0" mnemonicParsing="false" onAction="#pulsarContinuar" prefHeight="39.0" prefWidth="135.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Continuar">
          <font>
             <Font size="18.0" />
          </font>

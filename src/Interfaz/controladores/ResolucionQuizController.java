@@ -25,6 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -41,7 +42,7 @@ public class ResolucionQuizController implements Initializable {
     private ArrayList <PreguntaVF> preguntasVF; 
     private int numeroPreguntas; 
     
-    private String tipoPregunta = "multiple"; 
+    private String tipoPregunta; 
     
     private ArrayList<PreguntaRespondida> respuestas;
     private int indexPreguntaMultiple = 0; 
@@ -75,6 +76,8 @@ public class ResolucionQuizController implements Initializable {
     private UsuarioAlumno estudianteConectado; 
     @FXML
     private Label labelTipo;
+    @FXML
+    private Button botonContinuar;
 
     /**
      * Initializes the controller class.
@@ -128,6 +131,8 @@ public class ResolucionQuizController implements Initializable {
         resolucion.setPreguntasVF(preguntasVF);
         resolucion.setNumeroPreguntas(numeroPreguntas);
         resolucion.setTipoPregunta(tipoPregunta);
+        resolucion.setArrayRespuestasCorrectas(arrayRespuestasCorrectas);
+        resolucion.setRespuestas(respuestas);
         resolucion.validarTipoPregunta();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
@@ -196,6 +201,9 @@ public class ResolucionQuizController implements Initializable {
         } else if(preguntasVF.size() > 0 && tipoPregunta.equals("vf")){
             cargarPreguntasVF();
         }
+        if(indexPreguntaMultiple + indexPreguntaVF == numeroPreguntas){
+            botonContinuar.setDisable(true);
+        }
     }
    
    
@@ -206,11 +214,11 @@ public class ResolucionQuizController implements Initializable {
         PreguntaSeleccionMultiple preg = new Gson().fromJson(jsonPregunta, PreguntaSeleccionMultiple.class);
 
         String enunciadoPregunta = preg.getText();
-        ArrayList respuestas = preg.getRespuestas(); 
+        ArrayList respuestasPregunta = preg.getRespuestas(); 
         addEnunciadoPregunta(enunciadoPregunta);  
 
-        for(int indexRespuesta = 1; indexRespuesta <= respuestas.size(); indexRespuesta++){
-            String jsonRespuesta =  gson.toJson(respuestas.get(indexRespuesta - 1));
+        for(int indexRespuesta = 1; indexRespuesta <= respuestasPregunta.size(); indexRespuesta++){
+            String jsonRespuesta =  gson.toJson(respuestasPregunta.get(indexRespuesta - 1));
             RespuestaAbstracta resp = new Gson().fromJson(jsonRespuesta, RespuestaSeleccion.class);
             OpcionRespuestaSeleccion opcion = new Gson().fromJson(jsonRespuesta, OpcionRespuestaSeleccion.class);
             
@@ -225,15 +233,19 @@ public class ResolucionQuizController implements Initializable {
        }
     }
     public void cargarPreguntasVF(){ 
-        fraccionNumeroPreguntas();
-        //addEnunciadoRespuestaVF(); 
+        fraccionNumeroPreguntas(); 
         final Gson gson = new Gson();
 	String jsonPregunta = gson.toJson(preguntasVF.get(indexPreguntaVF)); 
         PreguntaVF preg = new Gson().fromJson(jsonPregunta, PreguntaVF.class);
 
         String enunciadoPregunta = preg.getText();
-        addEnunciadoPregunta(enunciadoPregunta);  
-        
+        addEnunciadoPregunta(enunciadoPregunta); 
+        if(preg.isRespuestaVerdadera()){ //VERDADERA
+             arrayRespuestasCorrectas[indexPreguntaMultiple + indexPreguntaVF] = 1; 
+        }
+        else {
+            arrayRespuestasCorrectas[indexPreguntaMultiple + indexPreguntaVF] = 2; 
+        }
         indexPreguntaVF ++; 
     }
     
@@ -259,41 +271,53 @@ public class ResolucionQuizController implements Initializable {
         arrayRespuestasCorrectas[indexPreguntaMultiple] = indexRespuesta; 
     }
     public void compararResultados(){
-        int numeroTotalPreguntas = preguntasMultiples.size();  
-        int nota = numeroTotalPreguntas; 
-        String notafraccion; 
-        for(int i = 0; i < numeroTotalPreguntas; i++){
+        int aciertos = numeroPreguntas; 
+        String notafraccion;
+        double notaCalculada; 
+        for(int i = 0; i < numeroPreguntas; i++){
                if(arrayRespuestasCorrectas[i] != arrayRespuestasUsuario[i]){
-                   nota--; 
+                   aciertos--; 
                } 
         }
-        subirRespuestas(nota);
-        notafraccion = nota + "/" + numeroTotalPreguntas; 
-       
+  
+        notaCalculada = (aciertos * 10)/numeroPreguntas; 
+        subirRespuestas(notaCalculada);
     }
     
-    public void subirRespuestas(int nota){
-        NotaQuizz notaQuizz = new NotaQuizz(nombreQuiz,usuario,nota,this.respuestas);
+    public void subirRespuestas(double nota){
+        NotaQuizz notaQuizz = new NotaQuizz(nombreQuiz,estudianteConectado.getEmail(),nota,this.respuestas);
         con.insertarNota(notaQuizz);
     }
     
     public void guardarRespuestasUsuario(){
         int respuestaUsuario = 0; 
-        if(respuesta1.isSelected()){
-            respuestaUsuario = 1; 
-        }if(respuesta2.isSelected()){
-            respuestaUsuario = 2; 
-        }if(respuesta3.isSelected()){
-            respuestaUsuario = 3; 
-        }if(respuesta4.isSelected()){
-            respuestaUsuario = 4; 
+        switch(tipoPregunta){
+            case "multiple": 
+                if(respuesta1.isSelected()){
+                respuestaUsuario = 1; 
+                }if(respuesta2.isSelected()){
+                respuestaUsuario = 2; 
+                }if(respuesta3.isSelected()){
+                respuestaUsuario = 3; 
+                }if(respuesta4.isSelected()){
+                respuestaUsuario = 4; 
+                }
+                break;
+                
+            case "vf": 
+                if(respuesta1.isSelected()){ //Verdadero
+                    respuestaUsuario = 1; 
+                }
+                if(respuesta2.isSelected()){ //Falso
+                    respuestaUsuario = 2; 
+                }
+                break;    
         }
-        String aux1 = pregunta.getText()+"";
-        String aux2 = respuestaUsuario+"";
-        aux = new PreguntaRespondida(aux1,aux2);
-        respuestas.add(aux);
-        respuestasDeUsuario(respuestaUsuario); 
-        System.out.println("");
+                String aux1 = pregunta.getText()+"";
+                String aux2 = respuestaUsuario+"";
+                aux = new PreguntaRespondida(aux1,aux2);
+                respuestas.add(aux);
+                respuestasDeUsuario(respuestaUsuario); 
     }
 
     public void setNumeroPreguntas(int numeroPreguntas) {
@@ -315,6 +339,7 @@ public class ResolucionQuizController implements Initializable {
 
     @FXML
     private void pulsarFinalizar(ActionEvent event) throws IOException {
+        guardarRespuestasUsuario();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(null);
         alert.setTitle("Confirmación");
@@ -328,6 +353,8 @@ public class ResolucionQuizController implements Initializable {
             alert2.setContentText("Quiz finalizado!");
             alert2.showAndWait(); 
             navegarAtras(event);
+            
+            compararResultados();
         } 
     }
     public void navegarAtras (ActionEvent event) throws IOException{
@@ -344,5 +371,14 @@ public class ResolucionQuizController implements Initializable {
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
+
+    public void setArrayRespuestasCorrectas(int[] arrayRespuestasCorrectas) {
+        this.arrayRespuestasCorrectas = arrayRespuestasCorrectas;
+    }
+
+    public void setRespuestas(ArrayList<PreguntaRespondida> respuestas) {
+        this.respuestas = respuestas;
+    }
+    
     
 }

@@ -14,16 +14,17 @@ import org.bson.Document;
  */
 public class PreguntaVF extends PreguntaAbstracta {
     
-    private boolean respuestaVerdadera;
+    private boolean esVerdadera;
 
     public PreguntaVF(String text, String dificultad, String tema, boolean verdadera) {
         super(text, dificultad, tema);
+        this.esVerdadera = verdadera;
         this.tipo = "vf";   // verdadero/falso
     }
     
     public PreguntaVF(String text, String dificultad, boolean verdadera) {
         super(text, dificultad);
-        this.respuestaVerdadera = verdadera;
+        this.esVerdadera = verdadera;
         this.tipo = "vf";
     }
     
@@ -38,16 +39,16 @@ public class PreguntaVF extends PreguntaAbstracta {
         p.append("tipo", this.tipo);
         p.append("dificultad", this.dificultad);
         p.append("tema", this.tema);
-        p.append("esVerdadera", this.respuestaVerdadera);
+        p.append("esVerdadera", this.esVerdadera);
         return p;
     }
 
     public boolean isRespuestaVerdadera() {
-        return respuestaVerdadera;
+        return esVerdadera;
     }
 
     public void setRespuestaVerdadera(boolean respuestaVerdadera) {
-        this.respuestaVerdadera = respuestaVerdadera;
+        this.esVerdadera = respuestaVerdadera;
     }
     
     

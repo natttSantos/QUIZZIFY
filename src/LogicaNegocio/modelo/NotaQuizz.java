@@ -15,10 +15,10 @@ import org.bson.Document;
 public class NotaQuizz {
     private String quizz; //nombrequiz
     private String alumno; //nombreAlum
-    private int nota;
+    private double nota;
     private ArrayList<PreguntaRespondida> respuestas;
     
-    public NotaQuizz(String quizz, String alumno, int nota, ArrayList<PreguntaRespondida> respuestas){
+    public NotaQuizz(String quizz, String alumno, double nota, ArrayList<PreguntaRespondida> respuestas){
         this.quizz = quizz;
         this.alumno = alumno;
         this.nota = nota;
@@ -51,7 +51,7 @@ public class NotaQuizz {
         return quizz;
     }
     
-    public int getNota() {
+    public double getNota() {
         return nota;
     }
     

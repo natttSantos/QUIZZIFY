@@ -107,6 +107,12 @@ public class SesionEstudianteQuizzesController implements Initializable {
         QuizAbstracto quiz = con.obtenerQuiz("nombre", nombrequizSeleccionado); 
         ArrayList <PreguntaSeleccionMultiple> preguntasMultiples = con.obtenerPreguntasQuiz_Multiples(quiz); 
         ArrayList <PreguntaVF> preguntasVF = con.obtenerPreguntasQuiz_VF(quiz); 
+        String tipoPregunta = ""; 
+        if (preguntasMultiples.size() > 0){
+            tipoPregunta = "multiple"; 
+        } else {
+            tipoPregunta = "vf"; 
+        }
         
         FXMLLoader loader = null; 
         Parent root = null; 
@@ -121,8 +127,10 @@ public class SesionEstudianteQuizzesController implements Initializable {
                 resolucion.setNombreQuiz(nombrequizSeleccionado);
                 resolucion.setPreguntasMultiple(preguntasMultiples);
                 resolucion.setPreguntasVF(preguntasVF);
+                resolucion.setTipoPregunta(tipoPregunta);
                 resolucion.setNumeroPreguntas(preguntasMultiples.size() + preguntasVF.size());
                 resolucion.validarTipoPregunta();
+                
                 
        
         Scene scene = new Scene (root);
