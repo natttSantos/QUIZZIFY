@@ -88,6 +88,7 @@ public class CursosController implements Initializable {
         if (nombreCurso != null) {
             Curso curso = con.obtenerCurso("nombreCurso", nombreCurso);
             quizzes.setCursoSeleccionado(curso);
+            quizzes.cargarQuizzesDelCurso();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

@@ -76,8 +76,7 @@ public class GestionQuizzes2Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         con = Conexion.obtenerConexion();
-        cargarPreguntasDelQuiz();
-        alumnosDelQuiz();
+        
         
     }    
     

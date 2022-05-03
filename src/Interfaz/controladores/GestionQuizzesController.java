@@ -75,7 +75,7 @@ public class GestionQuizzesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         con = Conexion.obtenerConexion();
-        cargarQuizzesDelCurso();
+       
         
     }    
     
@@ -147,6 +147,8 @@ public class GestionQuizzesController implements Initializable {
             QuizAbstracto quiz = con.obtenerQuiz("nombre", nombreQuiz);
             quizzes.setQuizSeleccionado(quiz);
             quizzes.setCursoSeleccionado(cursoSeleccionado);
+            quizzes.cargarPreguntasDelQuiz();
+            quizzes.alumnosDelQuiz();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

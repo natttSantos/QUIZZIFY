@@ -56,9 +56,7 @@ public class SesionInstructorController implements Initializable {
     @FXML
     private Button buttonPreguntaAbierta;
     @FXML
-    private MenuItem misCursos;
-    @FXML
-    private MenuBar myMenuBar;
+    private Button misCursos;
     /**
      * Initializes the controller class.
      */
@@ -144,17 +142,6 @@ public class SesionInstructorController implements Initializable {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
-    @FXML
-    private void pulsarCrear(ActionEvent event) {
-    }
-
-    @FXML
-    private void pulsarGestionQuiz(ActionEvent event) {
-    }
-
-    @FXML
-    private void pulsarVerRespuestas(ActionEvent event) {
-    }
 
     @FXML
     private void pulsarCursos(ActionEvent event) throws IOException {
@@ -174,7 +161,7 @@ public class SesionInstructorController implements Initializable {
         stage.setTitle("Mis cursos");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
-        
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
     @FXML
