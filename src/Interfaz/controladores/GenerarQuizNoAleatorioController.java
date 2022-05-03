@@ -275,7 +275,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
          FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/FechaYTiempoQuiz.fxml"));
         Parent root = cargador.load();
         FechaYTiempoQuizController FechaController = cargador.getController();
-        Scene scene = new Scene(root, 700, 700);
+        Scene scene = new Scene(root, 700, 400);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Ver datos persona");
