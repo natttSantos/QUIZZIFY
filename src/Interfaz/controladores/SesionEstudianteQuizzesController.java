@@ -50,6 +50,7 @@ public class SesionEstudianteQuizzesController implements Initializable {
     private UsuarioAlumno estudianteConectado; 
     
     private String nombreCursoSelected; 
+    ArrayList<QuizAbstracto> quizzesCurso = new ArrayList<>(); 
 
 
     /**
@@ -80,7 +81,7 @@ public class SesionEstudianteQuizzesController implements Initializable {
     }
      public void cargarListaQuizzes(){
         Curso cursoSelected = con.obtenerCurso("nombreCurso", nombreCursoSelected); 
-        ArrayList<QuizAbstracto> quizzesCurso = con.obtenerQuizzesDeCurso(cursoSelected);
+        quizzesCurso = con.obtenerQuizzesDeCurso(cursoSelected);
         if(quizzesCurso.isEmpty()){
             imagenReloj.setVisible(true);
             textoEspera.setVisible(true);
@@ -122,13 +123,11 @@ public class SesionEstudianteQuizzesController implements Initializable {
                 resolucion.setEstudianteConectado(estudianteConectado);
                 
                 resolucion.setNombreQuiz(nombrequizSeleccionado);
+                resolucion.setTipoPregunta(tipoPregunta);
                 resolucion.setPreguntasMultiple(preguntasMultiples);
                 resolucion.setPreguntasVF(preguntasVF);
-                resolucion.setTipoPregunta(tipoPregunta);
                 resolucion.setNumeroPreguntas(preguntasMultiples.size() + preguntasVF.size());
                 resolucion.validarTipoPregunta();
-                resolucion.setEstudianteConectado(estudianteConectado);
-                
                 
        
         Scene scene = new Scene (root);
@@ -151,4 +150,22 @@ public class SesionEstudianteQuizzesController implements Initializable {
         
     }
 
+    @FXML
+    private void pulsarCalificaciones(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/CalificacionesEstudiante.fxml"));
+        Parent root =(Parent) loader.load();
+        CalificacionesEstudianteController calif = loader.<CalificacionesEstudianteController>getController(); 
+        calif.setEstudianteConectado(estudianteConectado);
+        calif.setNombreCursoSelected(nombreCursoSelected);
+        calif.setQuizzesCurso(quizzesCurso);
+        calif.cargarNotas();
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.setResizable(false);
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+    
 }

@@ -69,7 +69,7 @@ public class ControladorNotasQuizzes {
         ArrayList<NotaQuizz> notas = obtenerNotasDeQuiz(quiz);
         for (NotaQuizz nota:notas){
             String aux = nota.getAlumno();
-            if (alumno.getNombre().equals(aux)) {
+            if (alumno.getEmail().equals(aux)) {
                 return nota;    
             }
         }

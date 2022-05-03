@@ -76,7 +76,7 @@
             <Image url="@../images/waiting.png" />
          </image>
       </ImageView>
-      <Button fx:id="realizarQuizBoton" layoutX="555.0" layoutY="643.0" mnemonicParsing="false" onAction="#entrarQuiz" prefHeight="40.0" prefWidth="125.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Continuar">
+      <Button fx:id="realizarQuizBoton" layoutX="640.0" layoutY="636.0" mnemonicParsing="false" onAction="#entrarQuiz" prefHeight="40.0" prefWidth="125.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Continuar">
          <font>
             <Font size="18.0" />
          </font></Button>
@@ -85,5 +85,10 @@
             <Font name="Impact" size="37.0" />
          </font>
       </Label>
+      <Button layoutX="408.0" layoutY="636.0" mnemonicParsing="false" onAction="#pulsarCalificaciones" prefHeight="40.0" prefWidth="164.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Ver calificiones">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -6,6 +6,8 @@
 package LogicaNegocio.modelo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import static java.util.Arrays.asList;
 import org.bson.Document;
 
 /**
@@ -30,7 +32,7 @@ public class NotaQuizz {
         d.append("quizz", this.quizz);
         d.append("alumno", this.alumno);
         d.append("nota", this.nota);
-        d.append("respuestas", crearDocumentRespuestas());
+        d.append("respuestas", asList(crearDocumentRespuestas()));
         return d;
     }
     
