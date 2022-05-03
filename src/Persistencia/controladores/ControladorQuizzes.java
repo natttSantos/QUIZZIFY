@@ -27,15 +27,17 @@ public class ControladorQuizzes {
     }
     
     
-    public void insertarQuiz(String nombre, Document curso, Document [] preguntas) {
+    public void insertarQuiz(String nombre, Document curso, String estado, Document [] preguntas) {
         Document quiz = new Document();
         quiz.append("nombre", nombre)
             .append ("curso", curso)
+            .append("estado", estado)
             .append("preguntas", asList(preguntas));
         
         
         quizzes.insertOne(quiz);
     }
+    
      public ArrayList<QuizAbstracto> obtenerTodosLosQuizzes() {
         ArrayList<QuizAbstracto> lista = new ArrayList();
         MongoCursor<Document> cursor = quizzes.find().iterator();
@@ -74,4 +76,26 @@ public class ControladorQuizzes {
         return quizzesCurso;
     }
     
+    public void cambiarEstado(String nombreQuiz,String estado) {
+        QuizAbstracto quiz = obtenerQuiz("nombre",nombreQuiz);
+        ArrayList<PreguntaAbstracta> lista = quiz.getPreguntas();
+            Document[] preguntas = new Document[lista.size()];
+            int i = 0;
+            for (PreguntaAbstracta pregunta:lista){
+                Document d = new Document();
+                d.append("text", pregunta.getText())
+                    .append("dificultad", pregunta.getDificultad())
+                    .append("tema", pregunta.getTema()) 
+                    .append("respuestas", asList(pregunta.getRespuestas()));
+                preguntas[i] = d;
+                i++;
+        }        
+        insertarQuiz(quiz.getNombre(), quiz.getCurso().obtenerDocument(), estado, preguntas);
+        Document quizDocument = new Document();
+        quizDocument.append("nombre", quiz.getNombre())
+            .append ("curso", quiz.getCurso().obtenerDocument())
+            .append("estado", quiz.getEstado())
+            .append("preguntas", asList(preguntas));
+        quizzes.deleteOne(quizDocument);
+    }
 }

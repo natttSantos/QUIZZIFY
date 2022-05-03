@@ -109,8 +109,8 @@ public class Conexion {
          return cp.obtenerPreguntasQuiz_Multiples (quiz); 
      }
     
-    public void insertarQuiz(String text, Document curso, Document [] preguntas){
-        cq.insertarQuiz(text, curso, preguntas);
+    public void insertarQuiz(String text, Document curso, String estado, Document [] preguntas){
+        cq.insertarQuiz(text, curso, estado, preguntas);
     }
     
     public QuizAbstracto obtenerQuiz(String key, String valor){
@@ -118,6 +118,9 @@ public class Conexion {
     }
     public ArrayList<QuizAbstracto> obtenerTodosQuizzes() {
         return cq.obtenerTodosLosQuizzes();
+    }
+    public void cambiarEstado(String nombreQuiz,String estado){
+        cq.cambiarEstado(nombreQuiz, estado);
     }
     
     public void reducirCantQuizzesDisponibles(String email, int quizzesDisponibles) {

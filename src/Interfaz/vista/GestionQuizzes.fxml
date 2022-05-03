@@ -54,7 +54,12 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="botonLanzarQuiz" layoutX="577.0" layoutY="654.0" mnemonicParsing="false" onAction="#lanzarQuiz" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Lanzar quiz">
+      <Button fx:id="botonLanzarQuiz" layoutX="488.0" layoutY="654.0" mnemonicParsing="false" onAction="#lanzarQuiz" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Lanzar quiz">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="botonTerminarQuiz" layoutX="666.0" layoutY="654.0" mnemonicParsing="false" onAction="#terminarQuiz" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Terminar quiz">
          <font>
             <Font size="20.0" />
          </font>
