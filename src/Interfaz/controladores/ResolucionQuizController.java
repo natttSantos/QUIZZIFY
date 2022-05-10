@@ -121,6 +121,7 @@ public class ResolucionQuizController implements Initializable {
             root =(Parent) loader.load(); 
             ResolucionQuizController resolucion = loader.<ResolucionQuizController>getController();
        
+            
         resolucion.setNombreQuiz(nombreQuiz);
         resolucion.setIndexPreguntaVF(indexPreguntaVF);
         resolucion.setIndexPreguntaMultiple(indexPreguntaMultiple);
@@ -357,6 +358,7 @@ public class ResolucionQuizController implements Initializable {
         Parent root =(Parent) loader.load();      
         SesionEstudianteQuizzesController sesionQuizzes = loader.<SesionEstudianteQuizzesController>getController();
         sesionQuizzes.setNombreCursoSelected(nombreCursoSelected);
+        sesionQuizzes.setEstudianteConectado(estudianteConectado);
         sesionQuizzes.cargarListaQuizzes(); 
         Scene scene = new Scene (root);
         Stage stage = new Stage();

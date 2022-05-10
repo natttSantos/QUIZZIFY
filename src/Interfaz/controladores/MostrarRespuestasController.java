@@ -31,6 +31,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -57,7 +58,7 @@ public class MostrarRespuestasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         con = Conexion.obtenerConexion();
-        cargarNotas();
+        //cargarNotas();
     }    
     
     public void setIntructorConectado(UsuarioInstructor instructorConectado){
@@ -78,9 +79,15 @@ public class MostrarRespuestasController implements Initializable {
     public void cargarNotas(){
         TableColumn<PreguntaRespondida, String> col = new TableColumn<>("Pregunta");
         TableColumn<PreguntaRespondida, String> col1 = new TableColumn<>("Respuesta");
+        col.setCellValueFactory(new PropertyValueFactory<>("Pregunta"));
+        col1.setCellValueFactory(new PropertyValueFactory<>("Respuesta"));
         tablaNotas.getColumns().addAll(col,col1);
+        System.out.println("ESTE" + alumnoSeleccionado); 
+        System.out.println("ESTE" + quizSeleccionado.toString()); 
         NotaQuizz nota = con.obtenerRespuestasDeQuizDeAlumno(alumnoSeleccionado, quizSeleccionado);
+        System.out.println("nota" + nota.toString());
         ArrayList<PreguntaRespondida> respuestas = nota.getRespuestas();
+        System.out.println(respuestas.toString());
         for (PreguntaRespondida respuesta:respuestas){
             tablaNotas.getItems().add(respuesta);
         }

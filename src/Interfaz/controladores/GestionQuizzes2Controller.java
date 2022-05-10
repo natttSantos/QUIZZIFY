@@ -9,6 +9,8 @@ import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.NotaQuizz;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaRespondida;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
@@ -108,11 +110,20 @@ public class GestionQuizzes2Controller implements Initializable {
 
     
     public void cargarPreguntasDelQuiz() {
-        ArrayList<PreguntaAbstracta> preguntas = quizSeleccionado.getPreguntas();
-        for (PreguntaAbstracta pregunta:preguntas){
+        System.out.println("En ultimo" + quizSeleccionado);
+        //ArrayList<PreguntaAbstracta> preguntas = quizSeleccionado.getPreguntas();
+        
+        ArrayList <PreguntaSeleccionMultiple> preguntasMul = con.obtenerPreguntasQuiz_Multiples(quizSeleccionado); 
+        ArrayList <PreguntaVF> pregutasVF = con.obtenerPreguntasQuiz_VF(quizSeleccionado); 
+        for (PreguntaAbstracta pregunta:preguntasMul){
             String nombre = pregunta.getText();
             listaPreguntas.getItems().add(nombre);
         }
+        for (PreguntaAbstracta pregunta:pregutasVF){
+            String nombre = pregunta.getText();
+            listaPreguntas.getItems().add(nombre);
+        }
+        
         
     }
     
@@ -128,14 +139,17 @@ public class GestionQuizzes2Controller implements Initializable {
     private void pulsarMostrarRespuestas(ActionEvent event) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/MostrarRespuestas.fxml"));
         Parent root = miCargador.load();
-        MostrarRespuestasController  respuestas= miCargador.getController();
+        MostrarRespuestasController respuestas = miCargador.getController();
         String nombreAlumno = listaAlumnos.getSelectionModel().getSelectedItem();
+        System.out.println("nom" + nombreAlumno);
         if (nombreAlumno != null) {
-            UsuarioAlumno alumno = con.obtenerUsuarioAlumno("nombre", nombreAlumno);
+            UsuarioAlumno alumno = con.obtenerUsuarioAlumno("email", nombreAlumno);
+            System.out.println("de bd" + alumno);
             respuestas.setAlumnnoSeleccionado(alumno);
             respuestas.setCursoSeleccionado(cursoSeleccionado);
             respuestas.setIntructorConectado(instructorConectado);
             respuestas.setQuizSeleccionado(quizSeleccionado);
+            respuestas.cargarNotas();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

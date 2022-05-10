@@ -29,7 +29,7 @@ public void setEstado(String estado){
     this.estado = estado;
 }
 
-public ArrayList <PreguntaAbstracta> getPreguntas() {
+public ArrayList getPreguntas() {
     return preguntas;
 }
 

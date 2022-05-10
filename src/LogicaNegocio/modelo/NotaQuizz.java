@@ -64,4 +64,10 @@ public class NotaQuizz {
     public ArrayList<PreguntaRespondida> getRespuestas() {
         return this.respuestas;
     }
+
+    @Override
+    public String toString() {
+        return "NotaQuizz{" + "quizz=" + quizz + ", alumno=" + alumno + ", nota=" + nota + ", respuestas=" + respuestas + '}';
+    }
+    
 }

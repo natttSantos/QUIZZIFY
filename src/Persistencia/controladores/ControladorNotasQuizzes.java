@@ -26,6 +26,7 @@ public class ControladorNotasQuizzes {
     MongoCollection notas;
     Conexion con;
     public ControladorNotasQuizzes(MongoCollection collection) {
+       
         this.notas = collection;
     }
     
@@ -67,6 +68,8 @@ public class ControladorNotasQuizzes {
     
     public NotaQuizz obtenerRespuestasDeQuizDeAlumno (UsuarioAlumno alumno, QuizAbstracto quiz){
         ArrayList<NotaQuizz> notas = obtenerNotasDeQuiz(quiz);
+        System.out.println(notas.toString());
+         System.out.println("aa" + alumno.toString());
         for (NotaQuizz nota:notas){
             String aux = nota.getAlumno();
             if (alumno.getEmail().equals(aux)) {

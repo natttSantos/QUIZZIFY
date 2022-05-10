@@ -146,9 +146,14 @@ public class GestionQuizzesController implements Initializable {
         GestionQuizzes2Controller  quizzes= miCargador.getController();
         quizzes.setIntructorConectado(instructorConectado);
         String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
+        int pos = nombreQuiz.indexOf(":"); 
+        nombreQuiz = nombreQuiz.substring(0, pos - 7); 
+        System.out.println(nombreQuiz);
         if (nombreQuiz != null) {
             QuizAbstracto quiz = con.obtenerQuiz("nombre", nombreQuiz);
-            quizzes.setQuizSeleccionado(quiz);
+            System.out.println(quiz);
+            this.quizSeleccionado = quiz;
+            quizzes.setQuizSeleccionado(quizSeleccionado);
             quizzes.setCursoSeleccionado(cursoSeleccionado);
             quizzes.cargarPreguntasDelQuiz();
             quizzes.alumnosDelQuiz();
