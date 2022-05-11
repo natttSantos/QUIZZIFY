@@ -176,7 +176,7 @@ public class Conexion {
         return cn.obtenerRespuestasDeQuizDeAlumno(alumno, quiz);
     }
     
-    public void anularPregunta(QuizAbstracto quiz, PreguntaAbstracta pregunta){
-        cq.anularPregunta(quiz, pregunta);
+    public boolean anularPregunta(QuizAbstracto quiz, Document[] preguntas){
+        return cq.anularPregunta(quiz, preguntas);
     }
 }
