@@ -175,4 +175,8 @@ public class Conexion {
     public NotaQuizz obtenerRespuestasDeQuizDeAlumno (UsuarioAlumno alumno, QuizAbstracto quiz){
         return cn.obtenerRespuestasDeQuizDeAlumno(alumno, quiz);
     }
+    
+    public void anularPregunta(QuizAbstracto quiz, PreguntaAbstracta pregunta){
+        cq.anularPregunta(quiz, pregunta);
+    }
 }

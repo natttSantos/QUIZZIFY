@@ -6,6 +6,8 @@ package Persistencia.controladores;
 
 import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.PreguntaVF;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -13,6 +15,7 @@ import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.QuizAbstracto;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCursor;
+import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import java.util.Collections;
@@ -75,7 +78,7 @@ public class ControladorQuizzes {
         }
         return quizzesCurso;
     }
-    
+    //areglar estados
     public void cambiarEstado(String nombreQuiz,String estado) {
         QuizAbstracto quiz = obtenerQuiz("nombre",nombreQuiz);
         ArrayList<PreguntaAbstracta> lista = quiz.getPreguntas();
@@ -97,5 +100,33 @@ public class ControladorQuizzes {
             .append("estado", quiz.getEstado())
             .append("preguntas", asList(preguntas));
         quizzes.deleteOne(quizDocument);
+    }
+    
+    public void anularPregunta(QuizAbstracto quiz, PreguntaAbstracta pregunta){
+        ArrayList<PreguntaAbstracta> lista = quiz.getPreguntas();
+        Document[] preguntas = new Document[lista.size()];
+        int i = 0;
+        for (PreguntaAbstracta pregAux:lista){
+            Document d = new Document();
+            if (pregunta.equals(pregAux)) {
+                i++; 
+                break;
+            } else {
+                d.append("text", pregAux.getText())
+                    .append("dificultad", pregAux.getDificultad())
+                    .append("tema", pregAux.getTema()) 
+                    .append("respuestas", asList(pregAux.getRespuestas()));
+                preguntas[i] = d;
+                i++;
+            }
+        }     
+        try {
+            
+            Document findDocument = new Document("nombre", quiz.getNombre());
+            quizzes.updateOne(eq("nombre", quiz.getNombre()), new Document("$set", preguntas));
+           
+        }catch(Exception e){
+            System.out.println("ERROR en login  " + e.getMessage());
+        }
     }
 }
