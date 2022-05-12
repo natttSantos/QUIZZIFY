@@ -6,15 +6,18 @@
 package Interfaz.controladores;
 
 import LogicaNegocio.modelo.PreguntaVF;
+import LogicaNegocio.modelo.Recurso;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,6 +29,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -58,6 +63,8 @@ public class CrearPreguntaVFController implements Initializable {
     private UsuarioInstructor instructorConectado; 
     
     ObservableList<String> dificultadesItems = FXCollections.observableArrayList();
+    @FXML
+    private MenuButton menuRecursos;
 
     /**
      * Initializes the controller class.
@@ -123,17 +130,16 @@ public class CrearPreguntaVFController implements Initializable {
     private void crearPregunta(ActionEvent event) {
         String texto = textoPregunta.getText();
         String dificultad = dificultadComboBox.getValue();
-        
-        // texto : enunciado de pregunta
-        // respuestaVerdad : verdad o falso 
-        // 
-        // falta subir pregunta a base de dato
-        
+
         PreguntaVF pregunta = new PreguntaVF(texto, dificultad, respuestaVerdad);
-        conexion.insertarPregunta(pregunta);
-        enviarAlerta("Confirmación","Creado pregunta correctamente!");
-        
-        resetVentana();
+        if(menuRecursos.getText().equals("")){
+            enviarAlerta("Error", "Debe seleccionar un recurso.");
+        } else{
+            pregunta.setRecurso(new Recurso(menuRecursos.getText(), instructorConectado));
+            conexion.insertarPregunta(pregunta);
+            enviarAlerta("Confirmación","Pregunta creada correctamente!");
+            resetVentana();
+        }
     }
     
     private void enviarAlerta(String header,String text) {
@@ -153,5 +159,20 @@ public class CrearPreguntaVFController implements Initializable {
     public void setInstructorConectado(UsuarioInstructor instructorConectado) {
         this.instructorConectado = instructorConectado;
     }
-    
+     public void addRecursosToMenu(){
+        ArrayList <Recurso> recursosInstructor = conexion.obtenerRecursosDeInstructor(instructorConectado); 
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                menuRecursos.setText(((MenuItem)e.getSource()).getText()); 
+            }
+        };
+        for(int i = 0; i < recursosInstructor.size(); i++){
+            Recurso rec = recursosInstructor.get(i); 
+            String email_alum = rec.getNombreRecurso(); 
+            MenuItem menuItem = new MenuItem(email_alum);
+            menuRecursos.getItems().add(menuItem);
+            menuItem.setOnAction(event);
+        }
+    }
 }

@@ -14,6 +14,7 @@ import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.Recurso;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.Usuario;
 import LogicaNegocio.modelo.UsuarioAlumno;
@@ -21,6 +22,7 @@ import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.controladores.ControladorCursos;
 import Persistencia.controladores.ControladorNotasQuizzes;
 import Persistencia.controladores.ControladorQuizzes;
+import Persistencia.controladores.ControladorRecursos;
 import java.util.ArrayList;
 import org.bson.Document;
 
@@ -35,13 +37,15 @@ public class Conexion {
     ControladorPreguntas cp;
     ControladorUsuarios cu;
     ControladorQuizzes cq;
-    ControladorCursos cc; 
+    ControladorCursos cc;
+    ControladorRecursos cr;
     ControladorNotasQuizzes cn;
     
     MongoCollection preguntas;
     MongoCollection usuarios;
     MongoCollection quizzes;
     MongoCollection cursos;
+    MongoCollection recursos;
     MongoCollection notas;
         
     private Conexion() {
@@ -52,6 +56,7 @@ public class Conexion {
             usuarios = db.getCollection("Usuarios");
             quizzes = db.getCollection("Quizzes");
             cursos = db.getCollection("Cursos");
+            recursos = db.getCollection("Recursos");
             notas = db.getCollection("Notas");
              
         }catch(MongoException e) {
@@ -61,6 +66,7 @@ public class Conexion {
         cu = new ControladorUsuarios(usuarios);
         cq = new ControladorQuizzes(quizzes);
         cc = new ControladorCursos(cursos);
+        cr = new ControladorRecursos(recursos);
         cn = new ControladorNotasQuizzes(notas);
     }
     
@@ -100,6 +106,9 @@ public class Conexion {
     
     public ArrayList<PreguntaAbstracta> obtenerTodasPreguntas() {
         return cp.obtenerTodasPreguntas();
+    }
+    public ArrayList<PreguntaAbstracta> obtenerTodasPreguntasDeRecurso(String nombreRecurso, UsuarioInstructor instructorConectado){
+        return cp.obtenerTodasPreguntasDeRecurso(nombreRecurso, instructorConectado);
     }
      public ArrayList <PreguntaVF> obtenerPreguntasQuiz_VF (QuizAbstracto quiz){
          return cp.obtenerPreguntasQuiz_VF(quiz); 
@@ -174,5 +183,12 @@ public class Conexion {
     
     public NotaQuizz obtenerRespuestasDeQuizDeAlumno (UsuarioAlumno alumno, QuizAbstracto quiz){
         return cn.obtenerRespuestasDeQuizDeAlumno(alumno, quiz);
+    }
+    
+    public void insertarRecurso(Recurso r) {
+        cr.insertarRecurso(r);
+    }
+    public ArrayList<Recurso> obtenerRecursosDeInstructor(UsuarioInstructor user) {
+        return cr.obtenerRecursosDeInstructor(user);
     }
 }

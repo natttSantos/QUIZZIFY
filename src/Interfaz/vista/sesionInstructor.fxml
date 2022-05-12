@@ -121,6 +121,15 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Button>
+                  <Button mnemonicParsing="false" onAction="#pulsarBateria" prefHeight="102.0" prefWidth="107.0" styleClass="fondoBlanco" stylesheets="@../css/hojaEstilo.css">
+                     <graphic>
+                        <ImageView fitHeight="86.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/bateria%20.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
                <padding>
                   <Insets top="30.0" />
@@ -128,17 +137,17 @@
             </HBox>
          </children>
       </VBox>
-      <Label layoutX="312.0" layoutY="600.0" minWidth="56.0" text="Múltiple">
+      <Label layoutX="198.0" layoutY="600.0" minWidth="56.0" text="Múltiple">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="524.0" layoutY="600.0" minWidth="56.0" text="Verdadero/Falso">
+      <Label layoutX="411.0" layoutY="600.0" minWidth="56.0" text="Verdadero/Falso">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="801.0" layoutY="600.0" minWidth="56.0" text="Abierta">
+      <Label layoutX="693.0" layoutY="600.0" minWidth="56.0" text="Abierta">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -153,6 +162,11 @@
          </graphic>
       </Button>
       <Label layoutX="804.0" layoutY="303.0" text="Cursos">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="922.0" layoutY="600.0" minWidth="56.0" text="Batería">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

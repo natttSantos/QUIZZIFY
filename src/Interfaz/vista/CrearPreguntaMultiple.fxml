@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.CrearPreguntaMultipleController">
+<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.CrearPreguntaMultipleController">
    <children>
       <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
          <font>
@@ -66,13 +67,13 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ComboBox prefWidth="150.0" />
+                  <MenuButton fx:id="menuRecursos" mnemonicParsing="false" prefHeight="31.0" prefWidth="180.0" />
                   <Label text="Seleccione la dificultad">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="dificultadComboBox" prefWidth="150.0" />
+                  <ComboBox fx:id="dificultadComboBox" prefHeight="31.0" prefWidth="120.0" />
                </children>
             </VBox>
             <VBox prefHeight="166.0" prefWidth="381.0" spacing="7.0">

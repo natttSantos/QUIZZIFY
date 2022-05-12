@@ -9,9 +9,11 @@ import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.Recurso;
 import LogicaNegocio.modelo.RespuestaAbstracta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.UsuarioAlumno;
+import LogicaNegocio.modelo.UsuarioInstructor;
 import com.mongodb.client.MongoCursor;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
@@ -127,4 +129,16 @@ public class ControladorPreguntas {
         return lista;
     }
 
+     public ArrayList<PreguntaAbstracta> obtenerTodasPreguntasDeRecurso(String nombreRecurso, UsuarioInstructor instructorConectado){
+         ArrayList<PreguntaAbstracta> listaPreguntas = obtenerTodasPreguntas(); 
+         ArrayList<PreguntaAbstracta> preguntasDeRecurso  = new ArrayList<>(); 
+         for (PreguntaAbstracta preg: listaPreguntas){
+             if (preg.getRecurso().getNombreRecurso().equals(nombreRecurso)
+                     && preg.getRecurso().getInstructorEnRecurso().getEmail().equals(instructorConectado.getEmail())){
+                 preguntasDeRecurso.add(preg); 
+             }
+         }
+         return preguntasDeRecurso; 
+     }
+    
 }

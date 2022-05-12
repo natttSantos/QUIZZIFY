@@ -171,6 +171,7 @@ public class SesionInstructorController implements Initializable {
         Parent root = miCargador.load();
         CrearPreguntaMultipleController controlador = miCargador.getController();
         controlador.setInstructorConectado(i);
+        controlador.addRecursosToMenu();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -191,6 +192,7 @@ public class SesionInstructorController implements Initializable {
         Parent root = miCargador.load();
         CrearPreguntaVFController controlador = miCargador.getController();
         controlador.setInstructorConectado(i);
+        controlador.addRecursosToMenu(); 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -217,6 +219,22 @@ public class SesionInstructorController implements Initializable {
         stage.setMinWidth(600);
         stage.setMinHeight(400);
         stage.setTitle("Crear pregunta mútiple");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+
+    @FXML
+    private void pulsarBateria(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/Recursos.fxml"));
+        Parent root = loader.load();
+        RecursosController controlador = loader.getController();
+        controlador.setInstructorConectado(i);
+        controlador.cargarRecursosInstructor();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();

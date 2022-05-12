@@ -7,13 +7,13 @@ import org.bson.Document;
 
 public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
     
-    public PreguntaSeleccionMultiple(String text, String dificultad, String tema, ArrayList <Respuesta> respuestas){
-        super(text, dificultad, tema, respuestas);
+    public PreguntaSeleccionMultiple(String text, String dificultad, Recurso recurso, ArrayList <Respuesta> respuestas){
+        super(text, dificultad, recurso, respuestas);
         this.tipo = "multiple";
     }
     
      public PreguntaSeleccionMultiple(String text, String dificultad, ArrayList <Respuesta> respuestas) {
-        super(text, dificultad, "", respuestas);
+        super(text, dificultad, null, respuestas);
         this.tipo = "multiple";
     }
 
@@ -26,7 +26,7 @@ public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
         p.append("text", this.text);
         p.append("tipo", this.tipo);
         p.append("dificultad", this.dificultad);
-        p.append("tema", this.tema);
+        p.append("recurso", this.recurso.obtenerDocument());
         
         Document [] resp  = new Document[this.respuestas.size()]; 
       
@@ -38,6 +38,8 @@ public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
         p.append("respuestas", asList(resp));
         return p;
     }
+  
+    
     
     @Override
     public RespuestaAbstracta crearRespuesta(String descripcion, ArrayList<OpcionRespuestaSeleccion> opciones) {

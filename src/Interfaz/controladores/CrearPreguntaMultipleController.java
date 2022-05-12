@@ -6,8 +6,10 @@
 package Interfaz.controladores;
 
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.Recurso;
 import LogicaNegocio.modelo.Respuesta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
+import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
@@ -20,6 +22,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,6 +34,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -74,6 +79,8 @@ public class CrearPreguntaMultipleController implements Initializable {
     private ArrayList<Respuesta> respuestas;
     private Conexion conexion;
     ObservableList<String> dificultadesItems = FXCollections.observableArrayList();
+    @FXML
+    private MenuButton menuRecursos;
     
     
     /**
@@ -152,10 +159,15 @@ public class CrearPreguntaMultipleController implements Initializable {
         }
         
         PreguntaSeleccionMultiple pregunta = new PreguntaSeleccionMultiple(texto, dificultad, respuestas);
-        conexion.insertarPregunta(pregunta);
-        
-        enviarAlerta("Confirmación","Creado pregunta correctamente!");
-        resetVentana();
+        if(menuRecursos.getText().equals("")){
+            enviarAlerta("Error", "Debe seleccionar un recurso.");
+        }
+        else {
+            pregunta.setRecurso(new Recurso(menuRecursos.getText(), instructorConectado));
+            conexion.insertarPregunta(pregunta);
+            enviarAlerta("Confirmación","Pregunta creada correctamente!");
+            resetVentana();
+        }
         
     }
 
@@ -217,6 +229,21 @@ public class CrearPreguntaMultipleController implements Initializable {
         this.instructorConectado = instructorConectado;
     }
 
-    
+   public void addRecursosToMenu(){
+        ArrayList <Recurso> recursosInstructor = conexion.obtenerRecursosDeInstructor(instructorConectado); 
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                menuRecursos.setText(((MenuItem)e.getSource()).getText()); 
+            }
+        };
+        for(int i = 0; i < recursosInstructor.size(); i++){
+            Recurso rec = recursosInstructor.get(i); 
+            String email_alum = rec.getNombreRecurso(); 
+            MenuItem menuItem = new MenuItem(email_alum);
+            menuRecursos.getItems().add(menuItem);
+            menuItem.setOnAction(event);
+        }
+    }
     
 }

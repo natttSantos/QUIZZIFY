@@ -7,21 +7,21 @@ import org.bson.Document;
 public abstract class PreguntaAbstracta {
     String text;
     String dificultad;
-    String tema;
+    Recurso recurso; 
     String tipo;    // abierta, vf, multiple
     ArrayList <Respuesta> respuestas;
     
-    public PreguntaAbstracta(String text, String dificultad, String tema, ArrayList respuestas){
+    public PreguntaAbstracta(String text, String dificultad, Recurso recurso, ArrayList respuestas){
         this.text = text;
         this.dificultad = dificultad;
-        this.tema = tema;
+        this.recurso = recurso; 
         this.respuestas = respuestas;
     }
     
-    public PreguntaAbstracta(String text, String dificultad, String tema) {
+    public PreguntaAbstracta(String text, String dificultad, Recurso recurso) {
         this.text = text;
         this.dificultad = dificultad;
-        this.tema = tema;
+        this.recurso = recurso; 
     }
     
     public PreguntaAbstracta(String text, String dificultad) {
@@ -58,13 +58,14 @@ public abstract class PreguntaAbstracta {
         return dificultad;
     }
 
-    public String getTema() {
-        return tema;
+    public void setRecurso(Recurso recurso) {
+        this.recurso = recurso;
     }
 
-    public void setTema(String tema) {
-        this.tema = tema;
+    public Recurso getRecurso() {
+        return recurso;
     }
+
     
     public void setTipo(String tipo) {
         this.tipo = tipo;
@@ -76,6 +77,6 @@ public abstract class PreguntaAbstracta {
 
     @Override
     public String toString() {
-        return "Pregunta{" + "text=" + text + ", dificultad=" + dificultad + ", tema=" + tema + ", respuestas=" + respuestas + '}';
+        return "Pregunta{" + "text=" + text + ", dificultad=" + dificultad + ", recurso=" + recurso + ", respuestas=" + respuestas + '}';
     }
 }

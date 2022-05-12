@@ -85,7 +85,7 @@ public class ControladorQuizzes {
                 Document d = new Document();
                 d.append("text", pregunta.getText())
                     .append("dificultad", pregunta.getDificultad())
-                    .append("tema", pregunta.getTema()) 
+                    .append("recurso", pregunta.getRecurso()) 
                     .append("respuestas", asList(pregunta.getRespuestas()));
                 preguntas[i] = d;
                 i++;
