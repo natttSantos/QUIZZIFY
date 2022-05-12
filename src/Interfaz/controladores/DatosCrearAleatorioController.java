@@ -8,6 +8,7 @@ import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.PreguntaVF;
+import LogicaNegocio.modelo.Recurso;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
@@ -65,6 +66,8 @@ public class DatosCrearAleatorioController implements Initializable {
     private UsuarioInstructor instructorConectado; 
     @FXML
     private Label instructor;
+    @FXML
+    private MenuButton menuRecurso;
 
 
     /**
@@ -95,19 +98,11 @@ public class DatosCrearAleatorioController implements Initializable {
     private void aceptarButtonClicked(ActionEvent event) throws IOException {
         nombre = nombreTextField.getText();
         numero = Integer.parseInt(numeroTextField.getText());
-        
-//        if (checkbox.isSelected()) {
-//            // tema concreto
-//            temaConcreto = true;
-//            // TODO
-//        } else {
-//            tema = null;
-//            temaConcreto = false;
-//        }
+        ArrayList <PreguntaAbstracta> preguntasRecurso = con.obtenerTodasPreguntasDeRecurso(menuRecurso.getText(), instructorConectado); 
         
         if (comprobarNumero()) {
             anulado = false;
-            crearQuizAleatorio(numero, nombre, listaPreguntas);
+            crearQuizAleatorio(numero, nombre, preguntasRecurso);
             ((Node) event.getSource()).getScene().getWindow().hide();
             navegarFormInstructor(event);
         } else {
@@ -220,5 +215,21 @@ public class DatosCrearAleatorioController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL); 
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+       public void addRecursosToMenu(){
+        ArrayList <Recurso> recursosInstructor = con.obtenerRecursosDeInstructor(instructorConectado); 
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                menuRecurso.setText(((MenuItem)e.getSource()).getText()); 
+            }
+        };
+        for(int i = 0; i < recursosInstructor.size(); i++){
+            Recurso rec = recursosInstructor.get(i); 
+            String email_alum = rec.getNombreRecurso(); 
+            MenuItem menuItem = new MenuItem(email_alum);
+            menuRecurso.getItems().add(menuItem);
+            menuItem.setOnAction(event);
+        }
     }
 }

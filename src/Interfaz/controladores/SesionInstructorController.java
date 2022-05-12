@@ -113,7 +113,7 @@ public class SesionInstructorController implements Initializable {
         controlador.setUsuario(i);
         controlador.setListaPreguntas(listaPreguntas);
         controlador.addCursosToMenu();
-        controlador.setConexion(conexion);
+        controlador.addRecursosToMenu();
                 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

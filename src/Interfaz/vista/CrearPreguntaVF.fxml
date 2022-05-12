@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
@@ -75,12 +74,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <MenuButton fx:id="menuRecursos" mnemonicParsing="false" prefHeight="29.0" prefWidth="176.0">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
-                  </MenuButton>
+                  <MenuButton fx:id="menuRecursos" mnemonicParsing="false" prefHeight="29.0" prefWidth="176.0" />
                   <Label text="Seleccione la dificultad:">
                      <font>
                         <Font size="18.0" />

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="741.0" prefWidth="1181.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.DatosCrearAleatorioController">
+<AnchorPane id="AnchorPane" prefHeight="679.0" prefWidth="1097.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.DatosCrearAleatorioController">
    <children>
       <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
          <font>
@@ -20,7 +20,7 @@
             <Image url="@../images/fondo.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="125.0" layoutY="51.0" mnemonicParsing="false" onAction="#pulsarAtras" prefHeight="47.0" prefWidth="61.0" styleClass="atras" stylesheets="@../css/hojaEstilo.css">
+      <Button layoutX="159.0" layoutY="81.0" mnemonicParsing="false" onAction="#pulsarAtras" prefHeight="47.0" prefWidth="61.0" styleClass="atras" stylesheets="@../css/hojaEstilo.css">
          <graphic>
             <ImageView fitHeight="47.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -30,7 +30,7 @@
          </graphic>
       </Button>
       <Label layoutX="569.0" layoutY="309.0" />
-      <Label layoutX="467.0" layoutY="170.0" text="Nombre de quiz: ">
+      <Label layoutX="305.0" layoutY="221.0" text="Nombre de quiz: ">
          <font>
             <Font size="18.0" />
          </font>
@@ -40,23 +40,29 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Label layoutX="419.0" layoutY="55.0" text="CREAR QUIZ ALEATORIO ">
+      <Label layoutX="418.0" layoutY="85.0" text="CREAR QUIZ ALEATORIO ">
          <font>
             <Font name="Impact" size="41.0" />
          </font>
       </Label>
-      <TextField fx:id="nombreTextField" layoutX="467.0" layoutY="214.0" onAction="#nombreTextFieldClicked" />
-      <Label layoutX="474.0" layoutY="437.0" text="Seleccione el curso donde se añadirá el quiz: ">
+      <TextField fx:id="nombreTextField" layoutX="306.0" layoutY="278.0" onAction="#nombreTextFieldClicked" />
+      <Label layoutX="646.0" layoutY="221.0" text="Seleccione el curso donde se añadirá el quiz: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <MenuButton fx:id="menuCurso" layoutX="473.0" layoutY="486.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="176.0" />
-      <Label layoutX="468.0" layoutY="306.0" text="Número de preguntas: ">
+      <MenuButton fx:id="menuCurso" layoutX="649.0" layoutY="278.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="176.0" />
+      <Label layoutX="307.0" layoutY="356.0" text="Número de preguntas: ">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="numeroTextField" layoutX="467.0" layoutY="355.0" onAction="#numeroTextFieldClicked" prefHeight="31.0" prefWidth="69.0" />
+      <TextField fx:id="numeroTextField" layoutX="305.0" layoutY="410.0" onAction="#numeroTextFieldClicked" prefHeight="31.0" prefWidth="69.0" />
+      <Label layoutX="649.0" layoutY="356.0" text="Seleccione el tema del quiz:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <MenuButton fx:id="menuRecurso" layoutX="649.0" layoutY="410.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="176.0" />
    </children>
 </AnchorPane>
