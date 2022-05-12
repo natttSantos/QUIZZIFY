@@ -6,6 +6,8 @@ package Persistencia.controladores;
 
 import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
+import LogicaNegocio.modelo.PreguntaVF;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -13,10 +15,14 @@ import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.QuizAbstracto;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCursor;
+import static com.mongodb.client.model.Filters.eq;
+import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.model.Updates;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import java.util.Collections;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 public class ControladorQuizzes {
     MongoCollection quizzes;
@@ -75,7 +81,7 @@ public class ControladorQuizzes {
         }
         return quizzesCurso;
     }
-    
+    //areglar estados
     public void cambiarEstado(String nombreQuiz,String estado) {
         QuizAbstracto quiz = obtenerQuiz("nombre",nombreQuiz);
         ArrayList<PreguntaAbstracta> lista = quiz.getPreguntas();
@@ -97,5 +103,23 @@ public class ControladorQuizzes {
             .append("estado", quiz.getEstado())
             .append("preguntas", asList(preguntas));
         quizzes.deleteOne(quizDocument);
+    }
+    
+    public boolean anularPregunta(QuizAbstracto quiz, Document[] preguntas){           
+        try {
+            Document prev = new Document("nombre", quiz.getNombre());
+            FindIterable<Document> resultDocument = quizzes.find(prev);
+            Document query = new Document().append("nombre", quiz.getNombre());
+            Document quizAux = new Document();
+            quizAux.append("nombre", quiz.getNombre())
+                .append ("curso", quiz.getCurso().obtenerDocument())
+                .append("estado", quiz.getEstado())
+                .append("preguntas", asList(preguntas));
+            quizzes.replaceOne(query,quizAux);
+            return true;
+        }catch(Exception e){
+            System.out.println("ERROR en login  " + e.getMessage());
+            return false;
+        }
     }
 }

@@ -184,7 +184,9 @@ public class Conexion {
     public NotaQuizz obtenerRespuestasDeQuizDeAlumno (UsuarioAlumno alumno, QuizAbstracto quiz){
         return cn.obtenerRespuestasDeQuizDeAlumno(alumno, quiz);
     }
-    
+     public boolean anularPregunta(QuizAbstracto quiz, Document[] preguntas){
+        return cq.anularPregunta(quiz, preguntas);
+    }
     public void insertarRecurso(Recurso r) {
         cr.insertarRecurso(r);
     }

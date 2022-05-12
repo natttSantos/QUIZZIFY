@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
@@ -70,7 +71,7 @@ public class GestionQuizzes2Controller implements Initializable {
     @FXML
     private Button botonMostrarRespuestas;
     @FXML
-    private Button botonDetectarPregunta;
+    private Button botonAnularPregunta;
 
     /**
      * Initializes the controller class.
@@ -158,13 +159,25 @@ public class GestionQuizzes2Controller implements Initializable {
             stage.show();
             ((Node) event.getSource()).getScene().getWindow().hide();
         }
-    }
+    }  
 
     @FXML
-    private void pulsarDetectarPregunta(ActionEvent event) {
+    private void pulsarAnularPregunta(ActionEvent event) {
         String tituloPregunta = listaPreguntas.getSelectionModel().getSelectedItem();
-       
+        if (tituloPregunta != null){
+            PreguntaAbstracta pregunta = con.obtenerPreguntaSegunTipo( tituloPregunta);
+            ObservableList<String> lista = listaPreguntas.getItems();
+            lista.remove(pregunta.getText());
+            Document[] preguntas = new Document[lista.size()];
+            int i = 0;
+            for (String text:lista){
+                System.out.println("item " + text);
+                PreguntaAbstracta pregAux = con.obtenerPreguntaSegunTipo(text);
+                Document d = pregAux.obtenerDocument();
+                preguntas[i] = d;
+                i++;
+        } 
+            con.anularPregunta(quizSeleccionado, preguntas);            
+        }
     }
-
-    
 }
