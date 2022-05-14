@@ -9,7 +9,9 @@ import LogicaNegocio.modelo.UsuarioAlumno;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,6 +52,11 @@ public class CalificacionesEstudianteController implements Initializable {
     private TableColumn<Calificacion, String> nombreQuizColumn;
     @FXML
     private TableColumn<Calificacion, String> notaColumn;
+    @FXML
+    private Label textoEspera;
+    private TableColumn<Calificacion, String> percentilColumna;
+    @FXML
+    private TableColumn<?, ?> porcentajeColumna;
    
 
     /**
@@ -65,14 +72,16 @@ public class CalificacionesEstudianteController implements Initializable {
         cursoColumn.setCellValueFactory(new PropertyValueFactory("curso"));
         nombreQuizColumn.setCellValueFactory(new PropertyValueFactory("nombreQuiz"));
         notaColumn.setCellValueFactory(new PropertyValueFactory("nota"));
+        porcentajeColumna.setCellValueFactory(new PropertyValueFactory("porcentaje"));
         
 
-        ObservableList<Calificacion> datos = FXCollections.observableArrayList(); 
+        ObservableList<Calificacion> datos = FXCollections.observableArrayList();
         for(QuizAbstracto quiz: quizzesCurso){
+            ArrayList <NotaQuizz> notasQuiz = con.obtenerNotasDeQuiz(quiz); 
             String nameQuiz = quiz.getNombre(); 
             NotaQuizz quizRealizado = con.obtenerRespuestasDeQuizDeAlumno(estudianteConectado, quiz); 
             if(quizRealizado != null){
-                Calificacion calif = new Calificacion(nombreCursoSelected, nameQuiz, quizRealizado.getNota()); 
+                Calificacion calif = new Calificacion(nombreCursoSelected, nameQuiz, quizRealizado.getNota(), calcularPorcentajesQuiz(notasQuiz, quizRealizado)); 
                 datos.add(calif); 
             }
         }
@@ -80,10 +89,37 @@ public class CalificacionesEstudianteController implements Initializable {
         cursoColumn.setCellValueFactory(new PropertyValueFactory("curso"));
         nombreQuizColumn.setCellValueFactory(new PropertyValueFactory("nombreQuiz"));
         notaColumn.setCellValueFactory(new PropertyValueFactory("nota"));
+        porcentajeColumna.setCellValueFactory(new PropertyValueFactory("porcentaje"));
         
         tableView.setItems(datos);
-        tableView.getColumns().addAll(cursoColumn, nombreQuizColumn, notaColumn);
+        //tableView.getColumns().addAll(cursoColumn, nombreQuizColumn, notaColumn);
     }
+    
+    public String calcularPorcentajesQuiz (ArrayList <NotaQuizz> notasQuiz,  NotaQuizz quizRealizado){
+        int sumaNotas = 0; 
+        double miPosicion = 0; 
+        String resultado = ""; 
+        ArrayList <Double> notas = new ArrayList<>(); 
+        for (NotaQuizz nota: notasQuiz){
+            notas.add(nota.getNota()); 
+        }
+        Collections.sort(notas); //ArrayList ordenado
+        
+        for(int i = 0; i < notas.size(); i++){
+            sumaNotas += notas.get(i); 
+            if (quizRealizado.getNota() == notas.get(i)){
+                miPosicion = i + 1; 
+            }
+        }
+        miPosicion = (miPosicion/notas.size()) * 100; 
+        
+        DecimalFormat df = new DecimalFormat("#.00");
+        resultado = df.format(miPosicion) + "%"; 
+        return resultado; 
+    }
+    
+    
+    
     
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
@@ -111,6 +147,10 @@ public class CalificacionesEstudianteController implements Initializable {
 
     public void setQuizzesCurso(ArrayList<QuizAbstracto> quizzesCurso) {
         this.quizzesCurso = quizzesCurso;
+    }
+
+    @FXML
+    private void pulsarEstadisticas(ActionEvent event) {
     }
     
     

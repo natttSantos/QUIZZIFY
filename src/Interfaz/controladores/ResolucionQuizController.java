@@ -99,10 +99,9 @@ public class ResolucionQuizController implements Initializable {
 
     @FXML
     private void pulsarContinuar(ActionEvent event) throws IOException {
+        guardarRespuestasUsuario();
         if (tipoPregunta.equals("multiple")) {indexPreguntaMultiple++; }
         else{indexPreguntaVF++; }
-        
-        guardarRespuestasUsuario();
         if(preguntasMultiples.size() > 0 && indexPreguntaMultiple < preguntasMultiples.size()){
             navegarFormularioResolucion(event);
         } else{

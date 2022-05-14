@@ -6,6 +6,7 @@
 package LogicaNegocio.modelo;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -17,11 +18,13 @@ public class Calificacion {
     private final SimpleStringProperty curso; 
     private final SimpleStringProperty  nombreQuiz; 
     private final SimpleDoubleProperty  nota; 
+    private final SimpleStringProperty  porcentaje; 
 
-    public Calificacion(String curso, String nombreQuiz, double nota) {
+    public Calificacion(String curso, String nombreQuiz, double nota, String porcentaje) {
         this.curso = new SimpleStringProperty (curso);
         this.nombreQuiz =  new SimpleStringProperty (nombreQuiz);;
         this.nota =  new SimpleDoubleProperty (nota);
+        this.porcentaje = new SimpleStringProperty(porcentaje); 
     }
 
     public SimpleStringProperty getCurso() {
@@ -45,7 +48,14 @@ public class Calificacion {
     public SimpleDoubleProperty notaProperty() {
          return nota;
     }
-    
+
+    public SimpleStringProperty getPorcentaje() {
+        return porcentaje;
+    }
+    public SimpleStringProperty porcentajeProperty() {
+         return porcentaje;
+    }
+
     
     
     
