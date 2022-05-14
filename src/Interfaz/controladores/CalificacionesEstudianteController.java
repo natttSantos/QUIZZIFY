@@ -150,7 +150,20 @@ public class CalificacionesEstudianteController implements Initializable {
     }
 
     @FXML
-    private void pulsarEstadisticas(ActionEvent event) {
+    private void pulsarEstadisticas(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/Graficos.fxml"));
+        Parent root =(Parent) loader.load();      
+        GraficosController control = loader.<GraficosController>getController();
+        control.setEstudianteConectado(estudianteConectado);
+        control.setNombreCursoSelected(nombreCursoSelected);
+        control.setQuizzesCurso(quizzesCurso);
+        control.createScene();
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
     
     

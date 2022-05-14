@@ -34,11 +34,6 @@
             <Font name="Impact" size="37.0" />
          </font>
       </Label>
-      <Button layoutX="582.0" layoutY="658.0" mnemonicParsing="false" onAction="#pulsarEstadisticas" prefHeight="39.0" prefWidth="139.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Estadísticas">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <PieChart fx:id="pieChartAprobados" layoutX="442.0" layoutY="205.0" prefHeight="332.0" prefWidth="411.0" />
+      <PieChart fx:id="pieChartAprobados" layoutX="274.0" layoutY="167.0" prefHeight="559.0" prefWidth="747.0" />
    </children>
 </AnchorPane>
