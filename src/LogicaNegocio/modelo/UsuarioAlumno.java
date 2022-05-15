@@ -10,5 +10,4 @@ public class UsuarioAlumno extends Usuario {
         super(nombre, apellidos, email, contraseña);
         
     }
-    
 }

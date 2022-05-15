@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import Persistencia.controladores.ControladorPreguntas;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaAbstracta;
+import LogicaNegocio.modelo.PreguntaRespondida;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.QuizAbstracto;
@@ -192,5 +193,9 @@ public class Conexion {
     }
     public ArrayList<Recurso> obtenerRecursosDeInstructor(UsuarioInstructor user) {
         return cr.obtenerRecursosDeInstructor(user);
+    }
+    
+    public void modificarNota(NotaQuizz respuestas){
+        cn.modificarNota(respuestas);
     }
 }

@@ -76,4 +76,10 @@ public class ControladorNotasQuizzes {
         }
         return null;
     }
+    
+    public void modificarNota(NotaQuizz respuesta){
+         Document query = new Document().append("quizz", respuesta.getQuizz());
+         Document notaDocument = respuesta.obtenerDocument();
+         notas.replaceOne(query, notaDocument);
+    }
 }

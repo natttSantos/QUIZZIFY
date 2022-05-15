@@ -177,7 +177,19 @@ public class GestionQuizzes2Controller implements Initializable {
                 preguntas[i] = d;
                 i++;
         } 
-            con.anularPregunta(quizSeleccionado, preguntas);            
+            con.anularPregunta(quizSeleccionado, preguntas);    
+            ArrayList<NotaQuizz> notasDelQuiz = con.obtenerNotasDeQuiz(quizSeleccionado);
+            for (int y = 0; y < notasDelQuiz.size(); y++) {
+                NotaQuizz nota = notasDelQuiz.get(y);
+                ArrayList<PreguntaRespondida> respuestas = nota.getRespuestas();
+                ArrayList<PreguntaRespondida> respuestasModificadas = new ArrayList();
+                for (PreguntaRespondida respuesta:respuestas){
+                    if (respuesta.getPregunta().equals(tituloPregunta)){}
+                    else respuestasModificadas.add(respuesta);
+                }                
+                NotaQuizz nuevaNota = new NotaQuizz(quizSeleccionado.getNombre(), nota.getAlumno(), nota.getNota(), respuestasModificadas);
+                con.modificarNota(nuevaNota);
+            }
         }
     }
 }

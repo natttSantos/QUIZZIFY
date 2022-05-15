@@ -6,6 +6,7 @@ import LogicaNegocio.modelo.Usuario;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import LogicaNegocio.modelo.NotaQuizz;
+import LogicaNegocio.modelo.PreguntaRespondida;
 import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -190,5 +191,5 @@ public class ControladorUsuarios {
         UsuarioInstructor user = new Gson().fromJson(json, UsuarioInstructor.class);
         return user;
     }
-      
+     
 }
