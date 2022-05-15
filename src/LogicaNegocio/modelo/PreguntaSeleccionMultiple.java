@@ -7,6 +7,8 @@ import org.bson.Document;
 
 public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
     
+    private boolean randomizacion;
+    
     public PreguntaSeleccionMultiple(String text, String dificultad, Recurso recurso, ArrayList <Respuesta> respuestas){
         super(text, dificultad, recurso, respuestas);
         this.tipo = "multiple";
@@ -26,6 +28,7 @@ public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
         p.append("text", this.text);
         p.append("tipo", this.tipo);
         p.append("dificultad", this.dificultad);
+        p.append("randomizacion", this.randomizacion);
         p.append("recurso", this.recurso.obtenerDocument());
         
         Document [] resp  = new Document[this.respuestas.size()]; 
@@ -46,5 +49,12 @@ public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
         RespuestaAbstracta respuesta = new RespuestaSeleccion(descripcion, opciones);
         return respuesta;
     }
-  
+    
+    public void setRandomizacion(boolean randomizacion) {
+        this.randomizacion = randomizacion;
+    }
+    
+    public boolean getRandomizacion() {
+        return this.randomizacion;
+    }
 }

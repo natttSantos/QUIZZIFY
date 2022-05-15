@@ -81,6 +81,8 @@ public class CrearPreguntaMultipleController implements Initializable {
     ObservableList<String> dificultadesItems = FXCollections.observableArrayList();
     @FXML
     private MenuButton menuRecursos;
+    @FXML
+    private CheckBox randomizacionCheckBox;
     
     
     /**
@@ -164,6 +166,7 @@ public class CrearPreguntaMultipleController implements Initializable {
         }
         else {
             pregunta.setRecurso(new Recurso(menuRecursos.getText(), instructorConectado));
+            pregunta.setRandomizacion(randomizacionCheckBox.isSelected());
             conexion.insertarPregunta(pregunta);
             enviarAlerta("Confirmación","Pregunta creada correctamente!");
             resetVentana();

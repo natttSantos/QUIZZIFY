@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
@@ -214,6 +215,19 @@ public class ResolucionQuizController implements Initializable {
 
         String enunciadoPregunta = preg.getText();
         ArrayList respuestasPregunta = preg.getRespuestas(); 
+        
+        boolean randomizacion;
+        try {
+            randomizacion = preg.getRandomizacion();
+        } catch (Exception e) {
+            randomizacion = false;
+            System.out.println("Pregunta no tiene atributo randomizacion. Randomizacion desactivada por defecto");
+        }
+        
+        if (randomizacion) {
+           Collections.shuffle(respuestasPregunta);
+        }
+        System.out.println(randomizacion);
         addEnunciadoPregunta(enunciadoPregunta);  
 
         for(int indexRespuesta = 1; indexRespuesta <= respuestasPregunta.size(); indexRespuesta++){

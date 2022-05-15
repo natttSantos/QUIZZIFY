@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.CrearPreguntaMultipleController">
+<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.CrearPreguntaMultipleController">
    <children>
       <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
          <font>
@@ -40,7 +40,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="botonCrear" layoutX="579.0" layoutY="667.0" mnemonicParsing="false" onAction="#crearPregunta" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Crear">
+      <Button fx:id="botonCrear" layoutX="579.0" layoutY="705.0" mnemonicParsing="false" onAction="#crearPregunta" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Crear">
          <font>
             <Font size="20.0" />
          </font>
@@ -50,8 +50,8 @@
             <Font name="Impact" size="41.0" />
          </font>
       </Label>
-      <TextArea fx:id="textoPregunta" layoutX="144.0" layoutY="165.0" prefHeight="148.0" prefWidth="894.0" />
-      <HBox layoutX="143.0" layoutY="317.0" prefHeight="290.0" prefWidth="894.0" spacing="20.0">
+      <TextArea fx:id="textoPregunta" layoutX="144.0" layoutY="165.0" prefHeight="103.0" prefWidth="894.0" />
+      <HBox layoutX="143.0" layoutY="270.0" prefHeight="410.0" prefWidth="894.0" spacing="20.0">
          <children>
             <VBox prefHeight="166.0" prefWidth="513.0" spacing="20.0">
                <children>
@@ -68,12 +68,30 @@
                      </font>
                   </Label>
                   <MenuButton fx:id="menuRecursos" mnemonicParsing="false" prefHeight="31.0" prefWidth="180.0" />
-                  <Label text="Seleccione la dificultad">
+                  <Label text="Seleccione la dificultad:">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
                   <ComboBox fx:id="dificultadComboBox" prefHeight="31.0" prefWidth="120.0" />
+                  <Label text="Activa randomización:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane>
+                     <children>
+                        <AnchorPane>
+                           <children>
+                              <CheckBox fx:id="randomizacionCheckBox" mnemonicParsing="false" text="Muestra respuestas en orden aleatorio para cada alumno">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
                </children>
             </VBox>
             <VBox prefHeight="166.0" prefWidth="381.0" spacing="7.0">
