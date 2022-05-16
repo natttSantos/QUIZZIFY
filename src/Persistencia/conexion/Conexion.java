@@ -123,8 +123,8 @@ public class Conexion {
         cq.insertarQuiz(text, curso, estado, preguntas);
     }
     
-    public void insertarQuiz(String text, Document curso, String estado, Recurso recurso) {
-        cq.insertarQuiz(text, curso, estado, recurso);
+    public void insertarQuizDeBateria(String text, int numero, Document curso, String estado, Recurso recurso) {
+        cq.insertarQuizDeBateria(text, numero, curso, estado, recurso);
     }
     
     public QuizAbstracto obtenerQuiz(String key, String valor){

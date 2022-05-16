@@ -250,7 +250,6 @@ public class DatosCrearAleatorioController implements Initializable {
     }
 
     private void crearQuizDeBateria(int numero, String nombre, Recurso recurso) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//        con.insertarQuiz( obtenerCursoSelected(), estado, recurso);
+        con.insertarQuizDeBateria(nombre, numero, obtenerCursoSelected(), "En prepacacion", recurso);
     }
 }

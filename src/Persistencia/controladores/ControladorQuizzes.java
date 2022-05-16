@@ -45,17 +45,30 @@ public class ControladorQuizzes {
         quizzes.insertOne(quiz);
     }
     
-    public void insertarQuiz(String nombre, Document curso, String estado, Recurso recurso) {
+    public void insertarQuizDeBateria(String nombre, int numero, Document curso, String estado, Recurso recurso) {
         /**
-         * Insertar quiz sin preguntas, vinculado con recurso
-         * Preguntas de quiz de este tipo se sortea justo antes resolver
-         * para cada alumno
+         * Insertar quiz sin preguntas, vinculado con recurso. 
+         * Preguntas de quiz de este tipo se sortea justo antes resolver para cada alumno
+         * Argumentos
+         * nombre : String
+         *      nombre de quiz
+         * numero : int
+         *      numero de preguntas que se elegirán aleatoriamente al responder quiz
+         * curso : Documento
+         *      documento con info sobre el curso
+         * estado : String
+         *      estado de quiz (por ejemplo "en preparacion")
+         * recurso : Recurso
+         *      recurso con que este quiz es vinculado
          */
         Document quiz = new Document();
         quiz.append("nombre", nombre);
+        quiz.append("numero", numero);
         quiz.append ("curso", curso);
         quiz.append("estado", estado);
         quiz.append("recurso", recurso.obtenerDocument());
+        
+        quizzes.insertOne(quiz);
     }
     
      public ArrayList<QuizAbstracto> obtenerTodosLosQuizzes() {

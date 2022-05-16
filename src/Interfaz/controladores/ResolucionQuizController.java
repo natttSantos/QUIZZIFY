@@ -227,7 +227,6 @@ public class ResolucionQuizController implements Initializable {
         if (randomizacion) {
            Collections.shuffle(respuestasPregunta);
         }
-        System.out.println(randomizacion);
         addEnunciadoPregunta(enunciadoPregunta);  
 
         for(int indexRespuesta = 1; indexRespuesta <= respuestasPregunta.size(); indexRespuesta++){
