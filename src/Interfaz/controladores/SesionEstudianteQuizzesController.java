@@ -7,6 +7,7 @@ import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.QuizDeBateria;
+import LogicaNegocio.modelo.Recurso;
 import LogicaNegocio.modelo.RespuestaAbstracta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.UsuarioAlumno;
@@ -32,6 +33,7 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.lang.reflect.Type;
+import java.util.Collections;
 
 public class SesionEstudianteQuizzesController implements Initializable {
 
@@ -104,20 +106,29 @@ public class SesionEstudianteQuizzesController implements Initializable {
     public void entrarQuiz(ActionEvent event) throws IOException {
         String nombrequizSeleccionado = listaQuizes.getSelectionModel().getSelectedItem();
         
-// ========================= playground =============================
+// ========================= here the fun starts =============================
 
         boolean isQuizTipoBateria = con.comprobarTipoDeQuiz("nombre", nombrequizSeleccionado);
+        QuizAbstracto quiz;
 
         if (isQuizTipoBateria) {
-            // hay que implementar esta parte, estoy trabajando
-            QuizDeBateria quiz = con.obtenerQuizDeBateria("nombre", nombrequizSeleccionado);
+            // crea quiz aleatorio solo para responder una vez (no lo sube a la base de datos)
             
+            QuizDeBateria quizDeBateria = con.obtenerQuizDeBateria("nombre", nombrequizSeleccionado);
+            Recurso recurso = quizDeBateria.getRecurso();
+            int numero = quizDeBateria.getNumero();
+            
+            ArrayList<PreguntaAbstracta> preguntasDeRecurso = con.obtenerTodasPreguntasDeRecurso(recurso.getNombreRecurso(), recurso.getInstructorEnRecurso());
+            Collections.shuffle(preguntasDeRecurso);                                    // shuffle preguntas
+            preguntasDeRecurso.subList(numero, preguntasDeRecurso.size()).clear();      // dejar solo n primeros 
+            
+            quizDeBateria.setPreguntas(preguntasDeRecurso);
+            quiz = (QuizAbstracto)quizDeBateria;
         } else {
+            // quiz normal
+            quiz = con.obtenerQuiz("nombre", nombrequizSeleccionado); 
             
-        
-// =================================================================
-        
-        QuizAbstracto quiz = con.obtenerQuiz("nombre", nombrequizSeleccionado); 
+        } 
         
         ArrayList <PreguntaSeleccionMultiple> preguntasMultiples = con.obtenerPreguntasQuiz_Multiples(quiz); 
         ArrayList <PreguntaVF> preguntasVF = con.obtenerPreguntasQuiz_VF(quiz); 
@@ -154,7 +165,7 @@ public class SesionEstudianteQuizzesController implements Initializable {
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
         
-        } // else acaba aqui por el momento
+        
     }
     
    

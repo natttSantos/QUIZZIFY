@@ -50,6 +50,10 @@ public boolean eliminarPregunta(PreguntaAbstracta pregunta){
     return preguntas.remove(pregunta);
 }
 
+public void setPreguntas(ArrayList newPreguntas) {
+    this.preguntas = newPreguntas;
+}
+
 
 //public abstract PreguntaAbstracta crearPregunta(String text, String dificultad, String tema, ArrayList respuestas);
 
