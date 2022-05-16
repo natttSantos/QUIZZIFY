@@ -98,6 +98,16 @@ public class ControladorQuizzes {
         return quiz;
     }
     
+    public boolean comprobarTipoDeQuiz(String key, String valor) {
+        /**
+         * Devuelve true si este quiz es quiz de bateria, es decir no contiene preguntas
+         * Preguntas de este quiz se elige aleatoriamente en el momento de responder
+         */
+        Document findDocument = new Document(key, valor);
+        FindIterable<Document> resultDocument = quizzes.find(findDocument);
+        return resultDocument.first().containsKey("recurso");
+    }
+    
     public ArrayList<QuizAbstracto> obtenerQuizzesDeCurso(Curso curso){
         ArrayList<QuizAbstracto> quizzes = obtenerTodosLosQuizzes();
         ArrayList<QuizAbstracto> quizzesCurso = new ArrayList();

@@ -102,7 +102,20 @@ public class SesionEstudianteQuizzesController implements Initializable {
     @FXML
     public void entrarQuiz(ActionEvent event) throws IOException {
         String nombrequizSeleccionado = listaQuizes.getSelectionModel().getSelectedItem();
+        
+// ========================= playground =============================
+
+        boolean isQuizTipoBateria = con.comprobarTipoDeQuiz("nombre", nombrequizSeleccionado);
+
+        if (isQuizTipoBateria) {
+            // hay que implementar esta parte, estoy trabajando 
+        } else {
+            
+        
+// =================================================================
+        
         QuizAbstracto quiz = con.obtenerQuiz("nombre", nombrequizSeleccionado); 
+        
         ArrayList <PreguntaSeleccionMultiple> preguntasMultiples = con.obtenerPreguntasQuiz_Multiples(quiz); 
         ArrayList <PreguntaVF> preguntasVF = con.obtenerPreguntasQuiz_VF(quiz); 
         String tipoPregunta = ""; 
@@ -137,6 +150,8 @@ public class SesionEstudianteQuizzesController implements Initializable {
         stage.setResizable(false);
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
+        
+        } // else acaba aqui por el momento
     }
     
    

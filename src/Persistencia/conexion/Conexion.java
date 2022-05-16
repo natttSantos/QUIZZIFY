@@ -206,4 +206,8 @@ public class Conexion {
     public void modificarNota(NotaQuizz respuestas){
         cn.modificarNota(respuestas);
     }
+    
+    public boolean comprobarTipoDeQuiz(String key, String valor) {
+        return cq.comprobarTipoDeQuiz(key, valor);
+    }
 }
