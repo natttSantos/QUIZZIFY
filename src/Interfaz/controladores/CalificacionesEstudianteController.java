@@ -26,7 +26,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
@@ -34,7 +36,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class CalificacionesEstudianteController implements Initializable {
-
+    ArrayList <NotaQuizz> aprobados = new ArrayList<>(); 
+    ArrayList <NotaQuizz> suspendidos = new ArrayList<>(); 
     
     private Conexion con;
     @FXML
@@ -54,9 +57,8 @@ public class CalificacionesEstudianteController implements Initializable {
     private TableColumn<Calificacion, String> notaColumn;
     @FXML
     private Label textoEspera;
-    private TableColumn<Calificacion, String> percentilColumna;
     @FXML
-    private TableColumn<?, ?> porcentajeColumna;
+    private TableColumn<Calificacion, String> porcentajeColumna;
    
 
     /**
@@ -92,7 +94,6 @@ public class CalificacionesEstudianteController implements Initializable {
         porcentajeColumna.setCellValueFactory(new PropertyValueFactory("porcentaje"));
         
         tableView.setItems(datos);
-        //tableView.getColumns().addAll(cursoColumn, nombreQuizColumn, notaColumn);
     }
     
     public String calcularPorcentajesQuiz (ArrayList <NotaQuizz> notasQuiz,  NotaQuizz quizRealizado){
@@ -151,13 +152,16 @@ public class CalificacionesEstudianteController implements Initializable {
 
     @FXML
     private void pulsarEstadisticas(ActionEvent event) throws IOException {
+        cargarGrafica();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/Graficos.fxml"));
         Parent root =(Parent) loader.load();      
         GraficosController control = loader.<GraficosController>getController();
         control.setEstudianteConectado(estudianteConectado);
         control.setNombreCursoSelected(nombreCursoSelected);
         control.setQuizzesCurso(quizzesCurso);
-        control.createScene();
+        control.setAprobados(aprobados);
+        control.setSuspendidos(suspendidos);
+        control.cargarData();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -166,8 +170,31 @@ public class CalificacionesEstudianteController implements Initializable {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
     
+    public void cargarGrafica(){
+        Calificacion item = tableView.getSelectionModel().getSelectedItem(); 
+        ArrayList<QuizAbstracto> quizzes = con.obtenerTodosQuizzes(); 
+        
+        ObservableList selectedCells = tableView.getSelectionModel().getSelectedCells();
+        TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+        Object val = tablePosition.getTableColumn().getCellData(tablePosition.getRow());
+        
+        for (QuizAbstracto quiz: quizzes){
+            if(quiz.getNombre().equals(val)){
+                ArrayList<NotaQuizz> notas = con.obtenerNotasDeQuiz(quiz); 
+                cargar_aprobados_suspendidos(notas);
+            }
+        }   
+    }
+    public void cargar_aprobados_suspendidos (ArrayList<NotaQuizz> notas){
+        for(NotaQuizz alumn: notas){
+            if(alumn.getNota() >= 5){
+                aprobados.add(alumn); 
+            } else{
+                suspendidos.add(alumn); 
+            }
+        }  
+    }
+
     
-
-
     
 }

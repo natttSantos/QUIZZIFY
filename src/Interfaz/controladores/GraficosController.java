@@ -5,6 +5,7 @@
  */
 package Interfaz.controladores;
 
+import LogicaNegocio.modelo.NotaQuizz;
 import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import java.awt.Rectangle;
@@ -24,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -33,10 +35,12 @@ import javafx.stage.Stage;
  * @author nata2
  */
 public class GraficosController {
-    private ObservableList<Data> data2d = FXCollections.observableArrayList();
+    //private ObservableList<Data> data2d = FXCollections.observableArrayList();
     private UsuarioAlumno estudianteConectado; 
     private String nombreCursoSelected; 
     ArrayList<QuizAbstracto> quizzesCurso = new ArrayList<>(); 
+    ArrayList <NotaQuizz> aprobados = new ArrayList<>(); 
+    ArrayList <NotaQuizz> suspendidos = new ArrayList<>(); 
 
     @FXML
     private Label instructor;
@@ -61,75 +65,7 @@ public class GraficosController {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
-    @FXML
-    private void pulsarEstadisticas(ActionEvent event) {
-    }
-    
-     /**
-     * Crea escena fx
-     */
-    public void createScene(){
-        Platform.runLater(() -> {            
-            pieChartAprobados.setTitle("Aprobados vs Suspendidos");//titulo del grafico
-            pieChartAprobados.setLegendSide(Side.LEFT);//Posicion de leyenda            
-            pieChartAprobados.setData(getChartData());            
-            updateColors();            
-            //jfxPanel.setScene(new Scene(pieChartAprobados));
-        });
-    }
-        
-    /**
-     * devuelve los valores para el grafico 2d
-     */
-    public ObservableList<Data> getChartData() {        
-        data2d.addAll(new PieChart.Data("Aprobados", 55),
-                      new PieChart.Data("Suspendidos", 87));          
-        return data2d;
-    }
-    
-    /**
-     * Actualiza colores de la torta y su leyenda
-     */
-    public void updateColors(){    
-        //colores para cada seccion de la torta
-        Color[] colors = { Color.web("#04B404"), Color.web("#FF8000") };
-        
-        int i = 0;
-        //cambia colores de cada seccion de la torta
-        for (PieChart.Data data : data2d) {
-            String hex = String.format( "#%02X%02X%02X",
-                        (int)( colors[i].getRed() * 255 ),
-                        (int)( colors[i].getGreen() * 255 ),
-                        (int)( colors[i].getBlue() * 255 ) );
-              data.getNode().setStyle( "-fx-pie-color: "+hex+";");
-              i++;
-        }
-        //cambia colores de la leyenda
-        Set<Node> items;items = pieChartAprobados.lookupAll("Label.chart-legend-item");
-//        i = 0;            
-//        for (Node item : items) {
-//            Label label = (Label) item;
-//            final Rectangle rectangle = new Rectangle(20, 20, colors[i]);                
-//            label.setGraphic(rectangle);
-//            i++;
-//        }
-    }
 
-    
-    /**
-     * Actualiza valores del gráfico
-     * @param java valores para java
-     * @param javafx valores para javafx
-     */
-    public void setChartData(int aprobados, int suspendidos){
-        Platform.runLater(() -> {
-            data2d.clear();
-            data2d.addAll(new PieChart.Data("Aprobados", aprobados),
-                         new PieChart.Data("Suspendidos", suspendidos));
-            updateColors();
-        });
-        
-    }
 
     public void setEstudianteConectado(UsuarioAlumno estudianteConectado) {
         this.estudianteConectado = estudianteConectado;
@@ -142,6 +78,32 @@ public class GraficosController {
     public void setQuizzesCurso(ArrayList<QuizAbstracto> quizzesCurso) {
         this.quizzesCurso = quizzesCurso;
     }
+
+    public void setAprobados(ArrayList<NotaQuizz> aprobados) {
+        this.aprobados = aprobados;
+    }
+
+    public void setSuspendidos(ArrayList<NotaQuizz> suspendidos) {
+        this.suspendidos = suspendidos;
+    }
+    
+    
+    public void cargarData (){
+        double numQuizzesRealizados = aprobados.size() + suspendidos.size(); 
+        double porcentajeAprobados = (aprobados.size()/numQuizzesRealizados)* 100; 
+        double porcentajeSuspendidos = (suspendidos.size()/numQuizzesRealizados)* 100; 
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList(
+                new PieChart.Data("Aprobados", porcentajeAprobados), 
+                new PieChart.Data("Suspendidos", porcentajeSuspendidos)
+        );
+        pieChartAprobados.setData(data);
+        pieChartAprobados.setLegendSide(Side.LEFT);
+        pieChartAprobados.setTitleSide(Side.BOTTOM);
+        pieChartAprobados.setTitle("Aprobados vs Suspendidos");
+        pieChartAprobados.setTitleSide(Side.TOP);
+
+    }
+    
     
     
 }
