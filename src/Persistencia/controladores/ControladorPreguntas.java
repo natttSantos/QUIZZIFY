@@ -129,7 +129,7 @@ public class ControladorPreguntas {
         return lista;
     }
 
-     public ArrayList<PreguntaAbstracta> obtenerTodasPreguntasDeRecurso(String nombreRecurso, UsuarioInstructor instructorConectado){
+    public ArrayList<PreguntaAbstracta> obtenerTodasPreguntasDeRecurso(String nombreRecurso, UsuarioInstructor instructorConectado){
          ArrayList<PreguntaAbstracta> listaPreguntas = obtenerTodasPreguntas(); 
          ArrayList<PreguntaAbstracta> preguntasDeRecurso  = new ArrayList<>(); 
          for (PreguntaAbstracta preg: listaPreguntas){

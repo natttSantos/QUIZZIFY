@@ -15,6 +15,7 @@ import LogicaNegocio.modelo.PreguntaRespondida;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.QuizDeBateria;
 import LogicaNegocio.modelo.Recurso;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.Usuario;
@@ -210,4 +211,9 @@ public class Conexion {
     public boolean comprobarTipoDeQuiz(String key, String valor) {
         return cq.comprobarTipoDeQuiz(key, valor);
     }
+    
+    public QuizDeBateria obtenerQuizDeBateria(String key, String valor) {
+        return cq.obtenerQuizDeBateria(key, valor);
+    }
+    
 }

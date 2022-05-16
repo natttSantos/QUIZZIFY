@@ -6,6 +6,7 @@ import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.QuizDeBateria;
 import LogicaNegocio.modelo.RespuestaAbstracta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.UsuarioAlumno;
@@ -108,7 +109,9 @@ public class SesionEstudianteQuizzesController implements Initializable {
         boolean isQuizTipoBateria = con.comprobarTipoDeQuiz("nombre", nombrequizSeleccionado);
 
         if (isQuizTipoBateria) {
-            // hay que implementar esta parte, estoy trabajando 
+            // hay que implementar esta parte, estoy trabajando
+            QuizDeBateria quiz = con.obtenerQuizDeBateria("nombre", nombrequizSeleccionado);
+            
         } else {
             
         

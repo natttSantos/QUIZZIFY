@@ -13,6 +13,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.QuizDeBateria;
 import LogicaNegocio.modelo.Recurso;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCursor;
@@ -96,6 +97,19 @@ public class ControladorQuizzes {
             System.out.println(quiz.getNombre());
         }
         return quiz;
+    }
+    
+    public QuizDeBateria obtenerQuizDeBateria(String key, String valor) {
+        QuizDeBateria quiz = null;
+        Document findDocument = new Document(key, valor);
+        FindIterable<Document> resultDocument = quizzes.find(findDocument);
+        
+        MongoCursor<Document> cursor = resultDocument.iterator();
+        if (cursor.hasNext()) {
+            String json =  resultDocument.first().toJson();
+            quiz = new Gson().fromJson(json, QuizDeBateria.class);
+        }
+        return quiz;      
     }
     
     public boolean comprobarTipoDeQuiz(String key, String valor) {
