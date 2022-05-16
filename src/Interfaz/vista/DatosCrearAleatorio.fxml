@@ -3,13 +3,15 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="679.0" prefWidth="1097.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.DatosCrearAleatorioController">
+<AnchorPane id="AnchorPane" prefHeight="679.0" prefWidth="1097.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.DatosCrearAleatorioController">
    <children>
       <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
          <font>
@@ -64,5 +66,23 @@
          </font>
       </Label>
       <MenuButton fx:id="menuRecurso" layoutX="649.0" layoutY="410.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="176.0" />
+      <RadioButton fx:id="radioButton1" layoutX="305.0" layoutY="502.0" mnemonicParsing="false" selected="true" text="Cada alumno tendrá el mismo conjunto de preguntas">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="toggleGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="radioButton2" layoutX="306.0" layoutY="547.0" mnemonicParsing="false" text="Cada alumno tendrá preguntas diferentes (no implementado todavía)" toggleGroup="$toggleGroup">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </RadioButton>
+      <Label layoutX="306.0" layoutY="459.0" text="Tipo de randomización:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

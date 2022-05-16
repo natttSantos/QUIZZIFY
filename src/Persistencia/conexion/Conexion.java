@@ -123,6 +123,10 @@ public class Conexion {
         cq.insertarQuiz(text, curso, estado, preguntas);
     }
     
+    public void insertarQuiz(String text, Document curso, String estado, Recurso recurso) {
+        cq.insertarQuiz(text, curso, estado, recurso);
+    }
+    
     public QuizAbstracto obtenerQuiz(String key, String valor){
        return cq.obtenerQuiz(key, valor);
     }
@@ -193,6 +197,10 @@ public class Conexion {
     }
     public ArrayList<Recurso> obtenerRecursosDeInstructor(UsuarioInstructor user) {
         return cr.obtenerRecursosDeInstructor(user);
+    }
+    
+    public Recurso obtenerRecurso(String key, String valor){
+        return cr.obtenerRecurso(key, valor);
     }
     
     public void modificarNota(NotaQuizz respuestas){

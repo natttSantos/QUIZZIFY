@@ -35,6 +35,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -68,6 +70,12 @@ public class DatosCrearAleatorioController implements Initializable {
     private Label instructor;
     @FXML
     private MenuButton menuRecurso;
+    @FXML
+    private ToggleGroup toggleGroup;
+    @FXML
+    private RadioButton radioButton1;
+    @FXML
+    private RadioButton radioButton2;
 
 
     /**
@@ -102,9 +110,17 @@ public class DatosCrearAleatorioController implements Initializable {
         
         if (comprobarNumero()) {
             anulado = false;
-            crearQuizAleatorio(numero, nombre, preguntasRecurso);
+            if (radioButton1.isSelected()) {    // Sortea pregunta en momento de crear quiz. Cada alumno tiene el mismo quiz al resolver
+                crearQuizAleatorio(numero, nombre, preguntasRecurso);
+            } else {
+                // Crea quiz vacio, solo vinculado con recurso. Preguntas se sortean justo antes de resolver - cada alumno tiene preguntas diferentes
+                Recurso recurso = con.obtenerRecurso("nombreRecurso", menuRecurso.getText());
+                crearQuizDeBateria(numero, nombre, recurso);
+            }
+            
             ((Node) event.getSource()).getScene().getWindow().hide();
             navegarFormInstructor(event);
+            
         } else {
             JOptionPane.showMessageDialog(null, "No hay tantas preguntas en la bateria!","Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -231,5 +247,10 @@ public class DatosCrearAleatorioController implements Initializable {
             menuRecurso.getItems().add(menuItem);
             menuItem.setOnAction(event);
         }
+    }
+
+    private void crearQuizDeBateria(int numero, String nombre, Recurso recurso) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        con.insertarQuiz( obtenerCursoSelected(), estado, recurso);
     }
 }

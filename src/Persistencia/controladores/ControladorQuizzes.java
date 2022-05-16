@@ -13,6 +13,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.Recurso;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.eq;
@@ -42,6 +43,19 @@ public class ControladorQuizzes {
         
         
         quizzes.insertOne(quiz);
+    }
+    
+    public void insertarQuiz(String nombre, Document curso, String estado, Recurso recurso) {
+        /**
+         * Insertar quiz sin preguntas, vinculado con recurso
+         * Preguntas de quiz de este tipo se sortea justo antes resolver
+         * para cada alumno
+         */
+        Document quiz = new Document();
+        quiz.append("nombre", nombre);
+        quiz.append ("curso", curso);
+        quiz.append("estado", estado);
+        quiz.append("recurso", recurso.obtenerDocument());
     }
     
      public ArrayList<QuizAbstracto> obtenerTodosLosQuizzes() {
