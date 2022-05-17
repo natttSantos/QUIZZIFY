@@ -72,6 +72,8 @@ public class GestionQuizzes2Controller implements Initializable {
     private Button botonMostrarRespuestas;
     @FXML
     private Button botonAnularPregunta;
+    @FXML
+    private Button botonModificarDificultad;
 
     /**
      * Initializes the controller class.
@@ -190,6 +192,30 @@ public class GestionQuizzes2Controller implements Initializable {
                 NotaQuizz nuevaNota = new NotaQuizz(quizSeleccionado.getNombre(), nota.getAlumno(), nota.getNota(), respuestasModificadas);
                 con.modificarNota(nuevaNota);
             }
+        }
+    }
+
+    @FXML
+    private void modificarDificultad(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/ModificarDificultad.fxml"));
+        Parent root = miCargador.load();
+        ModificarDificultadController dificultad = miCargador.getController();
+        String tituloPregunta = listaPreguntas.getSelectionModel().getSelectedItem();
+        if (tituloPregunta != null){
+            PreguntaAbstracta pregunta = con.obtenerPreguntaSegunTipo(tituloPregunta);
+            System.out.print(pregunta);
+            dificultad.setCursoSeleccionado(cursoSeleccionado);
+            dificultad.setIntructorConectado(instructorConectado);
+            dificultad.setQuizSeleccionado(quizSeleccionado);
+            dificultad.setPreguntaSeleccionado(pregunta);
+            dificultad.cargarPregunta(tituloPregunta, pregunta.getDificultad());
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            ((Node) event.getSource()).getScene().getWindow().hide();
         }
     }
 }
