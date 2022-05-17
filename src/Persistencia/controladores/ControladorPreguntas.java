@@ -141,4 +141,18 @@ public class ControladorPreguntas {
          return preguntasDeRecurso; 
      }
     
+    public boolean modificarDificultad(String dificultad, PreguntaAbstracta pregunta){
+         try {
+            pregunta.setDificultad(dificultad);
+            Document preguntaAux = pregunta.obtenerDocument();
+            Document query = new Document().append("text",pregunta.getText());
+            
+            preguntas.replaceOne(query, preguntaAux);
+            return true;
+         } catch(Exception e){
+             System.out.println("ERROR en login  " + e.getMessage());
+            return false;
+         }
+     }
+
 }

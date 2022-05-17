@@ -216,4 +216,7 @@ public class Conexion {
         return cq.obtenerQuizDeBateria(key, valor);
     }
     
+     public boolean modificarDificultad(String dificultad, PreguntaAbstracta pregunta){
+        return cp.modificarDificultad(dificultad, pregunta);
+    }
 }

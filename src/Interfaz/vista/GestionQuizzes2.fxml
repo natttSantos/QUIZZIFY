@@ -60,5 +60,10 @@
             <Font size="20.0" />
          </font>
       </Button>
+      <Button fx:id="botonModificarDificultad" layoutX="193.0" layoutY="632.0" mnemonicParsing="false" onAction="#modificarDificultad" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Modificar dificultad">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
