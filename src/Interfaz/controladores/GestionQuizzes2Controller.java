@@ -63,7 +63,6 @@ public class GestionQuizzes2Controller implements Initializable {
     private Label texto;
     @FXML
     private Button botonRespuestas;
-    private TableView<PreguntaRespondida> tablaNotas;
     @FXML
     private ListView<String> listaPreguntas;
     @FXML

@@ -28,7 +28,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="botonMostrarRespuestas" layoutX="673.0" layoutY="576.0" mnemonicParsing="false" onAction="#pulsarMostrarRespuestas" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Mostrar respuestas">
+      <Button fx:id="botonMostrarRespuestas" layoutX="771.0" layoutY="576.0" mnemonicParsing="false" onAction="#pulsarMostrarRespuestas" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Mostrar respuestas">
          <font>
             <Font size="20.0" />
          </font>
@@ -48,9 +48,9 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <ListView fx:id="listaAlumnos" layoutX="673.0" layoutY="216.0" prefHeight="310.0" prefWidth="385.0" />
+      <ListView fx:id="listaAlumnos" layoutX="775.0" layoutY="216.0" prefHeight="310.0" prefWidth="283.0" />
       <ListView fx:id="listaPreguntas" layoutX="193.0" layoutY="216.0" prefHeight="310.0" prefWidth="385.0" />
-      <Label fx:id="texto1" layoutX="673.0" layoutY="175.0" prefHeight="27.0" prefWidth="316.0" text="Alumnos que han respondido al quiz:">
+      <Label fx:id="texto1" layoutX="771.0" layoutY="175.0" prefHeight="27.0" prefWidth="316.0" text="Alumnos que han respondido al quiz:">
          <font>
             <Font size="18.0" />
          </font>

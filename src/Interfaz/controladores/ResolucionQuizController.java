@@ -30,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -79,6 +80,10 @@ public class ResolucionQuizController implements Initializable {
     private Label labelTipo;
     @FXML
     private Button botonContinuar;
+    @FXML
+    private Button mostrarRecurso;
+    @FXML
+    private TextField textRecurso;
 
     /**
      * Initializes the controller class.
@@ -101,6 +106,7 @@ public class ResolucionQuizController implements Initializable {
     @FXML
     private void pulsarContinuar(ActionEvent event) throws IOException {
         guardarRespuestasUsuario();
+        textRecurso.setText("");
         if (tipoPregunta.equals("multiple")) {indexPreguntaMultiple++; }
         else{indexPreguntaVF++; }
         if(preguntasMultiples.size() > 0 && indexPreguntaMultiple < preguntasMultiples.size()){
@@ -392,6 +398,17 @@ public class ResolucionQuizController implements Initializable {
 
     public void setRespuestas(ArrayList<PreguntaRespondida> respuestas) {
         this.respuestas = respuestas;
+    }
+
+    @FXML
+    private void botonMostrarRecurso(ActionEvent event) {
+        PreguntaAbstracta preg = con.obtenerPreguntaSegunTipo(pregunta.getText());
+        try {
+            String recurso = preg.getRecurso().getNombreRecurso();       
+            textRecurso.setText(recurso);
+        } catch (Exception e) {
+            textRecurso.setText("No hay recurso asociado");
+        }
     }
     
     
