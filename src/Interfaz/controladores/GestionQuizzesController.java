@@ -5,6 +5,8 @@
  */
 package Interfaz.controladores;
 
+import Interfaz.tablas.PreguntaRecurso;
+import Interfaz.tablas.QuizData;
 import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.NotaQuizz;
 import LogicaNegocio.modelo.PreguntaAbstracta;
@@ -19,6 +21,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
@@ -33,6 +37,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.bson.Document;
@@ -50,9 +55,7 @@ public class GestionQuizzesController implements Initializable {
     private QuizAbstracto quizSeleccionado;
     @FXML
     private Label instructor;
-    @FXML
     private ListView<String> listaQuizzes;
-    @FXML
     private Label sinQuizzes;
     @FXML
     private Label textTitulo;
@@ -70,6 +73,12 @@ public class GestionQuizzesController implements Initializable {
     private Button botonLanzarQuiz;
     @FXML
     private Button botonTerminarQuiz;
+    @FXML
+    private TableView<QuizData> tableView;
+    @FXML
+    private TableColumn<QuizData, String> columnNombre;
+    @FXML
+    private TableColumn<QuizData, String> columnEstado;
 
     /**
      * Initializes the controller class.
@@ -92,26 +101,39 @@ public class GestionQuizzesController implements Initializable {
     
     @FXML
     private void pulsarAtras(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/Cursos.fxml"));
-        Parent root =(Parent) loader.load();      
-        CursosController  cursos = loader.<CursosController>getController();
-        Scene scene = new Scene (root);
+        ArrayList<Curso> listCursos = con.obtenerTodosLosCursos();
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/Cursos.fxml"));
+        Parent root = miCargador.load();
+        CursosController cursos = miCargador.getController();
+        
+        cursos.setListaCursos(listCursos);
+        cursos.setInstructorConectado(instructorConectado);
+        cursos.cargarCursosDeInstructor();
+
+        Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.initModality(Modality.APPLICATION_MODAL); 
-        stage.show();  
+        stage.setResizable(false);
+        stage.setTitle("Mis cursos");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
     
     public void cargarQuizzesDelCurso(){
+       ObservableList<QuizData> datos = FXCollections.observableArrayList(); 
+       textTitulo.setText("QUIZZES DEL CURSO " + cursoSeleccionado.getNombreCurso());
+       
        ArrayList<QuizAbstracto> quizzes = con.obtenerQuizzesDeCurso(cursoSeleccionado);
        for (int i = 0; i < quizzes.size() && quizzes.size() > 0; i++) {
            QuizAbstracto quiz = quizzes.get(i);
-           sinQuizzes.setVisible(false);
-           String aux = quiz.getNombre() + " Estado: " + quiz.getEstado();
-           listaQuizzes.getItems().add(aux);
+           QuizData quizData = new QuizData(quiz.getNombre(), quiz.getEstado()); 
+           datos.add(quizData); 
        }
+        columnNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
+        columnEstado.setCellValueFactory(new PropertyValueFactory("estado"));
+        tableView.setItems(datos);
     }
 
 

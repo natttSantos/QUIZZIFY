@@ -1,6 +1,7 @@
 package Interfaz.controladores;
 
-import LogicaNegocio.modelo.Calificacion;
+
+import Interfaz.tablas.Calificacion;
 import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.NotaQuizz;
 import LogicaNegocio.modelo.PreguntaAbstracta;

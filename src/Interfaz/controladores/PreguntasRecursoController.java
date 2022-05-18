@@ -5,10 +5,10 @@
  */
 package Interfaz.controladores;
 
-import LogicaNegocio.modelo.Calificacion;
+import Interfaz.tablas.Calificacion;
 import LogicaNegocio.modelo.NotaQuizz;
 import LogicaNegocio.modelo.PreguntaAbstracta;
-import LogicaNegocio.modelo.PreguntaRecurso;
+import Interfaz.tablas.PreguntaRecurso;
 import LogicaNegocio.modelo.QuizAbstracto;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import java.io.IOException;
