@@ -111,7 +111,7 @@ public class DatosCrearAleatorioController implements Initializable {
         if (comprobarNumero()) {
             anulado = false;
             if (radioButton1.isSelected()) {    // Sortea pregunta en momento de crear quiz. Cada alumno tiene el mismo quiz al resolver
-                crearQuizAleatorio(numero, nombre, preguntasRecurso);
+                //crearQuizAleatorio(numero, nombre, preguntasRecurso);
             } else {
                 // Crea quiz vacio, solo vinculado con recurso. Preguntas se sortean justo antes de resolver - cada alumno tiene preguntas diferentes
                 Recurso recurso = con.obtenerRecurso("nombreRecurso", menuRecurso.getText());
@@ -140,21 +140,21 @@ public class DatosCrearAleatorioController implements Initializable {
         return numero <= numeroPreguntas;
     }
     
-    public void crearQuizAleatorio(int num, String nombre, ArrayList<PreguntaAbstracta> lista) {
-        Collections.shuffle(lista);
-        Document[] preguntas = new Document[num];
-        
-        for (int i = 0; i < num; i++) {
-            
-            PreguntaAbstracta pregunta = lista.get(i);
-            Document d = pregunta.obtenerDocument(); 
-            preguntas[i] = d;
-        }
-        con.insertarQuiz(nombre, obtenerCursoSelected(), "En preparacion" ,preguntas);
-        instructorConectado.setQuizzesDisponibles(instructorConectado.getQuizzesDisponibles() - 1);
-        con.reducirCantQuizzesDisponibles(instructorConectado.getEmail(), instructorConectado.getQuizzesDisponibles());
-        
-    }
+//    public void crearQuizAleatorio(int num, String nombre, ArrayList<PreguntaAbstracta> lista) {
+//        Collections.shuffle(lista);
+//        Document[] preguntas = new Document[num];
+//        
+//        for (int i = 0; i < num; i++) {
+//            
+//            PreguntaAbstracta pregunta = lista.get(i);
+//            Document d = pregunta.obtenerDocument(); 
+//            preguntas[i] = d;
+//        }
+//        con.insertarQuiz(nombre, obtenerCursoSelected(), "En preparacion" ,preguntas);
+//        instructorConectado.setQuizzesDisponibles(instructorConectado.getQuizzesDisponibles() - 1);
+//        con.reducirCantQuizzesDisponibles(instructorConectado.getEmail(), instructorConectado.getQuizzesDisponibles());
+//        
+//    }
     
     public boolean getAnulado() {
         return anulado;

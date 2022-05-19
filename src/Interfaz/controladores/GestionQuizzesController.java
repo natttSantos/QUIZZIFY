@@ -72,8 +72,6 @@ public class GestionQuizzesController implements Initializable {
     @FXML
     private Button botonLanzarQuiz;
     @FXML
-    private Button botonTerminarQuiz;
-    @FXML
     private TableView<QuizData> tableView;
     @FXML
     private TableColumn<QuizData, String> columnNombre;
@@ -139,28 +137,29 @@ public class GestionQuizzesController implements Initializable {
 
     @FXML
     private void clonarQuiz(ActionEvent event) {
-       String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
-        if(nombreQuiz != null) {
-            QuizAbstracto quiz =con.obtenerQuiz("nombre", nombreQuiz);
-            String nombre = "Copia de " + quiz.getNombre();
-            Document curso = quiz.getCurso().obtenerDocument();
-            ArrayList<PreguntaAbstracta> lista = quiz.getPreguntas();
-            Document[] preguntas = new Document[lista.size()];
-            int i = 0;
-            for (PreguntaAbstracta pregunta:lista){
-                Document d = new Document();
-                d.append("text", pregunta.getText())
-                    .append("dificultad", pregunta.getDificultad())
-                    .append("recurso", pregunta.getRecurso()) 
-                    .append("respuestas", asList(pregunta.getRespuestas()));
-                preguntas[i] = d;
-                i++;
-            }
-            con.insertarQuiz(nombre, curso, "En preparación",preguntas);
-            cargarQuizzesDelCurso();
-        }
+//       String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
+//        if(nombreQuiz != null) {
+//            QuizAbstracto quiz =con.obtenerQuiz("nombre", nombreQuiz);
+//            String nombre = "Copia de " + quiz.getNombre();
+//            Document curso = quiz.getCurso().obtenerDocument();
+//            ArrayList<PreguntaAbstracta> lista = quiz.getPreguntas();
+//            Document[] preguntas = new Document[lista.size()];
+//            int i = 0;
+//            for (PreguntaAbstracta pregunta:lista){
+//                Document d = new Document();
+//                d.append("text", pregunta.getText())
+//                    .append("dificultad", pregunta.getDificultad())
+//                    .append("recurso", pregunta.getRecurso()) 
+//                    .append("respuestas", asList(pregunta.getRespuestas()));
+//                preguntas[i] = d;
+//                i++;
+//            }
+//            con.insertarQuiz(nombre, curso, "En preparación",preguntas);
+//            cargarQuizzesDelCurso();
+//        }
     }
 
+    //@FXML
     @FXML
     private void pulsarGestionarQuiz(ActionEvent event) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/GestionQuizzes2.fxml"));
@@ -194,16 +193,15 @@ public class GestionQuizzesController implements Initializable {
         String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
         if (nombreQuiz != null){
             String estado = "Lanzado";
-            con.cambiarEstado(nombreQuiz, estado);
+            //con.cambiarEstado(nombreQuiz, estado);
         }
     }
 
-    @FXML
     private void terminarQuiz(ActionEvent event) {
         String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
         if (nombreQuiz != null){
             String estado = "Terminado";
-            con.cambiarEstado(nombreQuiz, estado);
+            //con.cambiarEstado(nombreQuiz, estado);
         }
     }
     

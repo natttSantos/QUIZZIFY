@@ -1,6 +1,7 @@
 package LogicaNegocio.modelo;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -9,12 +10,16 @@ public class QuizAbstracto {
     protected String estado;
     protected ArrayList preguntas;
     protected Curso curso; 
+    protected LocalDate dateInicio; 
+    protected LocalDate dateFin; 
     
-public QuizAbstracto(String nombre, Curso curso, String estado, ArrayList<PreguntaAbstracta> preguntas){
+public QuizAbstracto(String nombre, Curso curso, String estado, ArrayList<PreguntaAbstracta> preguntas, LocalDate dateInicio, LocalDate dateFin){
     this.nombre = nombre;
     this.curso = curso; 
     this.preguntas = preguntas;
     this.estado = estado;
+    this.dateInicio = dateInicio; 
+    this.dateFin = dateFin; 
 }    
 
 public String getNombre() {
@@ -55,7 +60,21 @@ public void setPreguntas(ArrayList newPreguntas) {
 }
 
 
-//public abstract PreguntaAbstracta crearPregunta(String text, String dificultad, String tema, ArrayList respuestas);
+    public LocalDate getDateInicio() {
+        return dateInicio;
+    }
 
+    public void setDateInicio(LocalDate dateInicio) {
+        this.dateInicio = dateInicio;
+    }
 
+    public LocalDate getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(LocalDate dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    //public abstract PreguntaAbstracta crearPregunta(String text, String dificultad, String tema, ArrayList respuestas);
 }

@@ -25,6 +25,7 @@ import Persistencia.controladores.ControladorCursos;
 import Persistencia.controladores.ControladorNotasQuizzes;
 import Persistencia.controladores.ControladorQuizzes;
 import Persistencia.controladores.ControladorRecursos;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import org.bson.Document;
 
@@ -120,8 +121,8 @@ public class Conexion {
          return cp.obtenerPreguntasQuiz_Multiples (quiz); 
      }
     
-    public void insertarQuiz(String text, Document curso, String estado, Document [] preguntas){
-        cq.insertarQuiz(text, curso, estado, preguntas);
+    public void insertarQuiz(String text, Document curso, String estado, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin){
+        cq.insertarQuiz(text, curso, estado, preguntas, dateInicio, dateFin);
     }
     
     public void insertarQuizDeBateria(String text, int numero, Document curso, String estado, Recurso recurso) {
@@ -134,9 +135,9 @@ public class Conexion {
     public ArrayList<QuizAbstracto> obtenerTodosQuizzes() {
         return cq.obtenerTodosLosQuizzes();
     }
-    public void cambiarEstado(String nombreQuiz,String estado){
-        cq.cambiarEstado(nombreQuiz, estado);
-    }
+//    public void cambiarEstado(String nombreQuiz,String estado){
+//        cq.cambiarEstado(nombreQuiz, estado);
+//    }
     
     public void reducirCantQuizzesDisponibles(String email, int quizzesDisponibles) {
         cu.reducirCantQuizzesDisponibles(email, quizzesDisponibles);

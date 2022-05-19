@@ -2,6 +2,7 @@ package Interfaz.controladores;
 
 
 import LogicaNegocio.modelo.Curso;
+import LogicaNegocio.modelo.Estados;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.QuizAbstracto;
@@ -38,6 +39,10 @@ import org.bson.Document;
 
 public class GenerarQuizNoAleatorioController implements Initializable {
 
+    private LocalDate dateInicio; 
+    private LocalDate dateFin; 
+    private int tiempoLimite;
+    
     @FXML
     private TextField nombreTextField;
     @FXML
@@ -117,7 +122,9 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         }
         try {
             if(!nombreTextField.getText().equals("")) {
-                con.insertarQuiz(nombreTextField.getText(), obtenerCursoSelected(), "En preparación" ,preguntas);
+                Estados estado = new Estados(); 
+
+                con.insertarQuiz(nombreTextField.getText(), obtenerCursoSelected(), estado.gestionarEstados(dateInicio, dateFin), preguntas, dateInicio, dateFin);
                 instructorConectado.setQuizzesDisponibles(instructorConectado.getQuizzesDisponibles() - 1);
                 con.reducirCantQuizzesDisponibles( instructorConectado.getEmail(),instructorConectado.getQuizzesDisponibles());
                 enviarAlerta("Creado","Quizz creado correctamente!");
@@ -228,6 +235,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         Document dcurso = curso.obtenerDocument(); 
         return dcurso; 
     }
+   
     @FXML
     private void pulsarBuscar(ActionEvent event) {
         String infoBuscar = textoBuscar.getText(); 
@@ -272,23 +280,39 @@ public class GenerarQuizNoAleatorioController implements Initializable {
 
     @FXML
     private void GoFechaYTiempo(ActionEvent event) throws IOException {
-         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/FechaYTiempoQuiz.fxml"));
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/FechaYTiempoQuiz.fxml"));
         Parent root = cargador.load();
         FechaYTiempoQuizController FechaController = cargador.getController();
-        Scene scene = new Scene(root, 700, 400);
+        FechaController.setInstructorConectado(instructorConectado);
+        FechaController.setNombreQuiz(nombreTextField.getText());
+        FechaController.setMenuCurso(menuCurso.getText());
+        FechaController.setLista(listView2.getItems());
+        Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.setTitle("Ver datos persona");
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-        
-        if (!FechaController.getCancelar()) {
-          newFechaIni = FechaController.getfechaIni();
-          newFechaFin = FechaController.getfechaFIn();
-          newMins = FechaController.getMins();
-        
-    }
+        stage.show();
+         ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
+    public void setDateInicio(LocalDate dateInicio) {
+        this.dateInicio = dateInicio;
+    }
+
+    public void setDateFin(LocalDate dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public void setTiempoLimite(int tiempoLimite) {
+        this.tiempoLimite = tiempoLimite;
+    }
+
+    public void recordarData(String nombreQuiz, String menuCursoText, ObservableList<String> lista2){
+        nombreTextField.setText(nombreQuiz);
+        menuCurso.setText(menuCursoText);
+        listView2.setItems(lista2);
+    }
     
 }
