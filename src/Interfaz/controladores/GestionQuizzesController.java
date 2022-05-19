@@ -8,6 +8,7 @@ package Interfaz.controladores;
 import Interfaz.tablas.PreguntaRecurso;
 import Interfaz.tablas.QuizData;
 import LogicaNegocio.modelo.Curso;
+import LogicaNegocio.modelo.Estados;
 import LogicaNegocio.modelo.NotaQuizz;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaRespondida;
@@ -18,6 +19,7 @@ import Persistencia.conexion.Conexion;
 import com.sun.glass.events.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import java.util.ResourceBundle;
@@ -126,7 +128,8 @@ public class GestionQuizzesController implements Initializable {
        ArrayList<QuizAbstracto> quizzes = con.obtenerQuizzesDeCurso(cursoSeleccionado);
        for (int i = 0; i < quizzes.size() && quizzes.size() > 0; i++) {
            QuizAbstracto quiz = quizzes.get(i);
-           QuizData quizData = new QuizData(quiz.getNombre(), quiz.getEstado()); 
+           String estado = new Estados().gestionarEstados(quiz.getFechaInicio(), quiz.getFechaFin());
+           QuizData quizData = new QuizData(quiz.getNombre(), estado); 
            datos.add(quizData); 
        }
         columnNombre.setCellValueFactory(new PropertyValueFactory("nombre"));

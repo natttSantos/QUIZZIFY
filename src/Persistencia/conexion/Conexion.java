@@ -121,8 +121,8 @@ public class Conexion {
          return cp.obtenerPreguntasQuiz_Multiples (quiz); 
      }
     
-    public void insertarQuiz(String text, Document curso, String estado, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin){
-        cq.insertarQuiz(text, curso, estado, preguntas, dateInicio, dateFin);
+    public void insertarQuiz(String text, Document curso, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin){
+        cq.insertarQuiz(text, curso, preguntas, dateInicio, dateFin);
     }
     
     public void insertarQuizDeBateria(String text, int numero, Document curso, String estado, Recurso recurso) {

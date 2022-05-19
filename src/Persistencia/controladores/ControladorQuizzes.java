@@ -38,16 +38,15 @@ public class ControladorQuizzes {
     }
     
     
-    public void insertarQuiz(String nombre, Document curso, String estado, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin) {
+    public void insertarQuiz(String nombre, Document curso, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin) {
         Document quiz = new Document();
         FechaQuiz fechaInicioQuiz = new FechaQuiz(dateInicio.getYear(), dateInicio.getMonthValue(), dateInicio.getDayOfMonth()); 
         FechaQuiz fechaFinQuiz = new FechaQuiz(dateFin.getYear(), dateFin.getMonthValue(), dateFin.getDayOfMonth()); 
         quiz.append("nombre", nombre)
             .append ("curso", curso)
-            .append("estado", estado)
             .append("preguntas", asList(preguntas))
             .append("fechaInicio", fechaInicioQuiz.obtenerDocument()) 
-            .append("fechaFino", fechaFinQuiz.obtenerDocument()); 
+            .append("fechaFin", fechaFinQuiz.obtenerDocument()); 
 
         quizzes.insertOne(quiz);
     }
@@ -72,7 +71,6 @@ public class ControladorQuizzes {
         quiz.append("nombre", nombre);
         quiz.append("numero", numero);
         quiz.append ("curso", curso);
-        quiz.append("estado", estado);
         quiz.append("recurso", recurso.obtenerDocument());
         
         quizzes.insertOne(quiz);
@@ -170,7 +168,6 @@ public class ControladorQuizzes {
             Document quizAux = new Document();
             quizAux.append("nombre", quiz.getNombre())
                 .append ("curso", quiz.getCurso().obtenerDocument())
-                .append("estado", quiz.getEstado())
                 .append("preguntas", asList(preguntas));
             quizzes.replaceOne(query,quizAux);
             return true;

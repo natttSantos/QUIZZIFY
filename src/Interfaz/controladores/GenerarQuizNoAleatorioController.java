@@ -124,7 +124,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
             if(!nombreTextField.getText().equals("")) {
                 Estados estado = new Estados(); 
 
-                con.insertarQuiz(nombreTextField.getText(), obtenerCursoSelected(), estado.gestionarEstados(dateInicio, dateFin), preguntas, dateInicio, dateFin);
+                con.insertarQuiz(nombreTextField.getText(), obtenerCursoSelected(), preguntas, dateInicio, dateFin);
                 instructorConectado.setQuizzesDisponibles(instructorConectado.getQuizzesDisponibles() - 1);
                 con.reducirCantQuizzesDisponibles( instructorConectado.getEmail(),instructorConectado.getQuizzesDisponibles());
                 enviarAlerta("Creado","Quizz creado correctamente!");

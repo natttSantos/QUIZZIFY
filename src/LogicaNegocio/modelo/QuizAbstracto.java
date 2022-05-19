@@ -7,32 +7,23 @@ import java.util.ArrayList;
 
 public class QuizAbstracto {
     protected String nombre;
-    protected String estado;
     protected ArrayList preguntas;
     protected Curso curso; 
-    protected LocalDate dateInicio; 
-    protected LocalDate dateFin; 
+    protected LocalDate fechaInicio; 
+    protected LocalDate fechaFin; 
     
-public QuizAbstracto(String nombre, Curso curso, String estado, ArrayList<PreguntaAbstracta> preguntas, LocalDate dateInicio, LocalDate dateFin){
+public QuizAbstracto(String nombre, Curso curso,  ArrayList<PreguntaAbstracta> preguntas, LocalDate fechaInicio, LocalDate fechaFin){
     this.nombre = nombre;
     this.curso = curso; 
     this.preguntas = preguntas;
-    this.estado = estado;
-    this.dateInicio = dateInicio; 
-    this.dateFin = dateFin; 
+    this.fechaInicio = fechaInicio; 
+    this.fechaFin = fechaFin; 
 }    
 
 public String getNombre() {
     return nombre;
 }
 
-public String getEstado() {
-    return estado;
-}
-
-public void setEstado(String estado){
-    this.estado = estado;
-}
 
 public ArrayList getPreguntas() {
     return preguntas;
@@ -60,20 +51,20 @@ public void setPreguntas(ArrayList newPreguntas) {
 }
 
 
-    public LocalDate getDateInicio() {
-        return dateInicio;
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setDateInicio(LocalDate dateInicio) {
-        this.dateInicio = dateInicio;
+    public void setFechaInicio(LocalDate dateInicio) {
+        this.fechaInicio = dateInicio;
     }
 
-    public LocalDate getDateFin() {
-        return dateFin;
+    public LocalDate getFechaFin() {
+        return fechaFin;
     }
 
-    public void setDateFin(LocalDate dateFin) {
-        this.dateFin = dateFin;
+    public void setFechaFin(LocalDate dateFin) {
+        this.fechaFin = dateFin;
     }
 
     //public abstract PreguntaAbstracta crearPregunta(String text, String dificultad, String tema, ArrayList respuestas);

@@ -19,13 +19,6 @@ public class Estados {
         
     }
 
-    public String getTipoEstado() {
-        return tipoEstado;
-    }
-
-    public void setTipoEstado(String tipoEstado) {
-        this.tipoEstado = tipoEstado;
-    }
     
     public String gestionarEstados (LocalDate dateInicio, LocalDate dateFin){ //Ya he salido lanzado
         LocalDate presentDate = LocalDate.now(); 
@@ -33,7 +26,10 @@ public class Estados {
         if ((presentDate.isBefore(dateInicio))){ 
             tipoEstado = "Publicado-Inactivo"; 
         }
-        if (!(presentDate.isBefore(dateInicio)) && !(presentDate.isAfter(dateFin))){ 
+        if (!(presentDate.isBefore(dateInicio)) && !(presentDate.isAfter(dateFin))) { 
+            tipoEstado = "Publicado-Activo"; 
+        }
+        if (presentDate.equals(dateInicio) || (presentDate.equals(dateFin))){ 
             tipoEstado = "Publicado-Activo"; 
         }
         if (presentDate.isAfter(dateFin)){

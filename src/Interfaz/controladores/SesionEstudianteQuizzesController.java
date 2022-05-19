@@ -2,6 +2,7 @@ package Interfaz.controladores;
 
 import static Interfaz.controladores.InicioSesionController.u;
 import LogicaNegocio.modelo.Curso;
+import LogicaNegocio.modelo.Estados;
 import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.PreguntaVF;
@@ -33,6 +34,7 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.Collections;
 
 public class SesionEstudianteQuizzesController implements Initializable {
@@ -53,7 +55,7 @@ public class SesionEstudianteQuizzesController implements Initializable {
     private UsuarioAlumno estudianteConectado; 
     
     private String nombreCursoSelected; 
-    ArrayList<QuizAbstracto> quizzesCurso = new ArrayList<>(); 
+    ArrayList<QuizAbstracto> quizzesActivos = new ArrayList<>(); 
 
 
     /**
@@ -83,9 +85,8 @@ public class SesionEstudianteQuizzesController implements Initializable {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
      public void cargarListaQuizzes(){
-        Curso cursoSelected = con.obtenerCurso("nombreCurso", nombreCursoSelected); 
-        quizzesCurso = con.obtenerQuizzesDeCurso(cursoSelected);
-        if(quizzesCurso.isEmpty()){
+        validarEstadoActivo();
+        if(quizzesActivos.isEmpty()){
             imagenReloj.setVisible(true);
             textoEspera.setVisible(true);
             listaQuizes.setVisible(false);
@@ -96,11 +97,20 @@ public class SesionEstudianteQuizzesController implements Initializable {
             listaQuizes.setVisible(true);
             listaQuizes.setDisable(false);
         }  
- 
-        for (QuizAbstracto quiz: quizzesCurso ){
-            listaQuizes.getItems().add(quiz.getNombre());
-        }
     }
+
+     public void validarEstadoActivo (){
+         Curso cursoSelected = con.obtenerCurso("nombreCurso", nombreCursoSelected); 
+         ArrayList<QuizAbstracto> quizzesCurso = con.obtenerQuizzesDeCurso(cursoSelected);
+         for (QuizAbstracto quiz: quizzesCurso ){
+            String estado = new Estados().gestionarEstados(quiz.getFechaInicio(), quiz.getFechaFin()); 
+            if(estado.equals("Publicado-Activo")){
+                listaQuizes.getItems().add(quiz.getNombre());
+                quizzesActivos.add(quiz); 
+            }
+        }
+         
+     }
 
     @FXML
     public void entrarQuiz(ActionEvent event) throws IOException {
@@ -186,7 +196,7 @@ public class SesionEstudianteQuizzesController implements Initializable {
         CalificacionesEstudianteController calif = loader.<CalificacionesEstudianteController>getController(); 
         calif.setEstudianteConectado(estudianteConectado);
         calif.setNombreCursoSelected(nombreCursoSelected);
-        calif.setQuizzesCurso(quizzesCurso);
+        calif.setQuizzesCurso(quizzesActivos);
         calif.cargarNotas();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
