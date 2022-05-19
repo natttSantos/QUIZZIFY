@@ -37,6 +37,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -57,7 +58,6 @@ public class GestionQuizzesController implements Initializable {
     private QuizAbstracto quizSeleccionado;
     @FXML
     private Label instructor;
-    private ListView<String> listaQuizzes;
     private Label sinQuizzes;
     @FXML
     private Label textTitulo;
@@ -169,13 +169,9 @@ public class GestionQuizzesController implements Initializable {
         Parent root = miCargador.load();
         GestionQuizzes2Controller  quizzes= miCargador.getController();
         quizzes.setIntructorConectado(instructorConectado);
-        String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
-        int pos = nombreQuiz.indexOf(":"); 
-        nombreQuiz = nombreQuiz.substring(0, pos - 7); 
-        System.out.println(nombreQuiz);
-        if (nombreQuiz != null) {
-            QuizAbstracto quiz = con.obtenerQuiz("nombre", nombreQuiz);
-            System.out.println(quiz);
+
+        QuizAbstracto quiz = obtenerQuizSelectected(); 
+        if (quiz.getNombre()!= null) {
             this.quizSeleccionado = quiz;
             quizzes.setQuizSeleccionado(quizSeleccionado);
             quizzes.setCursoSeleccionado(cursoSeleccionado);
@@ -191,21 +187,18 @@ public class GestionQuizzesController implements Initializable {
         }
     }
 
-    @FXML
-    private void lanzarQuiz(ActionEvent event) {
-        String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
-        if (nombreQuiz != null){
-            String estado = "Lanzado";
-            //con.cambiarEstado(nombreQuiz, estado);
+    public QuizAbstracto obtenerQuizSelectected (){
+        ObservableList selectedCells = tableView.getSelectionModel().getSelectedCells();
+        TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+        Object val = tablePosition.getTableColumn().getCellData(tablePosition.getRow());
+        ArrayList<QuizAbstracto> quizzes = con.obtenerTodosQuizzes(); 
+        
+        for (QuizAbstracto quiz: quizzes){
+            if(quiz.getNombre().equals(val)){
+                return quiz; 
+            }
         }
-    }
-
-    private void terminarQuiz(ActionEvent event) {
-        String nombreQuiz = listaQuizzes.getSelectionModel().getSelectedItem();
-        if (nombreQuiz != null){
-            String estado = "Terminado";
-            //con.cambiarEstado(nombreQuiz, estado);
-        }
+        return null; 
     }
     
 }
