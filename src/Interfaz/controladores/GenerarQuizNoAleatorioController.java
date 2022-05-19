@@ -284,9 +284,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         Parent root = cargador.load();
         FechaYTiempoQuizController FechaController = cargador.getController();
         FechaController.setInstructorConectado(instructorConectado);
-        FechaController.setNombreQuiz(nombreTextField.getText());
-        FechaController.setMenuCurso(menuCurso.getText());
-        FechaController.setLista(listView2.getItems());
+        FechaController.setDataQuizNoAleatorio(nombreTextField.getText(), menuCurso.getText(), listView2.getItems());
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);

@@ -49,11 +49,6 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="botonLanzarQuiz" layoutX="257.0" layoutY="554.0" mnemonicParsing="false" onAction="#lanzarQuiz" styleClass="miClase" stylesheets="@../css/hojaEstilo.css" text="Lanzar quiz">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
       <TableView fx:id="tableView" layoutX="257.0" layoutY="243.0" prefHeight="288.0" prefWidth="746.0">
         <columns>
           <TableColumn fx:id="columnNombre" prefWidth="463.0" text="Nombre quiz" />

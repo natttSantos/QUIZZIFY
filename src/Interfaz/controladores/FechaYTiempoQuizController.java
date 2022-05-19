@@ -39,10 +39,12 @@ public class FechaYTiempoQuizController implements Initializable {
     private String menuCurso; 
     ObservableList<String> lista; 
     
-    
+    private String numeroPreguntas; 
+    private String temaQuiz; 
     
     LocalDate dateInicio; 
     LocalDate dateFin; 
+    boolean quizAleatorio = true; 
    
     private UsuarioInstructor instructorConectado;
     private CheckBox abrirAlCrearButton;
@@ -171,20 +173,35 @@ public class FechaYTiempoQuizController implements Initializable {
     }
 
     public void navegarFormAnterior (ActionEvent event) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/GenerarQuizNoAleatorio.fxml"));
-        Parent root = loader.load();
-        GenerarQuizNoAleatorioController controlador = loader.getController();
-        controlador.setUsuario(instructorConectado);
-        controlador.setDateInicio(dateInicio);
-        controlador.setDateFin(dateFin);
-        controlador.setTiempoLimite(mins);
-        controlador.addCursosToMenu();
-        controlador.recordarData(nombreQuiz, menuCurso, lista);
+        FXMLLoader loader; 
+        Parent root = null; 
+        if (temaQuiz != null){ //Crear quiz no aleatorio 
+            loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/DatosCrearAleatorio.fxml"));
+            root = loader.load();
+            DatosCrearAleatorioController controlador = loader.getController();
+            controlador.setUsuario(instructorConectado);
+            controlador.setDateInicio(dateInicio);
+            controlador.setDateFin(dateFin);
+            controlador.setTiempoLimite(mins);
+            controlador.addCursosToMenu();
+            controlador.recordarData(nombreQuiz, menuCurso, numeroPreguntas, temaQuiz); 
+        }
+        else{
+            loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/GenerarQuizNoAleatorio.fxml"));
+            root = loader.load();
+            GenerarQuizNoAleatorioController controlador = loader.getController();
+            controlador.setUsuario(instructorConectado);
+            controlador.setDateInicio(dateInicio);
+            controlador.setDateFin(dateFin);
+            controlador.setTiempoLimite(mins);
+            controlador.addCursosToMenu();
+            controlador.recordarData(nombreQuiz, menuCurso, lista);
+        
+        }
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Crear un quiz");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
@@ -194,18 +211,16 @@ public class FechaYTiempoQuizController implements Initializable {
         this.instructorConectado = instructorConectado;
     }
 
-    public void setNombreQuiz(String nombreQuiz) {
-        this.nombreQuiz = nombreQuiz;
+    public void setDataQuizNoAleatorio (String nombreQuiz, String menuCurso, ObservableList<String> lista ){
+         this.nombreQuiz = nombreQuiz;
+         this.menuCurso = menuCurso;
+         this.lista = lista;
     }
-
-    public void setMenuCurso(String menuCurso) {
-        this.menuCurso = menuCurso;
+    public void setDataQuizAleatorio (String nombreQuiz, String menuCurso, String numeroPreguntas, String temaQuiz){
+         this.nombreQuiz = nombreQuiz;
+         this.menuCurso = menuCurso;
+         this.numeroPreguntas = numeroPreguntas; 
+         this.temaQuiz = temaQuiz; 
     }
-
-    public void setLista(ObservableList<String> lista) {
-        this.lista = lista;
-    }
-    
-    
     
 }

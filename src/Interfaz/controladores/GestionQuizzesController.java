@@ -157,7 +157,7 @@ public class GestionQuizzesController implements Initializable {
 //                preguntas[i] = d;
 //                i++;
 //            }
-//            con.insertarQuiz(nombre, curso, "En preparación",preguntas);
+//            con.insertarQuiz(nombre, curso, preguntas);
 //            cargarQuizzesDelCurso();
 //        }
     }

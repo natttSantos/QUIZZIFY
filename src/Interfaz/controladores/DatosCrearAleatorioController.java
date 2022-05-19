@@ -13,6 +13,7 @@ import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
@@ -29,6 +30,7 @@ import javafx.scene.input.MouseEvent;
 import javax.swing.JOptionPane;
 import org.bson.Document;
 import static java.util.Arrays.asList;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,7 +48,9 @@ import javafx.stage.Stage;
  * @author margr
  */
 public class DatosCrearAleatorioController implements Initializable {
-
+    private LocalDate dateInicio; 
+    private LocalDate dateFin; 
+    private int tiempoLimite;
     @FXML
     private TextField numeroTextField;
     private CheckBox checkbox;
@@ -76,6 +80,8 @@ public class DatosCrearAleatorioController implements Initializable {
     private RadioButton radioButton1;
     @FXML
     private RadioButton radioButton2;
+    @FXML
+    private Button fechaYTiempobutton;
 
 
     /**
@@ -251,5 +257,41 @@ public class DatosCrearAleatorioController implements Initializable {
 
     private void crearQuizDeBateria(int numero, String nombre, Recurso recurso) {
         con.insertarQuizDeBateria(nombre, numero, obtenerCursoSelected(), "En prepacacion", recurso);
+    }
+
+    @FXML
+    private void GoFechaYTiempo(ActionEvent event) throws IOException {
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/FechaYTiempoQuiz.fxml"));
+        Parent root = cargador.load();
+        FechaYTiempoQuizController FechaController = cargador.getController();
+        FechaController.setDataQuizAleatorio(nombreTextField.getText(), menuCurso.getText(), numeroTextField.getText(), menuRecurso.getText());
+        FechaController.setInstructorConectado(instructorConectado);
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setTitle("Ver datos persona");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+         ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+    
+    public void setDateInicio(LocalDate dateInicio) {
+        this.dateInicio = dateInicio;
+    }
+
+    public void setDateFin(LocalDate dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public void setTiempoLimite(int tiempoLimite) {
+        this.tiempoLimite = tiempoLimite;
+    }
+
+    public void recordarData(String nombreQuiz, String menuCursoText, String numeroPreguntas, String temaQuiz){
+        nombreTextField.setText(nombreQuiz);
+        menuCurso.setText(menuCursoText);
+        numeroTextField.setText(numeroPreguntas);
+        menuRecurso.setText(temaQuiz);          
     }
 }
