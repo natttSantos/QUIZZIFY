@@ -5,6 +5,7 @@
  */
 package Interfaz.controladores;
 
+import Interfaz.tablas.PreguntaAciertoFallo;
 import LogicaNegocio.modelo.Curso;
 import LogicaNegocio.modelo.NotaQuizz;
 import LogicaNegocio.modelo.PreguntaAbstracta;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
@@ -36,6 +38,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.bson.Document;
@@ -73,6 +76,14 @@ public class GestionQuizzes2Controller implements Initializable {
     private Button botonAnularPregunta;
     @FXML
     private Button botonModificarDificultad;
+    @FXML
+    private TableView<PreguntaAciertoFallo> tablaPreguntas;
+    @FXML
+    private TableColumn<PreguntaAciertoFallo, String> colPregunta;
+    @FXML
+    private TableColumn<PreguntaAciertoFallo, Double> colAcierto;
+    @FXML
+    private TableColumn<PreguntaAciertoFallo, Double> colFallo;
 
     /**
      * Initializes the controller class.
@@ -115,6 +126,10 @@ public class GestionQuizzes2Controller implements Initializable {
         System.out.println("En ultimo" + quizSeleccionado);
         //ArrayList<PreguntaAbstracta> preguntas = quizSeleccionado.getPreguntas();
         
+        colPregunta.setCellValueFactory(new PropertyValueFactory("pregunta"));
+        colAcierto.setCellValueFactory(new PropertyValueFactory("acierto"));
+        colFallo.setCellValueFactory(new PropertyValueFactory("fallo"));
+        ObservableList<PreguntaAciertoFallo> datos = FXCollections.observableArrayList();
         ArrayList <PreguntaSeleccionMultiple> preguntasMul = con.obtenerPreguntasQuiz_Multiples(quizSeleccionado); 
         ArrayList <PreguntaVF> pregutasVF = con.obtenerPreguntasQuiz_VF(quizSeleccionado); 
         for (PreguntaAbstracta pregunta:preguntasMul){
