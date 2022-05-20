@@ -113,11 +113,12 @@ public class DatosCrearAleatorioController implements Initializable {
         nombre = nombreTextField.getText();
         numero = Integer.parseInt(numeroTextField.getText());
         ArrayList <PreguntaAbstracta> preguntasRecurso = con.obtenerTodasPreguntasDeRecurso(menuRecurso.getText(), instructorConectado); 
+        listaPreguntas = preguntasRecurso;
         
         if (comprobarNumero()) {
             anulado = false;
             if (radioButton1.isSelected()) {    // Sortea pregunta en momento de crear quiz. Cada alumno tiene el mismo quiz al resolver
-                //crearQuizAleatorio(numero, nombre, preguntasRecurso);
+                crearQuizAleatorio(numero, nombre, preguntasRecurso);
             } else {
                 // Crea quiz vacio, solo vinculado con recurso. Preguntas se sortean justo antes de resolver - cada alumno tiene preguntas diferentes
                 Recurso recurso = con.obtenerRecurso("nombreRecurso", menuRecurso.getText());
@@ -146,21 +147,21 @@ public class DatosCrearAleatorioController implements Initializable {
         return numero <= numeroPreguntas;
     }
     
-//    public void crearQuizAleatorio(int num, String nombre, ArrayList<PreguntaAbstracta> lista) {
-//        Collections.shuffle(lista);
-//        Document[] preguntas = new Document[num];
-//        
-//        for (int i = 0; i < num; i++) {
-//            
-//            PreguntaAbstracta pregunta = lista.get(i);
-//            Document d = pregunta.obtenerDocument(); 
-//            preguntas[i] = d;
-//        }
-//        con.insertarQuiz(nombre, obtenerCursoSelected(), "En preparacion" ,preguntas);
-//        instructorConectado.setQuizzesDisponibles(instructorConectado.getQuizzesDisponibles() - 1);
-//        con.reducirCantQuizzesDisponibles(instructorConectado.getEmail(), instructorConectado.getQuizzesDisponibles());
-//        
-//    }
+    public void crearQuizAleatorio(int num, String nombre, ArrayList<PreguntaAbstracta> lista) {
+        Collections.shuffle(lista);
+        Document[] preguntas = new Document[num];
+        
+        for (int i = 0; i < num; i++) {
+            
+            PreguntaAbstracta pregunta = lista.get(i);
+            Document d = pregunta.obtenerDocument(); 
+            preguntas[i] = d;
+        }
+        con.insertarQuiz(nombre, obtenerCursoSelected(), preguntas, dateInicio, dateFin);
+        instructorConectado.setQuizzesDisponibles(instructorConectado.getQuizzesDisponibles() - 1);
+        con.reducirCantQuizzesDisponibles(instructorConectado.getEmail(), instructorConectado.getQuizzesDisponibles());
+        
+    }
     
     public boolean getAnulado() {
         return anulado;
@@ -256,8 +257,10 @@ public class DatosCrearAleatorioController implements Initializable {
     }
 
     private void crearQuizDeBateria(int numero, String nombre, Recurso recurso) {
-        con.insertarQuizDeBateria(nombre, numero, obtenerCursoSelected(), "En prepacacion", recurso);
+        con.insertarQuizDeBateria(nombre, numero, obtenerCursoSelected(), "En prepacacion", recurso, dateInicio, dateFin);
     }
+    
+   
 
     @FXML
     private void GoFechaYTiempo(ActionEvent event) throws IOException {
