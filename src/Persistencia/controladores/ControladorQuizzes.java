@@ -173,7 +173,9 @@ public class ControladorQuizzes {
             Document quizAux = new Document();
             quizAux.append("nombre", quiz.getNombre())
                 .append ("curso", quiz.getCurso().obtenerDocument())
-                .append("preguntas", asList(preguntas));
+                .append("preguntas", asList(preguntas))
+                .append("fechaInicio", quiz.getFechaInicio())
+                .append("fechaFin", quiz.getFechaFin());
             quizzes.replaceOne(query,quizAux);
             return true;
         }catch(Exception e){

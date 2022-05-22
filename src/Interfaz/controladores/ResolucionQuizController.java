@@ -315,16 +315,21 @@ public class ResolucionQuizController implements Initializable {
     
     public void guardarRespuestasUsuario(){
         int respuestaUsuario = 0; 
+        String respuesta = "";
         switch(tipoPregunta){
             case "multiple": 
                 if(respuesta1.isSelected()){
                 respuestaUsuario = 1; 
+                respuesta = respuesta1.getText();
                 }if(respuesta2.isSelected()){
                 respuestaUsuario = 2; 
+                respuesta = respuesta2.getText();
                 }if(respuesta3.isSelected()){
-                respuestaUsuario = 3; 
+                respuestaUsuario = 3;
+                respuesta = respuesta3.getText();
                 }if(respuesta4.isSelected()){
                 respuestaUsuario = 4; 
+                respuesta = respuesta4.getText();
                 }
                 break;
                 
@@ -338,8 +343,7 @@ public class ResolucionQuizController implements Initializable {
                 break;    
         }
                 String aux1 = pregunta.getText()+"";
-                String aux2 = respuestaUsuario+"";
-                aux = new PreguntaRespondida(aux1,aux2);
+                aux = new PreguntaRespondida(aux1,respuesta);
                 respuestas.add(aux);
                 arrayRespuestasUsuario[indexPreguntaMultiple + indexPreguntaVF] = respuestaUsuario; 
     }
