@@ -11,7 +11,7 @@
             <Font name="Impact" size="29.0" />
          </font>
       </Label>
-      <AnchorPane layoutX="94.0" layoutY="103.0" prefHeight="131.0" prefWidth="492.0" styleClass="miClase" stylesheets="@../css/hojaEstilo.css">
+      <AnchorPane layoutX="94.0" layoutY="103.0" prefHeight="131.0" prefWidth="492.0" styleClass="negrito" stylesheets="@../css/hojaEstilo.css">
          <children>
             <Label fx:id="tiempo" layoutX="94.0" layoutY="19.0" text="00 : 00 : 00" textFill="WHITE">
                <font>

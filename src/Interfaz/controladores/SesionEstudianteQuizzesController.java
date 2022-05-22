@@ -164,6 +164,7 @@ public class SesionEstudianteQuizzesController implements Initializable {
                 resolucion.setPreguntasMultiple(preguntasMultiples);
                 resolucion.setPreguntasVF(preguntasVF);
                 resolucion.setNumeroPreguntas(preguntasMultiples.size() + preguntasVF.size());
+                resolucion.setTiempoLimite(quiz.getTiempoLimite());
                 resolucion.temporizador();
                 resolucion.validarTipoPregunta();
                 

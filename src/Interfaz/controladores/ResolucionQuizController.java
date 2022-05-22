@@ -93,6 +93,8 @@ public class ResolucionQuizController implements Initializable {
     private Button mostrarRecurso;
     @FXML
     private TextField textRecurso;
+    @FXML
+    private Button buttonTiempoRestante;
 
     /**
      * Initializes the controller class.
@@ -426,11 +428,17 @@ public class ResolucionQuizController implements Initializable {
     }
     
     
-    public void temporizador () throws InterruptedException{
+    public void temporizador () throws InterruptedException {
         LocalTime horaEntradaQuiz = LocalTime.now();
         int minutoEntrada = horaEntradaQuiz.getMinute(); 
         minutoFinal =  minutoEntrada + tiempoLimite; 
-        System.err.println("");
+        if (tiempoLimite <= 0){
+            buttonTiempoRestante.setDisable(true);
+        }
+    }
+
+    public void setTiempoLimite(int tiempoLimite) {
+        this.tiempoLimite = tiempoLimite;
     }
 
     @FXML

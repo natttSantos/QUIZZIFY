@@ -21,8 +21,8 @@ public class QuizDeBateria extends QuizAbstracto {
     int numero;
     Recurso recurso;
     
-    public QuizDeBateria(String nombre, Curso curso, String estado, ArrayList<PreguntaAbstracta> preguntas, int numero, Recurso recurso, LocalDate dateInicio, LocalDate dateFin) {
-        super(nombre, curso, preguntas, dateInicio, dateFin);
+    public QuizDeBateria(String nombre, Curso curso, String estado, ArrayList<PreguntaAbstracta> preguntas, int numero, Recurso recurso, LocalDate dateInicio, LocalDate dateFin, int tiempoLimite) {
+        super(nombre, curso, preguntas, dateInicio, dateFin, tiempoLimite);
         this.numero = numero;
         this.recurso = recurso;
     }

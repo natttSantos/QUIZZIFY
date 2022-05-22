@@ -11,13 +11,15 @@ public class QuizAbstracto {
     protected Curso curso; 
     protected LocalDate fechaInicio; 
     protected LocalDate fechaFin; 
+    protected int tiempoLimite; 
     
-public QuizAbstracto(String nombre, Curso curso,  ArrayList<PreguntaAbstracta> preguntas, LocalDate fechaInicio, LocalDate fechaFin){
+public QuizAbstracto(String nombre, Curso curso,  ArrayList<PreguntaAbstracta> preguntas, LocalDate fechaInicio, LocalDate fechaFin, int tiempoLimite){
     this.nombre = nombre;
     this.curso = curso; 
     this.preguntas = preguntas;
     this.fechaInicio = fechaInicio; 
     this.fechaFin = fechaFin; 
+    this.tiempoLimite = tiempoLimite; 
 }    
 
 public String getNombre() {
@@ -66,6 +68,16 @@ public void setPreguntas(ArrayList newPreguntas) {
     public void setFechaFin(LocalDate dateFin) {
         this.fechaFin = dateFin;
     }
+    
+    
 
     //public abstract PreguntaAbstracta crearPregunta(String text, String dificultad, String tema, ArrayList respuestas);
+
+    public int getTiempoLimite() {
+        return tiempoLimite;
+    }
+
+    public void setTiempoLimite(int tiempoLimite) {
+        this.tiempoLimite = tiempoLimite;
+    }
 }

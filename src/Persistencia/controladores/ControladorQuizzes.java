@@ -38,7 +38,7 @@ public class ControladorQuizzes {
     }
     
     
-    public void insertarQuiz(String nombre, Document curso, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin) {
+    public void insertarQuiz(String nombre, Document curso, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin, int tiempoLimite) {
         Document quiz = new Document();
         FechaQuiz fechaInicioQuiz = new FechaQuiz(dateInicio.getYear(), dateInicio.getMonthValue(), dateInicio.getDayOfMonth()); 
         FechaQuiz fechaFinQuiz = new FechaQuiz(dateFin.getYear(), dateFin.getMonthValue(), dateFin.getDayOfMonth()); 
@@ -46,7 +46,8 @@ public class ControladorQuizzes {
             .append ("curso", curso)
             .append("preguntas", asList(preguntas))
             .append("fechaInicio", fechaInicioQuiz.obtenerDocument()) 
-            .append("fechaFin", fechaFinQuiz.obtenerDocument()); 
+            .append("fechaFin", fechaFinQuiz.obtenerDocument())
+            .append("tiempoLimite", tiempoLimite); 
 
         quizzes.insertOne(quiz);
     }

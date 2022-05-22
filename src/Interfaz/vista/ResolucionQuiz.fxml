@@ -67,6 +67,6 @@
             <TextField fx:id="textRecurso" layoutX="745.0" layoutY="59.0" />
          </children>
       </Pane>
-      <Button layoutX="248.0" layoutY="138.0" mnemonicParsing="false" onAction="#mostrarTiempo" styleClass="atras" stylesheets="@../css/hojaEstilo.css" text="Mostrar tiempo restante" />
+      <Button fx:id="buttonTiempoRestante" layoutX="248.0" layoutY="138.0" mnemonicParsing="false" onAction="#mostrarTiempo" styleClass="atras" stylesheets="@../css/hojaEstilo.css" text="Mostrar tiempo restante" />
    </children>
 </AnchorPane>

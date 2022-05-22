@@ -19,7 +19,7 @@ public class TiempoRestanteController {
     private Label tiempo;
     private int minutoFinal; 
 
-    public void setMinutoFinal(int minutoFinal) {
+    public void setMinutoFinal (int minutoFinal) {
         this.minutoFinal = minutoFinal;
     }
     
