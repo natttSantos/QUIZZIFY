@@ -13,6 +13,8 @@ import LogicaNegocio.modelo.PreguntaRespondida;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.QuizAbstracto;
+import LogicaNegocio.modelo.Respuesta;
+import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.UsuarioAlumno;
 import LogicaNegocio.modelo.UsuarioInstructor;
 import Persistencia.conexion.Conexion;
@@ -132,8 +134,34 @@ public class GestionQuizzes2Controller implements Initializable {
         ObservableList<PreguntaAciertoFallo> datos = FXCollections.observableArrayList();
         ArrayList <PreguntaSeleccionMultiple> preguntasMul = con.obtenerPreguntasQuiz_Multiples(quizSeleccionado); 
         ArrayList <PreguntaVF> pregutasVF = con.obtenerPreguntasQuiz_VF(quizSeleccionado); 
+        ArrayList <NotaQuizz> notas = con.obtenerNotasDeQuiz(quizSeleccionado);
+        int total = notas.size();
         for (PreguntaAbstracta pregunta:preguntasMul){
+            ArrayList <Respuesta> listaAux = pregunta.getRespuestas();
+            Respuesta correcta = null;
+            int contador = 0;
+            for (Respuesta respuesta:listaAux) {
+                if (respuesta.getEsCorrecta()){
+                    correcta = respuesta;
+                }
+            }
+            String correcto = correcta.getTexto();
             String nombre = pregunta.getText();
+            for (NotaQuizz nota:notas){
+                ArrayList <PreguntaRespondida> respuestas = nota.getRespuestas();
+                for (PreguntaRespondida respuesta:respuestas){
+                    String aux = respuesta.getRespuesta();
+                    if (correcto.equals(aux)) {
+                        contador++;
+                    }
+                    
+                }
+            }
+            double acierto = (contador / total) * 100;
+            System.out.print(acierto);
+            double fallo = 100 - acierto;
+            PreguntaAciertoFallo objeto = new PreguntaAciertoFallo(nombre, acierto, fallo );
+            datos.add(objeto);
             listaPreguntas.getItems().add(nombre);
         }
         for (PreguntaAbstracta pregunta:pregutasVF){
@@ -141,7 +169,7 @@ public class GestionQuizzes2Controller implements Initializable {
             listaPreguntas.getItems().add(nombre);
         }
         
-        
+        tablaPreguntas.setItems(datos);
     }
     
     public void alumnosDelQuiz(){
