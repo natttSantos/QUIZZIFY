@@ -17,22 +17,33 @@ public class TiempoRestanteController {
 
     @FXML
     private Label tiempo;
-    private int minutoFinal; 
+    private LocalTime horaFinal; 
 
-    public void setMinutoFinal (int minutoFinal) {
-        this.minutoFinal = minutoFinal;
+    public void setHoraFinal(LocalTime horaFinal) {
+        this.horaFinal = horaFinal;
+    }
+    
+    public void calculoTiempo (int hora , int min, int seg){
+       
+        tiempo.setText( hora + " : " + min + " : 0"+ seg);
+
+          
+        
     }
     
     
     
-    public void cargarTiempo (){
-        int tiempoRestante = minutoFinal - (LocalTime.now().getMinute()); 
-        if (tiempoRestante < 10){
-             tiempo.setText("00 : 0" + tiempoRestante + ": 00" );
-        }
-        else {
-             tiempo.setText("00 : " + tiempoRestante + ": 00" );
-        }
+    public void cargarTiempoCallBack (){
+        int hora = horaFinal.getHour(); 
+        int min = horaFinal.getMinute(); 
+        int seg = horaFinal.getSecond(); 
+        
+        int horaAct = LocalTime.now().getHour(); 
+        int minAct = LocalTime.now().getMinute();  
+        int segAct = LocalTime.now().getSecond(); 
+        
+        calculoTiempo(hora - horaAct, min - minAct, 0);
+        
     }
     
 }

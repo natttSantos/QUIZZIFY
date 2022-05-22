@@ -58,8 +58,8 @@ public class ResolucionQuizController implements Initializable {
     private int numeroPregunta;
     
     private PreguntaRespondida aux;
-    private int tiempoLimite = 5; 
-    private int minutoFinal;       
+    private int tiempoLimite; 
+    private LocalTime horaFinal;    
             
     private LocalTime horaEntradaQuiz; 
     
@@ -153,7 +153,9 @@ public class ResolucionQuizController implements Initializable {
         resolucion.setRespuestas(respuestas);
         
         resolucion.setEstudianteConectado(estudianteConectado);
-        resolucion.temporizador();
+        resolucion.setTiempoLimite(tiempoLimite);
+        resolucion.setHoraFinal(horaFinal);
+        resolucion.temporizadorRestoVentanas();
         resolucion.validarTipoPregunta();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
@@ -387,6 +389,9 @@ public class ResolucionQuizController implements Initializable {
             compararResultados();
         } 
     }
+    
+    
+    
     public void navegarAtras (ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionEstudianteQuizzes.fxml"));
         Parent root =(Parent) loader.load();      
@@ -428,13 +433,38 @@ public class ResolucionQuizController implements Initializable {
     }
     
     
-    public void temporizador () throws InterruptedException {
+    public void temporizadorInicial () throws InterruptedException {
         LocalTime horaEntradaQuiz = LocalTime.now();
-        int minutoEntrada = horaEntradaQuiz.getMinute(); 
-        minutoFinal =  minutoEntrada + tiempoLimite; 
+        horaFinal =  horaEntradaQuiz.plusMinutes(tiempoLimite); 
         if (tiempoLimite <= 0){
             buttonTiempoRestante.setDisable(true);
         }
+    }
+     public void temporizadorRestoVentanas() throws InterruptedException, IOException {
+        if (horaFinal.equals(LocalTime.now()) || horaFinal.isBefore(LocalTime.now())){
+           guardarRespuestasUsuario();
+          
+            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+            alert2.setHeaderText(null);
+            alert2.setContentText("El tiempo de quiz ha finalizado!");
+            alert2.showAndWait(); 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionEstudianteQuizzes.fxml"));
+        Parent root =(Parent) loader.load();      
+        SesionEstudianteQuizzesController sesionQuizzes = loader.<SesionEstudianteQuizzesController>getController();
+        sesionQuizzes.setNombreCursoSelected(nombreCursoSelected);
+        sesionQuizzes.setEstudianteConectado(estudianteConectado);
+        sesionQuizzes.cargarListaQuizzes(); 
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.setResizable(false);
+        stage.show();
+            
+            compararResultados();
+       
+        }
+        
     }
 
     public void setTiempoLimite(int tiempoLimite) {
@@ -446,14 +476,18 @@ public class ResolucionQuizController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/TiempoRestante.fxml"));
         Parent root =(Parent) loader.load();      
         TiempoRestanteController tiempo = loader.<TiempoRestanteController>getController();
-        tiempo.setMinutoFinal(minutoFinal);
-        tiempo.cargarTiempo();
+        tiempo.setHoraFinal(horaFinal);
+        tiempo.cargarTiempoCallBack();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); 
         stage.setResizable(false);
         stage.show();
+    }
+
+    public void setHoraFinal(LocalTime horaFinal) {
+        this.horaFinal = horaFinal;
     }
     
 }
