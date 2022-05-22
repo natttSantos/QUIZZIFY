@@ -93,11 +93,7 @@ public class FechaYTiempoQuizController implements Initializable {
 
         if (enableTiempoLimiteButton.isSelected()&& !("".equals(tiempoLimite.getText()))) {
             mins = Integer.parseInt(tiempoLimite.getText());
-        }
-        else if("".equals(tiempoLimite.getText())){
-             error = true; 
-             enviarAlerta("ERROR", "Debe indicar un tiempo límite!");   
-         }
+        }     
 
         if(!error){
             enviarAlerta("CONFIRMATION", "Configuración quiz guardada!"); 
@@ -185,6 +181,9 @@ public class FechaYTiempoQuizController implements Initializable {
             controlador.setTiempoLimite(mins);
             controlador.addCursosToMenu();
             controlador.recordarData(nombreQuiz, menuCurso, numeroPreguntas, temaQuiz); 
+            if(tiempoLimite.getText() != null){
+                controlador.setTiempoLimite(tiempoLimite.getText());
+            }
         }
         else{
             loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/GenerarQuizNoAleatorio.fxml"));
@@ -193,10 +192,11 @@ public class FechaYTiempoQuizController implements Initializable {
             controlador.setUsuario(instructorConectado);
             controlador.setDateInicio(dateInicio);
             controlador.setDateFin(dateFin);
-            controlador.setTiempoLimite(mins);
             controlador.addCursosToMenu();
             controlador.recordarData(nombreQuiz, menuCurso, lista);
-        
+            if(tiempoLimite.getText()!= null){
+                controlador.setTiempoLimite(tiempoLimite.getText());
+            }
         }
         Scene scene = new Scene(root);
         Stage stage = new Stage();

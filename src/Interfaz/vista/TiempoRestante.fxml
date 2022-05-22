@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.TiempoRestanteController">
+   <children>
+      <Label layoutX="239.0" layoutY="47.0" text="TIEMPO RESTANTE">
+         <font>
+            <Font name="Impact" size="29.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="94.0" layoutY="103.0" prefHeight="131.0" prefWidth="492.0" styleClass="miClase" stylesheets="@../css/hojaEstilo.css">
+         <children>
+            <Label fx:id="tiempo" layoutX="94.0" layoutY="19.0" text="00 : 00 : 00" textFill="WHITE">
+               <font>
+                  <Font size="64.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

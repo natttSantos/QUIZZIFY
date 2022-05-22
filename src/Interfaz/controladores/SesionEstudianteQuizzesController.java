@@ -113,7 +113,7 @@ public class SesionEstudianteQuizzesController implements Initializable {
      }
 
     @FXML
-    public void entrarQuiz(ActionEvent event) throws IOException {
+    public void entrarQuiz(ActionEvent event) throws IOException, InterruptedException {
         String nombrequizSeleccionado = listaQuizes.getSelectionModel().getSelectedItem();
         
 // ========================= here the fun starts =============================
@@ -164,6 +164,7 @@ public class SesionEstudianteQuizzesController implements Initializable {
                 resolucion.setPreguntasMultiple(preguntasMultiples);
                 resolucion.setPreguntasVF(preguntasVF);
                 resolucion.setNumeroPreguntas(preguntasMultiples.size() + preguntasVF.size());
+                resolucion.temporizador();
                 resolucion.validarTipoPregunta();
                 
        

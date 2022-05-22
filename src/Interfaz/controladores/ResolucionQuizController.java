@@ -13,10 +13,12 @@ import Persistencia.conexion.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Timer;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -53,7 +56,13 @@ public class ResolucionQuizController implements Initializable {
     private int [] arrayRespuestasUsuario = new int [15]; 
     private int [] arrayRespuestasCorrectas = new int[15];
     private int numeroPregunta;
+    
     private PreguntaRespondida aux;
+    private int tiempoLimite = 5; 
+    private int minutoFinal;       
+            
+    private LocalTime horaEntradaQuiz; 
+    
     private String usuario;
     @FXML
     private Label instructor;
@@ -104,7 +113,7 @@ public class ResolucionQuizController implements Initializable {
     }
 
     @FXML
-    private void pulsarContinuar(ActionEvent event) throws IOException {
+    private void pulsarContinuar(ActionEvent event) throws IOException, InterruptedException {
         guardarRespuestasUsuario();
         textRecurso.setText("");
         if (tipoPregunta.equals("multiple")) {indexPreguntaMultiple++; }
@@ -119,7 +128,7 @@ public class ResolucionQuizController implements Initializable {
         }
     } 
      
-    public void navegarFormularioResolucion (ActionEvent event) throws IOException{
+    public void navegarFormularioResolucion (ActionEvent event) throws IOException, InterruptedException{
         FXMLLoader loader = null; 
         Parent root = null; 
 
@@ -142,6 +151,7 @@ public class ResolucionQuizController implements Initializable {
         resolucion.setRespuestas(respuestas);
         
         resolucion.setEstudianteConectado(estudianteConectado);
+        resolucion.temporizador();
         resolucion.validarTipoPregunta();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
@@ -411,5 +421,27 @@ public class ResolucionQuizController implements Initializable {
         }
     }
     
+    
+    public void temporizador () throws InterruptedException{
+        LocalTime horaEntradaQuiz = LocalTime.now();
+        int minutoEntrada = horaEntradaQuiz.getMinute(); 
+        minutoFinal =  minutoEntrada + tiempoLimite; 
+        System.err.println("");
+    }
+
+    @FXML
+    private void mostrarTiempo(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/TiempoRestante.fxml"));
+        Parent root =(Parent) loader.load();      
+        TiempoRestanteController tiempo = loader.<TiempoRestanteController>getController();
+        tiempo.setMinutoFinal(minutoFinal);
+        tiempo.cargarTiempo();
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.setResizable(false);
+        stage.show();
+    }
     
 }

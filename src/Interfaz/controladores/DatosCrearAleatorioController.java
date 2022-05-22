@@ -297,4 +297,12 @@ public class DatosCrearAleatorioController implements Initializable {
         numeroTextField.setText(numeroPreguntas);
         menuRecurso.setText(temaQuiz);          
     }
+
+    void setTiempoLimite(TextField tiempoLimite) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void setTiempoLimite(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

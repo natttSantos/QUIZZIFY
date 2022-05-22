@@ -41,7 +41,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
 
     private LocalDate dateInicio; 
     private LocalDate dateFin; 
-    private int tiempoLimite;
+    private String tiempoLimite;
     
     @FXML
     private TextField nombreTextField;
@@ -303,7 +303,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         this.dateFin = dateFin;
     }
 
-    public void setTiempoLimite(int tiempoLimite) {
+    public void setTiempoLimite(String tiempoLimite) {
         this.tiempoLimite = tiempoLimite;
     }
 
@@ -312,5 +312,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         menuCurso.setText(menuCursoText);
         listView2.setItems(lista2);
     }
-    
+
+  
+        
 }
