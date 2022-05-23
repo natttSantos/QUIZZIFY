@@ -115,6 +115,7 @@ public class GestionQuizzes2Controller implements Initializable {
         GestionQuizzesController  quizzes = loader.<GestionQuizzesController>getController();
         quizzes.setIntructorConectado(instructorConectado);
         quizzes.setCursoSeleccionado(cursoSeleccionado);
+            quizzes.cargarQuizzesDelCurso();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);

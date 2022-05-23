@@ -83,7 +83,12 @@ public class ModificarDificultadController implements Initializable {
     private void pulsarAtras(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/GestionQuizzes2.fxml"));
         Parent root =(Parent) loader.load();      
-        GestionQuizzes2Controller sesionInstructor = loader.<GestionQuizzes2Controller>getController();
+        GestionQuizzes2Controller quizzes = loader.<GestionQuizzes2Controller>getController();
+        quizzes.setQuizSeleccionado(quizSeleccionado);
+        quizzes.setIntructorConectado(instructorConectado);
+            quizzes.setCursoSeleccionado(cursoSeleccionado);
+            quizzes.cargarPreguntasDelQuiz();
+            quizzes.alumnosDelQuiz();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);

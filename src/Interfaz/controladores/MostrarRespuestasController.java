@@ -100,6 +100,9 @@ public class MostrarRespuestasController implements Initializable {
         GestionQuizzes2Controller  quizzes = loader.<GestionQuizzes2Controller>getController();
         quizzes.setIntructorConectado(instructorConectado);
         quizzes.setCursoSeleccionado(cursoSeleccionado);
+        quizzes.setQuizSeleccionado(quizSeleccionado);
+            quizzes.cargarPreguntasDelQuiz();
+            quizzes.alumnosDelQuiz();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
         stage.setScene(scene);
