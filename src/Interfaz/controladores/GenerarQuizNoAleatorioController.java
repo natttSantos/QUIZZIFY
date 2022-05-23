@@ -41,7 +41,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
 
     private LocalDate dateInicio; 
     private LocalDate dateFin; 
-    private int tiempoLimite;
+    private String tiempoLimite;
     
     @FXML
     private TextField nombreTextField;
@@ -126,10 +126,10 @@ public class GenerarQuizNoAleatorioController implements Initializable {
             if(!nombreTextField.getText().equals("")) {
                 Estados estado = new Estados(); 
 
-                con.insertarQuiz(nombreTextField.getText(), obtenerCursoSelected(), preguntas, dateInicio, dateFin);
+                con.insertarQuiz(nombreTextField.getText(), obtenerCursoSelected(), preguntas, dateInicio, dateFin, Integer.parseInt(tiempoLimite));
                 instructorConectado.setQuizzesDisponibles(instructorConectado.getQuizzesDisponibles() - 1);
                 con.reducirCantQuizzesDisponibles( instructorConectado.getEmail(),instructorConectado.getQuizzesDisponibles());
-                enviarAlerta("Creado","Quizz creado correctamente!");
+                 enviarAlerta("Confirmation","Quizz creado correctamente!");
               
             } else {
                 enviarAlerta("ERROR","Escriba un texto descriptivo para  crear el Quizz!");
@@ -304,7 +304,7 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         this.dateFin = dateFin;
     }
 
-    public void setTiempoLimite(int tiempoLimite) {
+    public void setTiempoLimite(String tiempoLimite) {
         this.tiempoLimite = tiempoLimite;
     }
 

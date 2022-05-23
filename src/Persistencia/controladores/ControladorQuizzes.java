@@ -38,7 +38,7 @@ public class ControladorQuizzes {
     }
     
     
-    public void insertarQuiz(String nombre, Document curso, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin) {
+    public void insertarQuiz(String nombre, Document curso, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin, int tiempoLimite) {
         Document quiz = new Document();
         FechaQuiz fechaInicioQuiz = new FechaQuiz(dateInicio.getYear(), dateInicio.getMonthValue(), dateInicio.getDayOfMonth()); 
         FechaQuiz fechaFinQuiz = new FechaQuiz(dateFin.getYear(), dateFin.getMonthValue(), dateFin.getDayOfMonth()); 
@@ -46,12 +46,13 @@ public class ControladorQuizzes {
             .append ("curso", curso)
             .append("preguntas", asList(preguntas))
             .append("fechaInicio", fechaInicioQuiz.obtenerDocument()) 
-            .append("fechaFin", fechaFinQuiz.obtenerDocument()); 
+            .append("fechaFin", fechaFinQuiz.obtenerDocument())
+            .append("tiempoLimite", tiempoLimite); 
 
         quizzes.insertOne(quiz);
     }
     
-    public void insertarQuizDeBateria(String nombre, int numero, Document curso, String estado, Recurso recurso, LocalDate dateInicio, LocalDate dateFin) {
+    public void insertarQuizDeBateria(String nombre, int numero, Document curso, String estado, Recurso recurso, LocalDate dateInicio, LocalDate dateFin, int tiempoLimite) {
         /**
          * Insertar quiz sin preguntas, vinculado con recurso. 
          * Preguntas de quiz de este tipo se sortea justo antes resolver para cada alumno
@@ -77,6 +78,7 @@ public class ControladorQuizzes {
         quiz.append("recurso", recurso.obtenerDocument());
         quiz.append("fechaInicio", fechaInicioQuiz.obtenerDocument()) ;
         quiz.append("fechaFin", fechaFinQuiz.obtenerDocument());
+        quiz.append("tiempoLimite", tiempoLimite);
         
         quizzes.insertOne(quiz);
     }
@@ -173,7 +175,9 @@ public class ControladorQuizzes {
             Document quizAux = new Document();
             quizAux.append("nombre", quiz.getNombre())
                 .append ("curso", quiz.getCurso().obtenerDocument())
-                .append("preguntas", asList(preguntas));
+                .append("preguntas", asList(preguntas))
+                .append("fechaInicio", quiz.getFechaInicio())
+                .append("fechaFin", quiz.getFechaFin());
             quizzes.replaceOne(query,quizAux);
             return true;
         }catch(Exception e){

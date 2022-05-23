@@ -13,10 +13,12 @@ import Persistencia.conexion.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Timer;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -53,7 +56,13 @@ public class ResolucionQuizController implements Initializable {
     private int [] arrayRespuestasUsuario = new int [15]; 
     private int [] arrayRespuestasCorrectas = new int[15];
     private int numeroPregunta;
+    
     private PreguntaRespondida aux;
+    private int tiempoLimite; 
+    private LocalTime horaFinal;    
+            
+    private LocalTime horaEntradaQuiz; 
+    
     private String usuario;
     @FXML
     private Label instructor;
@@ -84,6 +93,8 @@ public class ResolucionQuizController implements Initializable {
     private Button mostrarRecurso;
     @FXML
     private TextField textRecurso;
+    @FXML
+    private Button buttonTiempoRestante;
 
     /**
      * Initializes the controller class.
@@ -104,7 +115,7 @@ public class ResolucionQuizController implements Initializable {
     }
 
     @FXML
-    private void pulsarContinuar(ActionEvent event) throws IOException {
+    private void pulsarContinuar(ActionEvent event) throws IOException, InterruptedException {
         guardarRespuestasUsuario();
         textRecurso.setText("");
         if (tipoPregunta.equals("multiple")) {indexPreguntaMultiple++; }
@@ -119,7 +130,7 @@ public class ResolucionQuizController implements Initializable {
         }
     } 
      
-    public void navegarFormularioResolucion (ActionEvent event) throws IOException{
+    public void navegarFormularioResolucion (ActionEvent event) throws IOException, InterruptedException{
         FXMLLoader loader = null; 
         Parent root = null; 
 
@@ -142,6 +153,9 @@ public class ResolucionQuizController implements Initializable {
         resolucion.setRespuestas(respuestas);
         
         resolucion.setEstudianteConectado(estudianteConectado);
+        resolucion.setTiempoLimite(tiempoLimite);
+        resolucion.setHoraFinal(horaFinal);
+        resolucion.temporizadorRestoVentanas();
         resolucion.validarTipoPregunta();
         Scene scene = new Scene (root);
         Stage stage = new Stage();
@@ -305,16 +319,21 @@ public class ResolucionQuizController implements Initializable {
     
     public void guardarRespuestasUsuario(){
         int respuestaUsuario = 0; 
+        String respuesta = "";
         switch(tipoPregunta){
             case "multiple": 
                 if(respuesta1.isSelected()){
                 respuestaUsuario = 1; 
+                respuesta = respuesta1.getText();
                 }if(respuesta2.isSelected()){
                 respuestaUsuario = 2; 
+                respuesta = respuesta2.getText();
                 }if(respuesta3.isSelected()){
-                respuestaUsuario = 3; 
+                respuestaUsuario = 3;
+                respuesta = respuesta3.getText();
                 }if(respuesta4.isSelected()){
                 respuestaUsuario = 4; 
+                respuesta = respuesta4.getText();
                 }
                 break;
                 
@@ -328,8 +347,7 @@ public class ResolucionQuizController implements Initializable {
                 break;    
         }
                 String aux1 = pregunta.getText()+"";
-                String aux2 = respuestaUsuario+"";
-                aux = new PreguntaRespondida(aux1,aux2);
+                aux = new PreguntaRespondida(aux1,respuesta);
                 respuestas.add(aux);
                 arrayRespuestasUsuario[indexPreguntaMultiple + indexPreguntaVF] = respuestaUsuario; 
     }
@@ -371,6 +389,9 @@ public class ResolucionQuizController implements Initializable {
             compararResultados();
         } 
     }
+    
+    
+    
     public void navegarAtras (ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionEstudianteQuizzes.fxml"));
         Parent root =(Parent) loader.load();      
@@ -411,5 +432,62 @@ public class ResolucionQuizController implements Initializable {
         }
     }
     
+    
+    public void temporizadorInicial () throws InterruptedException {
+        LocalTime horaEntradaQuiz = LocalTime.now();
+        horaFinal =  horaEntradaQuiz.plusMinutes(tiempoLimite); 
+        if (tiempoLimite <= 0){
+            buttonTiempoRestante.setDisable(true);
+        }
+    }
+     public void temporizadorRestoVentanas() throws InterruptedException, IOException {
+        if (horaFinal.equals(LocalTime.now()) || horaFinal.isBefore(LocalTime.now())){
+           guardarRespuestasUsuario();
+          
+            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+            alert2.setHeaderText(null);
+            alert2.setContentText("El tiempo de quiz ha finalizado!");
+            alert2.showAndWait(); 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/sesionEstudianteQuizzes.fxml"));
+        Parent root =(Parent) loader.load();      
+        SesionEstudianteQuizzesController sesionQuizzes = loader.<SesionEstudianteQuizzesController>getController();
+        sesionQuizzes.setNombreCursoSelected(nombreCursoSelected);
+        sesionQuizzes.setEstudianteConectado(estudianteConectado);
+        sesionQuizzes.cargarListaQuizzes(); 
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.setResizable(false);
+        stage.show();
+            
+            compararResultados();
+       
+        }
+        
+    }
+
+    public void setTiempoLimite(int tiempoLimite) {
+        this.tiempoLimite = tiempoLimite;
+    }
+
+    @FXML
+    private void mostrarTiempo(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/TiempoRestante.fxml"));
+        Parent root =(Parent) loader.load();      
+        TiempoRestanteController tiempo = loader.<TiempoRestanteController>getController();
+        tiempo.setHoraFinal(horaFinal);
+        tiempo.cargarTiempoCallBack();
+        Scene scene = new Scene (root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); 
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    public void setHoraFinal(LocalTime horaFinal) {
+        this.horaFinal = horaFinal;
+    }
     
 }

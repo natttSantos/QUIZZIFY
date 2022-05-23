@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="679.0" prefWidth="1097.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.DatosCrearAleatorioController">
+<AnchorPane id="AnchorPane" prefHeight="679.0" prefWidth="1097.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.DatosCrearAleatorioController">
    <children>
       <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
          <font>
@@ -74,7 +74,7 @@
             <ToggleGroup fx:id="toggleGroup" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="radioButton2" layoutX="306.0" layoutY="547.0" mnemonicParsing="false" text="Cada alumno tendrá preguntas diferentes (no implementado todavía)" toggleGroup="$toggleGroup">
+      <RadioButton fx:id="radioButton2" layoutX="306.0" layoutY="547.0" mnemonicParsing="false" text="Cada alumno tendrá preguntas diferentes" toggleGroup="$toggleGroup">
          <font>
             <Font size="18.0" />
          </font>
