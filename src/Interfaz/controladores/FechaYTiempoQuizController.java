@@ -182,7 +182,7 @@ public class FechaYTiempoQuizController implements Initializable {
             controlador.addCursosToMenu();
             controlador.recordarData(nombreQuiz, menuCurso, numeroPreguntas, temaQuiz); 
             if(tiempoLimite.getText() != null){
-                controlador.setTiempoLimite(tiempoLimite.getText());
+                controlador.setTiempoLimite(Integer.parseInt(tiempoLimite.getText()));
             }
         }
         else{
