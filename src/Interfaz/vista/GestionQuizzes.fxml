@@ -29,12 +29,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="gestionarQuiz" layoutX="455.0" layoutY="654.0" mnemonicParsing="false" onAction="#pulsarGestionarQuiz" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Gestionar Quiz">
+      <Button fx:id="gestionarQuiz" layoutX="537.0" layoutY="642.0" mnemonicParsing="false" onAction="#pulsarGestionarQuiz" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Gestionar Quiz">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Label fx:id="textTitulo" layoutX="300.0" layoutY="83.0" text="QUIZZES DEL CURSO ">
+      <Label fx:id="textTitulo" layoutX="257.0" layoutY="87.0" text="QUIZZES DEL CURSO ">
          <font>
             <Font name="Impact" size="41.0" />
          </font>
@@ -44,12 +44,7 @@
             <Font name="System Italic" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="botonClonarQuiz" layoutX="684.0" layoutY="654.0" mnemonicParsing="false" onAction="#clonarQuiz" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Clonar quiz">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <TableView fx:id="tableView" layoutX="257.0" layoutY="243.0" prefHeight="288.0" prefWidth="746.0">
+      <TableView fx:id="tableView" layoutX="257.0" layoutY="243.0" prefHeight="339.0" prefWidth="746.0">
         <columns>
           <TableColumn fx:id="columnNombre" prefWidth="463.0" text="Nombre quiz" />
           <TableColumn fx:id="columnEstado" minWidth="0.0" prefWidth="282.0" text="Estado del quiz" />

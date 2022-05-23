@@ -48,6 +48,8 @@ public class PreguntasRecursoController {
     private TableColumn<PreguntaRecurso, String> columnaTipo;
     @FXML
     private TableView<PreguntaRecurso> tableView;
+    @FXML
+    private TableColumn<?, ?> columnaDificultad;
 
 
     @FXML
@@ -73,11 +75,12 @@ public class PreguntasRecursoController {
 
         ObservableList<PreguntaRecurso> datos = FXCollections.observableArrayList(); 
         for(PreguntaAbstracta preg: preguntasRecurso){
-                PreguntaRecurso pregRec = new PreguntaRecurso(preg.getText(), preg.getTipo()); 
+                PreguntaRecurso pregRec = new PreguntaRecurso(preg.getText(), preg.getTipo(), preg.getDificultad()); 
                 datos.add(pregRec); 
         }
         columnaPreguntas.setCellValueFactory(new PropertyValueFactory("pregunta"));
         columnaTipo.setCellValueFactory(new PropertyValueFactory("tipo"));
+        columnaDificultad.setCellValueFactory(new PropertyValueFactory("dificultad"));
         tableView.setItems(datos);
 
     }

@@ -16,16 +16,21 @@ import javafx.beans.property.StringProperty;
 public class PreguntaRecurso {
     private final SimpleStringProperty pregunta; 
     private final SimpleStringProperty  tipo; 
+    private final SimpleStringProperty  dificultad; 
 
-    public PreguntaRecurso(String pregunta, String tipo) {
+    public PreguntaRecurso(String pregunta, String tipo, String dificultad) {
         this.pregunta = new SimpleStringProperty (pregunta);
         this.tipo =  new SimpleStringProperty (tipo);
+        this.dificultad = new SimpleStringProperty(dificultad); 
     }
 
     public SimpleStringProperty getPregunta() {
         return pregunta;
     }
 
+    public SimpleStringProperty getDificultad () {
+        return dificultad;
+    }
     public SimpleStringProperty getTipo() {
         return tipo;
     }
@@ -37,7 +42,9 @@ public class PreguntaRecurso {
         return tipo;
     }
 
-    
+    public StringProperty dificultadProperty() {
+        return dificultad;
+    }
     
     
     

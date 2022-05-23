@@ -29,15 +29,16 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="labelNombreRecurso" layoutX="412.0" layoutY="83.0" text="CONTENIDO DE RECURSO">
+      <Label fx:id="labelNombreRecurso" layoutX="385.0" layoutY="83.0" text="CONTENIDO DE RECURSO">
          <font>
             <Font name="Impact" size="41.0" />
          </font>
       </Label>
-      <TableView fx:id="tableView" layoutX="150.0" layoutY="185.0" prefHeight="506.0" prefWidth="982.0">
+      <TableView fx:id="tableView" layoutX="81.0" layoutY="187.0" prefHeight="506.0" prefWidth="1068.0">
         <columns>
-          <TableColumn fx:id="columnaPreguntas" prefWidth="807.0" text="Pregunta" />
-          <TableColumn fx:id="columnaTipo" prefWidth="184.0" text="Tipo" />
+          <TableColumn fx:id="columnaPreguntas" prefWidth="792.0" text="Pregunta" />
+          <TableColumn fx:id="columnaTipo" prefWidth="142.0" text="Tipo" />
+            <TableColumn fx:id="columnaDificultad" prefWidth="133.0" text="Dificultad" />
         </columns>
       </TableView>
    </children>
