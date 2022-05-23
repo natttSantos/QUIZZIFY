@@ -65,6 +65,8 @@ public class CrearPreguntaVFController implements Initializable {
     ObservableList<String> dificultadesItems = FXCollections.observableArrayList();
     @FXML
     private MenuButton menuRecursos;
+    @FXML
+    private TextField puntos;
 
     /**
      * Initializes the controller class.
@@ -131,7 +133,7 @@ public class CrearPreguntaVFController implements Initializable {
         String texto = textoPregunta.getText();
         String dificultad = dificultadComboBox.getValue();
 
-        PreguntaVF pregunta = new PreguntaVF(texto, dificultad, respuestaVerdad);
+        PreguntaVF pregunta = new PreguntaVF(texto, dificultad, respuestaVerdad, Double.parseDouble(puntos.getText()));
         if(menuRecursos.getText().equals("")){
             enviarAlerta("Error", "Debe seleccionar un recurso.");
         } else{
@@ -152,7 +154,6 @@ public class CrearPreguntaVFController implements Initializable {
         dialogoAlerta.setTitle(null);
         dialogoAlerta.setHeaderText(header);
         dialogoAlerta.setContentText(text);
-//        java.awt.Toolkit.getDefaultToolkit().beep();
         dialogoAlerta.showAndWait(); 
     }
 

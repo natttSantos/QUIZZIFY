@@ -16,16 +16,17 @@ public class PreguntaVF extends PreguntaAbstracta {
     
     private boolean esVerdadera;
 
-    public PreguntaVF(String text, String dificultad, Recurso recurso, boolean verdadera) {
-        super(text, dificultad, recurso);
+    public PreguntaVF(String text, String dificultad, Recurso recurso, boolean verdadera, Double puntos) {
+        super(text, dificultad, recurso, puntos);
         this.esVerdadera = verdadera;
         this.tipo = "vf";   // verdadero/falso
     }
     
-    public PreguntaVF(String text, String dificultad, boolean verdadera) {
+    public PreguntaVF(String text, String dificultad, boolean verdadera,Double puntos) {
         super(text, dificultad);
         this.esVerdadera = verdadera;
         this.tipo = "vf";
+        this.puntos = puntos; 
     }
     
     @Override
@@ -40,6 +41,7 @@ public class PreguntaVF extends PreguntaAbstracta {
         p.append("dificultad", this.dificultad);
         p.append("recurso", this.recurso.obtenerDocument());
         p.append("esVerdadera", this.esVerdadera);
+        p.append("puntos", this.puntos);
         return p;
     }
 

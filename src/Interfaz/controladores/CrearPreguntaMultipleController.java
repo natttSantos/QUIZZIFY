@@ -83,6 +83,8 @@ public class CrearPreguntaMultipleController implements Initializable {
     private MenuButton menuRecursos;
     @FXML
     private CheckBox randomizacionCheckBox;
+    @FXML
+    private TextField puntos;
     
     
     /**
@@ -160,7 +162,7 @@ public class CrearPreguntaMultipleController implements Initializable {
             respuestas.get(i).setEsCorrecta(checkBoxes[i].isSelected());
         }
         
-        PreguntaSeleccionMultiple pregunta = new PreguntaSeleccionMultiple(texto, dificultad, respuestas);
+        PreguntaSeleccionMultiple pregunta = new PreguntaSeleccionMultiple(texto, dificultad, respuestas, Double.parseDouble(puntos.getText()));
         if(menuRecursos.getText().equals("")){
             enviarAlerta("Error", "Debe seleccionar un recurso.");
         }

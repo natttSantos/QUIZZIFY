@@ -65,6 +65,11 @@
             <RadioButton fx:id="respuesta4" layoutX="99.0" layoutY="403.0" mnemonicParsing="false" text="Respuesta4" toggleGroup="$grupoToggle" />
             <Button fx:id="mostrarRecurso" layoutX="775.0" layoutY="115.0" mnemonicParsing="false" onAction="#botonMostrarRecurso" styleClass="atras" stylesheets="@../css/hojaEstilo.css" text="Mostrar recurso" />
             <TextField fx:id="textRecurso" layoutX="745.0" layoutY="59.0" />
+            <Label fx:id="puntosPregunta" layoutX="423.0" layoutY="47.0" text="0.5 puntos">
+               <font>
+                  <Font name="System Italic" size="18.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Button fx:id="buttonTiempoRestante" layoutX="248.0" layoutY="138.0" mnemonicParsing="false" onAction="#mostrarTiempo" styleClass="atras" stylesheets="@../css/hojaEstilo.css" text="Mostrar tiempo restante" />

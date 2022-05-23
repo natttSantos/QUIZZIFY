@@ -10,18 +10,21 @@ public abstract class PreguntaAbstracta {
     Recurso recurso; 
     String tipo;    // abierta, vf, multiple
     ArrayList <Respuesta> respuestas;
+    Double puntos; 
     
-    public PreguntaAbstracta(String text, String dificultad, Recurso recurso, ArrayList respuestas){
+    public PreguntaAbstracta(String text, String dificultad, Recurso recurso, ArrayList respuestas, Double puntos){
         this.text = text;
         this.dificultad = dificultad;
         this.recurso = recurso; 
         this.respuestas = respuestas;
+        this.puntos = puntos; 
     }
     
-    public PreguntaAbstracta(String text, String dificultad, Recurso recurso) {
+    public PreguntaAbstracta(String text, String dificultad, Recurso recurso, Double puntos) {
         this.text = text;
         this.dificultad = dificultad;
         this.recurso = recurso; 
+        this.puntos = puntos; 
     }
     
     public PreguntaAbstracta(String text, String dificultad) {
@@ -74,6 +77,15 @@ public abstract class PreguntaAbstracta {
     public String getTipo() {
         return this.tipo;
     }
+
+    public void setPuntos(Double puntos) {
+        this.puntos = puntos;
+    }
+
+    public Double getPuntos() {
+        return puntos;
+    }
+    
 
     @Override
     public String toString() {

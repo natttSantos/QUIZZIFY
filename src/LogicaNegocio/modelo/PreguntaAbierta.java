@@ -13,8 +13,8 @@ import org.bson.Document;
  */
 public class PreguntaAbierta extends PreguntaAbstracta {
 
-    public PreguntaAbierta(String text, String dificultad, Recurso recurso) {
-        super(text, dificultad, recurso);
+    public PreguntaAbierta(String text, String dificultad, Recurso recurso, Double puntos) {
+        super(text, dificultad, recurso, puntos);
         this.tipo = "abierta";   // verdadero/falso
     }
     
@@ -34,6 +34,7 @@ public class PreguntaAbierta extends PreguntaAbstracta {
         p.append("tipo", this.tipo);
         p.append("dificultad", this.dificultad);
         p.append("recurso", this.recurso);
+        p.append("puntos", this.puntos);
         return p;
     }
 

@@ -9,13 +9,13 @@ public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
     
     private boolean randomizacion;
     
-    public PreguntaSeleccionMultiple(String text, String dificultad, Recurso recurso, ArrayList <Respuesta> respuestas){
-        super(text, dificultad, recurso, respuestas);
+    public PreguntaSeleccionMultiple(String text, String dificultad, Recurso recurso, ArrayList <Respuesta> respuestas, Double puntos){
+        super(text, dificultad, recurso, respuestas, puntos);
         this.tipo = "multiple";
     }
     
-     public PreguntaSeleccionMultiple(String text, String dificultad, ArrayList <Respuesta> respuestas) {
-        super(text, dificultad, null, respuestas);
+     public PreguntaSeleccionMultiple(String text, String dificultad, ArrayList <Respuesta> respuestas, Double puntos) {
+        super(text, dificultad, null, respuestas, puntos);
         this.tipo = "multiple";
     }
 
@@ -29,7 +29,8 @@ public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
         p.append("tipo", this.tipo);
         p.append("dificultad", this.dificultad);
         p.append("randomizacion", this.randomizacion);
-        p.append("recurso", this.recurso.obtenerDocument());
+        p.append("recurso", this.recurso.obtenerDocument()); 
+        p.append("puntos", this.puntos);        
         
         Document [] resp  = new Document[this.respuestas.size()]; 
       

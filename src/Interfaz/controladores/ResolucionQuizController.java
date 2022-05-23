@@ -53,8 +53,9 @@ public class ResolucionQuizController implements Initializable {
     private int indexPreguntaMultiple = 0; 
     private int indexPreguntaVF = 0; 
     
-    private int [] arrayRespuestasUsuario = new int [15]; 
-    private int [] arrayRespuestasCorrectas = new int[15];
+    private int [] arrayRespuestasUsuario = new int [20]; 
+    private int [] arrayRespuestasCorrectas = new int[20];
+    private double [] arrayPuntuaciones = new double[20];
     private int numeroPregunta;
     
     private PreguntaRespondida aux;
@@ -95,6 +96,8 @@ public class ResolucionQuizController implements Initializable {
     private TextField textRecurso;
     @FXML
     private Button buttonTiempoRestante;
+    @FXML
+    private Label puntosPregunta;
 
     /**
      * Initializes the controller class.
@@ -150,6 +153,7 @@ public class ResolucionQuizController implements Initializable {
         
         resolucion.setArrayRespuestasCorrectas(arrayRespuestasCorrectas);
         resolucion.setArrayRespuestasUsuario(arrayRespuestasUsuario);
+        resolucion.setArrayPuntuaciones(arrayPuntuaciones);
         resolucion.setRespuestas(respuestas);
         
         resolucion.setEstudianteConectado(estudianteConectado);
@@ -232,9 +236,11 @@ public class ResolucionQuizController implements Initializable {
         final Gson gson = new Gson();
 	String jsonPregunta = gson.toJson(preguntasMultiples.get(indexPreguntaMultiple)); 
         PreguntaSeleccionMultiple preg = new Gson().fromJson(jsonPregunta, PreguntaSeleccionMultiple.class);
-
+        puntosPregunta.setText(preg.getPuntos() + " puntos");
         String enunciadoPregunta = preg.getText();
         ArrayList respuestasPregunta = preg.getRespuestas(); 
+        arrayPuntuaciones[indexPreguntaMultiple+indexPreguntaVF] = preg.getPuntos(); 
+        
         
         boolean randomizacion;
         try {
@@ -271,8 +277,11 @@ public class ResolucionQuizController implements Initializable {
 	String jsonPregunta = gson.toJson(preguntasVF.get(indexPreguntaVF)); 
         PreguntaVF preg = new Gson().fromJson(jsonPregunta, PreguntaVF.class);
 
+        puntosPregunta.setText(preg.getPuntos() + " puntos");
         String enunciadoPregunta = preg.getText();
         addEnunciadoPregunta(enunciadoPregunta); 
+        arrayPuntuaciones[indexPreguntaMultiple+indexPreguntaVF] = preg.getPuntos(); 
+        
         if(preg.isRespuestaVerdadera()){ //VERDADERA
              arrayRespuestasCorrectas[indexPreguntaMultiple + indexPreguntaVF] = 1; 
         }
@@ -299,17 +308,19 @@ public class ResolucionQuizController implements Initializable {
         arrayRespuestasCorrectas[indexPreguntaMultiple] = indexRespuesta; 
     }
     public void compararResultados(){
-        int aciertos = numeroPreguntas; 
-        String notafraccion;
-        double notaCalculada; 
-        for(int i = 0; i < numeroPreguntas; i++){
-               if(arrayRespuestasCorrectas[i] != arrayRespuestasUsuario[i]){
-                   aciertos--; 
-               } 
+          double notaFinal = 0; 
+          double notaCalculada; 
+          double puntuacionTotal = 0;  
+          for(int i = 0; i < numeroPreguntas; i++){
+                puntuacionTotal += arrayPuntuaciones[i]; 
+                if(arrayRespuestasCorrectas[i] == arrayRespuestasUsuario[i]){
+                    notaFinal += arrayPuntuaciones[i]; 
+          } 
         }
-  
-        notaCalculada = (aciertos * 10)/numeroPreguntas; 
-        subirRespuestas(notaCalculada);
+          notaCalculada = (notaFinal * 10)/puntuacionTotal; 
+          
+          
+          subirRespuestas(Math.round(notaCalculada*100d)/100d);
     }
     
     public void subirRespuestas(double nota){
@@ -415,6 +426,11 @@ public class ResolucionQuizController implements Initializable {
     public void setArrayRespuestasUsuario(int[] arrayRespuestasUsuario) {
         this.arrayRespuestasUsuario = arrayRespuestasUsuario;
     }
+
+    public void setArrayPuntuaciones(double[] arrayPuntuaciones) {
+        this.arrayPuntuaciones = arrayPuntuaciones;
+    }
+    
     
 
     public void setRespuestas(ArrayList<PreguntaRespondida> respuestas) {
@@ -489,5 +505,7 @@ public class ResolucionQuizController implements Initializable {
     public void setHoraFinal(LocalTime horaFinal) {
         this.horaFinal = horaFinal;
     }
+
+    
     
 }

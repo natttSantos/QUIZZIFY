@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -50,7 +52,7 @@
          </font>
       </Label>
       <TextArea fx:id="textoPregunta" layoutX="144.0" layoutY="165.0" prefHeight="145.0" prefWidth="900.0" />
-      <HBox layoutX="143.0" layoutY="314.0" prefHeight="350.0" prefWidth="894.0" spacing="20.0">
+      <HBox layoutX="147.0" layoutY="309.0" prefHeight="350.0" prefWidth="894.0" spacing="20.0">
          <children>
             <VBox prefHeight="166.0" prefWidth="513.0" spacing="20.0">
                <children>
@@ -83,6 +85,19 @@
                   <ComboBox fx:id="dificultadComboBox" prefHeight="31.0" prefWidth="124.0" />
                </children>
             </VBox>
+            <TextField fx:id="puntos" prefHeight="31.0" prefWidth="81.0">
+               <HBox.margin>
+                  <Insets right="-100.0" top="60.0" />
+               </HBox.margin>
+            </TextField>
+            <Label text="Indica la puntuación:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </Label>
          </children>
       </HBox>
    </children>
