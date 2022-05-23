@@ -35,6 +35,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
@@ -160,6 +161,7 @@ public class DatosCrearAleatorioController implements Initializable {
         con.insertarQuiz(nombre, obtenerCursoSelected(), preguntas, dateInicio, dateFin, tiempoLimite);
         instructorConectado.setQuizzesDisponibles(instructorConectado.getQuizzesDisponibles() - 1);
         con.reducirCantQuizzesDisponibles(instructorConectado.getEmail(), instructorConectado.getQuizzesDisponibles());
+        enviarAlerta("Confirmation","Quizz creado correctamente!");
         
     }
     
@@ -298,5 +300,18 @@ public class DatosCrearAleatorioController implements Initializable {
         menuRecurso.setText(temaQuiz);          
     }
 
+     private void enviarAlerta(String header,String text) {
+        Alert dialogoAlerta;
+        if(header.equals("ERROR")){
+           dialogoAlerta = new Alert(Alert.AlertType.ERROR); 
+        }else {
+            dialogoAlerta = new Alert(Alert.AlertType.CONFIRMATION); 
+        }
+        dialogoAlerta.setTitle(null);
+        dialogoAlerta.setHeaderText(header);
+        dialogoAlerta.setContentText(text);
+        java.awt.Toolkit.getDefaultToolkit().beep();
+        dialogoAlerta.showAndWait(); 
+    }
 
 }
