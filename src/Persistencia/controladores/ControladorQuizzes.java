@@ -52,7 +52,7 @@ public class ControladorQuizzes {
         quizzes.insertOne(quiz);
     }
     
-    public void insertarQuizDeBateria(String nombre, int numero, Document curso, String estado, Recurso recurso, LocalDate dateInicio, LocalDate dateFin) {
+    public void insertarQuizDeBateria(String nombre, int numero, Document curso, String estado, Recurso recurso, LocalDate dateInicio, LocalDate dateFin, int tiempoLimite) {
         /**
          * Insertar quiz sin preguntas, vinculado con recurso. 
          * Preguntas de quiz de este tipo se sortea justo antes resolver para cada alumno
@@ -78,6 +78,7 @@ public class ControladorQuizzes {
         quiz.append("recurso", recurso.obtenerDocument());
         quiz.append("fechaInicio", fechaInicioQuiz.obtenerDocument()) ;
         quiz.append("fechaFin", fechaFinQuiz.obtenerDocument());
+        quiz.append("tiempoLimite", tiempoLimite);
         
         quizzes.insertOne(quiz);
     }

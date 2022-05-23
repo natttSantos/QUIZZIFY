@@ -259,7 +259,7 @@ public class DatosCrearAleatorioController implements Initializable {
     }
 
     private void crearQuizDeBateria(int numero, String nombre, Recurso recurso) {
-        con.insertarQuizDeBateria(nombre, numero, obtenerCursoSelected(), "En prepacacion", recurso, dateInicio, dateFin);
+        con.insertarQuizDeBateria(nombre, numero, obtenerCursoSelected(), "En prepacacion", recurso, dateInicio, dateFin, tiempoLimite);
     }
     
    
