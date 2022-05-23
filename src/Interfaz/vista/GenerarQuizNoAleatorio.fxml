@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.GenerarQuizNoAleatorioController">
+<AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.GenerarQuizNoAleatorioController">
    <children>
       <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
          <font>
@@ -60,11 +60,6 @@
       </Label>
       <ListView fx:id="listView" layoutX="125.0" layoutY="376.0" prefHeight="212.0" prefWidth="563.0" />
       <ListView fx:id="listView2" layoutX="688.0" layoutY="376.0" prefHeight="212.0" prefWidth="563.0" />
-      <Button fx:id="crearPreguntaButton" layoutX="125.0" layoutY="673.0" mnemonicParsing="false" onAction="#crearPreguntaButtonClicked" prefHeight="44.0" prefWidth="176.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Crear pregunta">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
       <Button fx:id="añadirAExamenButton1" layoutX="125.0" layoutY="618.0" mnemonicParsing="false" onAction="#añadirAExamenButtonClicked" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Añadir a examen">
          <font>
             <Font size="20.0" />
@@ -82,7 +77,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="932.0" layoutY="173.0" mnemonicParsing="false" onAction="#pulsarBuscar" prefHeight="21.0" prefWidth="75.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Buscar" />
       <Button layoutX="1025.0" layoutY="170.0" mnemonicParsing="false" onAction="#pulsarX" prefHeight="21.0" prefWidth="28.0" styleClass="miClase" stylesheets="@../css/hojaEstilo.css">
          <font>
             <Font size="14.0" />
@@ -97,9 +91,14 @@
       </Button>
       <CheckBox fx:id="goBackButton" layoutX="467.0" layoutY="631.0" mnemonicParsing="false" onAction="#PermitirBack" text="Permitir retroceder" />
       <CheckBox fx:id="restaButton" layoutX="755.0" layoutY="631.0" mnemonicParsing="false" onAction="#ActivarResta" text="Penalización" />
-      <Button fx:id="fechaYTiempobutton" layoutX="571.0" layoutY="673.0" mnemonicParsing="false" onAction="#GoFechaYTiempo" styleClass="miClase" stylesheets="@../../../../QUIZZIFYFINAL/src/Interfaz/css/hojaEstilo.css" text="Fecha y tiempo límite">
+      <Button fx:id="fechaYTiempobutton" layoutX="590.0" layoutY="675.0" mnemonicParsing="false" onAction="#GoFechaYTiempo" styleClass="miClase" stylesheets="@../../../../QUIZZIFYFINAL/src/Interfaz/css/hojaEstilo.css" text="Fecha y tiempo límite">
          <font>
             <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="editarPreguntaButton" layoutX="1067.0" layoutY="316.0" mnemonicParsing="false" onAction="#editarPreguntaClicked" prefHeight="44.0" prefWidth="174.0" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Editar Pregunta">
+         <font>
+            <Font size="20.0" />
          </font>
       </Button>
    </children>

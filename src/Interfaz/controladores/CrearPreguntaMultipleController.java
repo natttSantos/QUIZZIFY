@@ -248,5 +248,7 @@ public class CrearPreguntaMultipleController implements Initializable {
             menuItem.setOnAction(event);
         }
     }
+
+ 
     
 }

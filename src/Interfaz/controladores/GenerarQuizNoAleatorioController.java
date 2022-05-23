@@ -56,14 +56,13 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     
     private UsuarioInstructor instructorConectado; 
     private ArrayList<PreguntaAbstracta> preguntas;
+    private ArrayList<PreguntaAbstracta> preguntasModificadas;
     @FXML
     private MenuButton menuCurso;
     @FXML
     private Label instructor;
     @FXML
     private TextField textoBuscar;
-    @FXML
-    private Button crearPreguntaButton;
     @FXML
     private Button añadirAExamenButton1;
     @FXML
@@ -76,6 +75,8 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private boolean penalizacion=false;
     private LocalDate newFechaIni, newFechaFin;
     private int newMins;
+    @FXML
+    private Button editarPreguntaButton;
 
     
     @Override
@@ -90,7 +91,6 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         this.instructorConectado = i;
     }
     
-    @FXML
     private void crearPreguntaButtonClicked(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interfaz/vista/CrearPreguntaController.fxml"));
         Parent root = loader.load();
@@ -113,6 +113,8 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         int i = 0;
         for (String text:lista){
             System.out.println("item " + text);
+            
+            //if text  no esta en listaModificadas buca enm bd, si esta inserta la que tens en el arraylist modificada
             
             PreguntaAbstracta pregunta = con.obtenerPreguntaSegunTipo(text);
             Document d = pregunta.obtenerDocument(); 
@@ -236,7 +238,6 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         return dcurso; 
     }
    
-    @FXML
     private void pulsarBuscar(ActionEvent event) {
         String infoBuscar = textoBuscar.getText(); 
         for (PreguntaAbstracta pregunta:preguntas ){
@@ -312,5 +313,33 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         menuCurso.setText(menuCursoText);
         listView2.setItems(lista2);
     }
-    
+
+    @FXML
+    private void editarPreguntaClicked(ActionEvent event) throws IOException{ 
+       String preguntaSeleccionada = listView2.getSelectionModel().getSelectedItem();
+       
+        if(preguntaSeleccionada == null) {
+           enviarAlerta("ERROR", "Seleccione una pregunta del Quiz para modificarla");
+        } else {
+           System.out.println(preguntaSeleccionada);
+           
+           PreguntaAbstracta p = con.obtenerPreguntaSegunTipo(preguntaSeleccionada);
+           if(p.getTipo().equals("multiple")) {
+                FXMLLoader cargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/editarPreguntaMultiple.fxml"));
+                Parent root = cargador.load();
+                EditarPreguntaMultipleController editor = cargador.getController();
+                editor.setPregunta(p);
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.setTitle("Editar Pregunta para quiz concreto");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.show();
+                //((Node) event.getSource()).getScene().getWindow().hide();
+           }else if (p.getTipo().equals("vf")) {
+               
+           }
+        }
+    }
 }
