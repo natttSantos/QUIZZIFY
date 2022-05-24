@@ -33,7 +33,7 @@ public class Estados {
             tipoEstado = "Publicado-Activo"; 
         }
         if (presentDate.isAfter(dateFin)){
-            tipoEstado = "Finalizado"; 
+            tipoEstado = "Calificado"; 
         }
         return tipoEstado; 
     }
