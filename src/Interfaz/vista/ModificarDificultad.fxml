@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane id="AnchorPane" prefHeight="778.0" prefWidth="1027.0" styleClass="fondogris" stylesheets="@../css/hojaEstilo.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interfaz.controladores.ModificarDificultadController">
    <children>
       <Label fx:id="instructor" layoutX="877.0" layoutY="127.0">
@@ -31,11 +30,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="pregunta" layoutX="143.0" layoutY="206.0" prefHeight="27.0" prefWidth="0.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
       <Button fx:id="botonModificar" layoutX="579.0" layoutY="667.0" mnemonicParsing="false" onAction="#modificar" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Modificar">
          <font>
             <Font size="20.0" />
@@ -51,6 +45,11 @@
             <VBox prefHeight="166.0" prefWidth="513.0" spacing="20.0">
                <children>
                   <Label text="Pregunta:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="pregunta" prefHeight="27.0" prefWidth="0.0">
                      <font>
                         <Font size="18.0" />
                      </font>
