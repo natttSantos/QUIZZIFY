@@ -154,5 +154,19 @@ public class ControladorPreguntas {
             return false;
          }
      }
+    
+    public boolean modificarPuntuacion(Double puntuacion, PreguntaAbstracta pregunta){
+         try {
+            pregunta.setPuntos(puntuacion);
+            Document preguntaAux = pregunta.obtenerDocument();
+            Document query = new Document().append("text",pregunta.getText());
+            
+            preguntas.replaceOne(query, preguntaAux);
+            return true;
+         } catch(Exception e){
+             System.out.println("ERROR en login  " + e.getMessage());
+            return false;
+         }
+     }
 
 }

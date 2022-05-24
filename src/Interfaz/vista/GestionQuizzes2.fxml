@@ -74,5 +74,10 @@
             <TableColumn fx:id="colFallo" prefWidth="99.0" text="\% Fallos" />
         </columns>
       </TableView>
+      <Button fx:id="botonModificarPuntuacion" layoutX="450.0" layoutY="576.0" mnemonicParsing="false" onAction="#pulsarModificarPuntuacion" styleClass="botonrojo" stylesheets="@../css/hojaEstilo.css" text="Modificar puntuacion">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

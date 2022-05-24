@@ -86,6 +86,8 @@ public class GestionQuizzes2Controller implements Initializable {
     private TableColumn<PreguntaAciertoFallo, Double> colAcierto;
     @FXML
     private TableColumn<PreguntaAciertoFallo, Double> colFallo;
+    @FXML
+    private Button botonModificarPuntuacion;
 
     /**
      * Initializes the controller class.
@@ -252,6 +254,30 @@ public class GestionQuizzes2Controller implements Initializable {
             dificultad.setQuizSeleccionado(quizSeleccionado);
             dificultad.setPreguntaSeleccionado(pregunta);
             dificultad.cargarPregunta(tituloPregunta, pregunta.getDificultad());
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            ((Node) event.getSource()).getScene().getWindow().hide();
+        }
+    }
+
+    @FXML
+    private void pulsarModificarPuntuacion(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/Interfaz/vista/ModificarPuntuacion.fxml"));
+        Parent root = miCargador.load();
+        ModificarPuntuacionController dificultad = miCargador.getController();
+        String tituloPregunta = listaPreguntas.getSelectionModel().getSelectedItem();
+        if (tituloPregunta != null){
+            PreguntaAbstracta pregunta = con.obtenerPreguntaSegunTipo(tituloPregunta);
+            System.out.print(pregunta);
+            dificultad.setCursoSeleccionado(cursoSeleccionado);
+            dificultad.setIntructorConectado(instructorConectado);
+            dificultad.setQuizSeleccionado(quizSeleccionado);
+            dificultad.setPreguntaSeleccionado(pregunta);
+            dificultad.cargarPregunta(tituloPregunta, pregunta.getPuntos());
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

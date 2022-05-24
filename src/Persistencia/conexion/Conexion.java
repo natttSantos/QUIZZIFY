@@ -220,4 +220,8 @@ public class Conexion {
      public boolean modificarDificultad(String dificultad, PreguntaAbstracta pregunta){
         return cp.modificarDificultad(dificultad, pregunta);
     }
+     
+     public boolean modificarPuntuacion(Double puntuacion, PreguntaAbstracta pregunta){
+        return cp.modificarPuntuacion(puntuacion, pregunta);
+    } 
 }
