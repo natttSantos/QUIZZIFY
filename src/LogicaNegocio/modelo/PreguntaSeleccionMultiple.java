@@ -19,6 +19,7 @@ public class PreguntaSeleccionMultiple extends PreguntaAbstracta {
         this.tipo = "multiple";
     }
 
+     
     public Document obtenerDocument() {
         /**
          * Documento en este formato esta listo para meter en la base de datos

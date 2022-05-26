@@ -42,7 +42,9 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     private LocalDate dateInicio; 
     private LocalDate dateFin; 
     private String tiempoLimite;
+    boolean vueltaAtras, penalizacion; 
     
+    ArrayList preguntasArray = new ArrayList();
     @FXML
     private TextField nombreTextField;
     @FXML
@@ -66,17 +68,13 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     @FXML
     private Button añadirAExamenButton1;
     @FXML
-    private CheckBox goBackButton;
-    @FXML
-    private CheckBox restaButton;
-    @FXML
     private Button fechaYTiempobutton;
     private boolean back=false;
-    private boolean penalizacion=false;
     private LocalDate newFechaIni, newFechaFin;
     private int newMins;
     @FXML
     private Button editarPreguntaButton;
+    
 
     
     @Override
@@ -109,24 +107,24 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     @FXML
     private void aceptarButtonClicked(ActionEvent event) {
         ObservableList<String> lista = listView2.getItems();
-        Document[] preguntas = new Document[lista.size()];
+        Document[] preguntas = new Document[lista.size()]; 
         int i = 0;
         for (String text:lista){
             System.out.println("item " + text);
             
-            //if text  no esta en listaModificadas buca enm bd, si esta inserta la que tens en el arraylist modificada
-            
             PreguntaAbstracta pregunta = con.obtenerPreguntaSegunTipo(text);
             Document d = pregunta.obtenerDocument(); 
+            preguntasArray.add(d); //Añade pregunta al array
             preguntas[i] = d;
             i++; 
             
         }
-        try {
+        
             if(!nombreTextField.getText().equals("")) {
                 Estados estado = new Estados(); 
-
-                con.insertarQuiz(nombreTextField.getText(), obtenerCursoSelected(), preguntas, dateInicio, dateFin, Integer.parseInt(tiempoLimite));
+                
+                con.insertarQuiz(quizCreation());
+                //con.insertarQuiz(nombreTextField.getText(), obtenerDocumentCursoSelected(), preguntas, dateInicio, dateFin, Integer.parseInt(tiempoLimite));
                 instructorConectado.setQuizzesDisponibles(instructorConectado.getQuizzesDisponibles() - 1);
                 con.reducirCantQuizzesDisponibles( instructorConectado.getEmail(),instructorConectado.getQuizzesDisponibles());
                  enviarAlerta("Confirmation","Quizz creado correctamente!");
@@ -135,11 +133,47 @@ public class GenerarQuizNoAleatorioController implements Initializable {
                 enviarAlerta("ERROR","Escriba un texto descriptivo para  crear el Quizz!");
             }
             
-        }catch(Exception e){
-            enviarAlerta("ERROR","Ha ocurrido un error en la creación del Quizz! : "+ e.getMessage() );
-        }
+        
        
     }
+ 
+    public QuizAbstracto quizCreation(){
+        int tiempoLimiteValue = 0; 
+        boolean hayTiempoLimite = false; 
+        QuizAbstracto quiz = null; 
+        if (!tiempoLimite.isEmpty()){
+             tiempoLimiteValue = Integer.parseInt(tiempoLimite);
+             hayTiempoLimite = true; 
+        }
+        
+        if(vueltaAtras && hayTiempoLimite){
+                     quiz = new QuizAbstracto.QuizBuilder(nombreTextField.getText(), obtenerCursoSelected()
+                        , preguntasArray, dateInicio, dateFin)
+                        .volverAtras(vueltaAtras)
+                        .tiempoLimite(tiempoLimiteValue)
+                        .build();                
+        } 
+        if(vueltaAtras && !hayTiempoLimite){ 
+                 quiz = new QuizAbstracto.QuizBuilder(nombreTextField.getText(), obtenerCursoSelected()
+                , preguntasArray, dateInicio, dateFin)
+                .volverAtras(vueltaAtras)
+                 .build(); 
+        }
+        if(!vueltaAtras && hayTiempoLimite){ 
+                 quiz = new QuizAbstracto.QuizBuilder(nombreTextField.getText(), obtenerCursoSelected()
+                , preguntasArray, dateInicio, dateFin)
+                 .tiempoLimite(tiempoLimiteValue)
+                 .build(); 
+        }
+        if(!vueltaAtras && !hayTiempoLimite){ 
+                 quiz = new QuizAbstracto.QuizBuilder(nombreTextField.getText(), obtenerCursoSelected()
+                , preguntasArray, dateInicio, dateFin)
+                 .build();   
+        }
+        System.out.print("CADENA QUIZ --> "+ quiz);
+        return quiz;
+    }
+    
     
     private ArrayList<PreguntaAbstracta> insertarPreguntasEnQuizz() {
         ArrayList<PreguntaAbstracta> preguntas = new ArrayList();
@@ -231,11 +265,16 @@ public class GenerarQuizNoAleatorioController implements Initializable {
        }
     }
     
-    public Document obtenerCursoSelected(){
+    public Document obtenerDocumentCursoSelected(){
         String nombreCurso = menuCurso.getText(); 
         Curso curso = con.obtenerCurso("nombreCurso", nombreCurso); 
         Document dcurso = curso.obtenerDocument(); 
         return dcurso; 
+    }
+    public Curso obtenerCursoSelected(){
+        String nombreCurso = menuCurso.getText(); 
+        Curso curso = con.obtenerCurso("nombreCurso", nombreCurso); 
+        return curso; 
     }
    
     private void pulsarBuscar(ActionEvent event) {
@@ -269,12 +308,10 @@ public class GenerarQuizNoAleatorioController implements Initializable {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
-    @FXML
     private void PermitirBack(ActionEvent event) {
         back=true;
     }
 
-    @FXML
     private void ActivarResta(ActionEvent event) {
         penalizacion=true;
     }
@@ -307,6 +344,11 @@ public class GenerarQuizNoAleatorioController implements Initializable {
     public void setTiempoLimite(String tiempoLimite) {
         this.tiempoLimite = tiempoLimite;
     }
+
+    public void setVueltaAtras(boolean vueltaAtras) {
+        this.vueltaAtras = vueltaAtras;
+    }
+    
 
     public void recordarData(String nombreQuiz, String menuCursoText, ObservableList<String> lista2){
         nombreTextField.setText(nombreQuiz);

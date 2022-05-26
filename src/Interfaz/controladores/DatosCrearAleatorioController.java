@@ -158,7 +158,7 @@ public class DatosCrearAleatorioController implements Initializable {
             Document d = pregunta.obtenerDocument(); 
             preguntas[i] = d;
         }
-        con.insertarQuiz(nombre, obtenerCursoSelected(), preguntas, dateInicio, dateFin, tiempoLimite);
+        //con.insertarQuiz(nombre, obtenerCursoSelected(), preguntas, dateInicio, dateFin, tiempoLimite);
         instructorConectado.setQuizzesDisponibles(instructorConectado.getQuizzesDisponibles() - 1);
         con.reducirCantQuizzesDisponibles(instructorConectado.getEmail(), instructorConectado.getQuizzesDisponibles());
         enviarAlerta("Confirmation","Quizz creado correctamente!");

@@ -7,7 +7,6 @@ import LogicaNegocio.modelo.PreguntaAbstracta;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.QuizAbstracto;
-import LogicaNegocio.modelo.QuizDeBateria;
 import LogicaNegocio.modelo.Recurso;
 import LogicaNegocio.modelo.RespuestaAbstracta;
 import LogicaNegocio.modelo.RespuestaSeleccion;
@@ -121,25 +120,25 @@ public class SesionEstudianteQuizzesController implements Initializable {
         boolean isQuizTipoBateria = con.comprobarTipoDeQuiz("nombre", nombrequizSeleccionado);
         QuizAbstracto quiz;
 
-        if (isQuizTipoBateria) {
-            // crea quiz aleatorio solo para responder una vez (no lo sube a la base de datos)
-            
-            QuizDeBateria quizDeBateria = con.obtenerQuizDeBateria("nombre", nombrequizSeleccionado);
-            Recurso recurso = quizDeBateria.getRecurso();
-            int numero = quizDeBateria.getNumero();
-            
-            ArrayList<PreguntaAbstracta> preguntasDeRecurso = con.obtenerTodasPreguntasDeRecurso(recurso.getNombreRecurso(), recurso.getInstructorEnRecurso());
-            Collections.shuffle(preguntasDeRecurso);                                    // shuffle preguntas
-            preguntasDeRecurso.subList(numero, preguntasDeRecurso.size()).clear();      // dejar solo n primeros 
-            
-            quizDeBateria.setPreguntas(preguntasDeRecurso);
-            quiz = (QuizAbstracto)quizDeBateria;
-        } else {
-            // quiz normal
-            quiz = con.obtenerQuiz("nombre", nombrequizSeleccionado); 
-            
-        } 
-        
+//        if (isQuizTipoBateria) {
+//            // crea quiz aleatorio solo para responder una vez (no lo sube a la base de datos)
+//            
+//            QuizDeBateria quizDeBateria = con.obtenerQuizDeBateria("nombre", nombrequizSeleccionado);
+//            Recurso recurso = quizDeBateria.getRecurso();
+//            int numero = quizDeBateria.getNumero();
+//            
+//            ArrayList<PreguntaAbstracta> preguntasDeRecurso = con.obtenerTodasPreguntasDeRecurso(recurso.getNombreRecurso(), recurso.getInstructorEnRecurso());
+//            Collections.shuffle(preguntasDeRecurso);                                    // shuffle preguntas
+//            preguntasDeRecurso.subList(numero, preguntasDeRecurso.size()).clear();      // dejar solo n primeros 
+//            
+//            //quizDeBateria.setPreguntas(preguntasDeRecurso);
+//            quiz = (QuizAbstracto)quizDeBateria;
+//        } else {
+//            // quiz normal
+//            
+//            
+//        } 
+        quiz = con.obtenerQuiz("nombre", nombrequizSeleccionado); 
         ArrayList <PreguntaSeleccionMultiple> preguntasMultiples = con.obtenerPreguntasQuiz_Multiples(quiz); 
         ArrayList <PreguntaVF> preguntasVF = con.obtenerPreguntasQuiz_VF(quiz); 
         String tipoPregunta = ""; 

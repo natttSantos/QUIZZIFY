@@ -15,7 +15,6 @@ import LogicaNegocio.modelo.PreguntaRespondida;
 import LogicaNegocio.modelo.PreguntaSeleccionMultiple;
 import LogicaNegocio.modelo.PreguntaVF;
 import LogicaNegocio.modelo.QuizAbstracto;
-import LogicaNegocio.modelo.QuizDeBateria;
 import LogicaNegocio.modelo.Recurso;
 import LogicaNegocio.modelo.RespuestaSeleccion;
 import LogicaNegocio.modelo.Usuario;
@@ -121,8 +120,11 @@ public class Conexion {
          return cp.obtenerPreguntasQuiz_Multiples (quiz); 
      }
     
-    public void insertarQuiz(String text, Document curso, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin, int tiempoLimite){
-        cq.insertarQuiz(text, curso, preguntas, dateInicio, dateFin, tiempoLimite);
+//    public void insertarQuiz(String text, Document curso, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin, int tiempoLimite){
+//        cq.insertarQuiz(text, curso, preguntas, dateInicio, dateFin, tiempoLimite);
+//    }
+    public void insertarQuiz(QuizAbstracto quiz){
+        cq.insertarQuiz(quiz);
     }
     
     public void insertarQuizDeBateria(String text, int numero, Document curso, String estado, Recurso recurso, LocalDate dateInicio, LocalDate dateFin, int tiempoLimite) {
@@ -212,10 +214,7 @@ public class Conexion {
     public boolean comprobarTipoDeQuiz(String key, String valor) {
         return cq.comprobarTipoDeQuiz(key, valor);
     }
-    
-    public QuizDeBateria obtenerQuizDeBateria(String key, String valor) {
-        return cq.obtenerQuizDeBateria(key, valor);
-    }
+
     
      public boolean modificarDificultad(String dificultad, PreguntaAbstracta pregunta){
         return cp.modificarDificultad(dificultad, pregunta);

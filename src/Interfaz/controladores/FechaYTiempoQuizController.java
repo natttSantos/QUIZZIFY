@@ -63,6 +63,8 @@ public class FechaYTiempoQuizController implements Initializable {
     private boolean error = false;
     @FXML
     private Label tipoUsuarioLabel;
+    @FXML
+    private CheckBox buttonVolverAtras;
     /**
      * Initializes the controller class.
      */
@@ -192,6 +194,7 @@ public class FechaYTiempoQuizController implements Initializable {
             controlador.setUsuario(instructorConectado);
             controlador.setDateInicio(dateInicio);
             controlador.setDateFin(dateFin);
+            controlador.setVueltaAtras(buttonVolverAtras.isSelected());
             controlador.addCursosToMenu();
             controlador.recordarData(nombreQuiz, menuCurso, lista);
             if(tiempoLimite.getText()!= null){

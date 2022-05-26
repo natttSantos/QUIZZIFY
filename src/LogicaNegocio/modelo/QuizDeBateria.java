@@ -12,29 +12,30 @@ import java.util.ArrayList;
  *
  * @author margr
  */
-public class QuizDeBateria extends QuizAbstracto {
-    /**
-     * Clase representa el quiz que consiste en preguntas aleatorias vinculados con un recurso común
-     * Quiz no guarda lista de preguntas, porque cada estudiante obtendrá preguntas diferentes
-     */
-
-    int numero;
-    Recurso recurso;
-    
-    public QuizDeBateria(String nombre, Curso curso, String estado, ArrayList<PreguntaAbstracta> preguntas, int numero, Recurso recurso, LocalDate dateInicio, LocalDate dateFin, int tiempoLimite) {
-        super(nombre, curso, preguntas, dateInicio, dateFin, tiempoLimite);
-        this.numero = numero;
-        this.recurso = recurso;
-    }
-    
-    public int getNumero() {
-        return numero;
-    }
-    
-    public Recurso getRecurso() {
-        return recurso;
-    }
-    
-    
-    
-}
+//public class QuizDeBateria extends QuizAbstracto {
+//    /**
+//     * Clase representa el quiz que consiste en preguntas aleatorias vinculados con un recurso común
+//     * Quiz no guarda lista de preguntas, porque cada estudiante obtendrá preguntas diferentes
+//     */
+//
+//    int numero;
+//    Recurso recurso;
+//    
+//    public QuizDeBateria(String nombre, Curso curso, String estado, ArrayList<PreguntaAbstracta> preguntas, int numero, Recurso recurso, 
+//            LocalDate dateInicio, LocalDate dateFin, int tiempoLimite, boolean volverAtras, boolean penalizacion) {
+//        super(nombre, curso, preguntas, dateInicio, dateFin, tiempoLimite, volverAtras, penalizacion);
+//        this.numero = numero;
+//        this.recurso = recurso;
+//    }
+//    
+//    public int getNumero() {
+//        return numero;
+//    }
+//    
+//    public Recurso getRecurso() {
+//        return recurso;
+//    }
+//    
+//    
+//    
+//}

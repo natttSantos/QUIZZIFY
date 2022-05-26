@@ -29,6 +29,11 @@ public class PreguntaVF extends PreguntaAbstracta {
         this.puntos = puntos; 
     }
     
+     public PreguntaVF(String text, String dificultad, boolean verdadera) {
+        super(text, dificultad);
+        this.esVerdadera = verdadera;
+    }
+    
     @Override
     public Document obtenerDocument() {
         /**

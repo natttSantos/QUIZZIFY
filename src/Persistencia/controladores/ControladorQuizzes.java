@@ -14,7 +14,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import Persistencia.conexion.Conexion;
 import LogicaNegocio.modelo.QuizAbstracto;
-import LogicaNegocio.modelo.QuizDeBateria;
+import LogicaNegocio.modelo.QuizAbstracto.QuizBuilder;
 import LogicaNegocio.modelo.Recurso;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCursor;
@@ -38,16 +38,29 @@ public class ControladorQuizzes {
     }
     
     
-    public void insertarQuiz(String nombre, Document curso, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin, int tiempoLimite) {
+//    public void insertarQuiz(String nombre, Document curso, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin, int tiempoLimite) {
+//        Document quiz = new Document();
+//        FechaQuiz fechaInicioQuiz = new FechaQuiz(dateInicio.getYear(), dateInicio.getMonthValue(), dateInicio.getDayOfMonth()); 
+//        FechaQuiz fechaFinQuiz = new FechaQuiz(dateFin.getYear(), dateFin.getMonthValue(), dateFin.getDayOfMonth()); 
+//        quiz.append("nombre", nombre)
+//            .append ("curso", curso)
+//            .append("preguntas", asList(preguntas))
+//            .append("fechaInicio", fechaInicioQuiz.obtenerDocument()) 
+//            .append("fechaFin", fechaFinQuiz.obtenerDocument())
+//            .append("tiempoLimite", tiempoLimite); 
+//
+//        quizzes.insertOne(quiz);
+//    }
+    
+      public void insertarQuiz(QuizAbstracto quizAbstracto) {
         Document quiz = new Document();
-        FechaQuiz fechaInicioQuiz = new FechaQuiz(dateInicio.getYear(), dateInicio.getMonthValue(), dateInicio.getDayOfMonth()); 
-        FechaQuiz fechaFinQuiz = new FechaQuiz(dateFin.getYear(), dateFin.getMonthValue(), dateFin.getDayOfMonth()); 
-        quiz.append("nombre", nombre)
-            .append ("curso", curso)
-            .append("preguntas", asList(preguntas))
-            .append("fechaInicio", fechaInicioQuiz.obtenerDocument()) 
-            .append("fechaFin", fechaFinQuiz.obtenerDocument())
-            .append("tiempoLimite", tiempoLimite); 
+        quiz.append("nombre", quizAbstracto.getNombre())
+            .append ("curso", quizAbstracto.getCurso().obtenerDocument())
+            .append("preguntas", asList(quizAbstracto.getPreguntas()))
+            .append("fechaInicio", new FechaQuiz(quizAbstracto.getFechaInicio()).obtenerDocument()) 
+            .append("fechaFin", new FechaQuiz(quizAbstracto.getFechaFin()).obtenerDocument())
+            .append("tiempoLimite", quizAbstracto.getTiempoLimite())
+            .append("vueltaAtras", quizAbstracto.isVolverAtras());
 
         quizzes.insertOne(quiz);
     }
@@ -68,19 +81,19 @@ public class ControladorQuizzes {
          * recurso : Recurso
          *      recurso con que este quiz es vinculado
          */
-        Document quiz = new Document();
-        FechaQuiz fechaInicioQuiz = new FechaQuiz(dateInicio.getYear(), dateInicio.getMonthValue(), dateInicio.getDayOfMonth()); 
-        FechaQuiz fechaFinQuiz = new FechaQuiz(dateFin.getYear(), dateFin.getMonthValue(), dateFin.getDayOfMonth());
-        
-        quiz.append("nombre", nombre);
-        quiz.append("numero", numero);
-        quiz.append ("curso", curso);
-        quiz.append("recurso", recurso.obtenerDocument());
-        quiz.append("fechaInicio", fechaInicioQuiz.obtenerDocument()) ;
-        quiz.append("fechaFin", fechaFinQuiz.obtenerDocument());
-        quiz.append("tiempoLimite", tiempoLimite);
-        
-        quizzes.insertOne(quiz);
+//        Document quiz = new Document();
+//        FechaQuiz fechaInicioQuiz = new FechaQuiz(dateInicio.getYear(), dateInicio.getMonthValue(), dateInicio.getDayOfMonth()); 
+//        FechaQuiz fechaFinQuiz = new FechaQuiz(dateFin.getYear(), dateFin.getMonthValue(), dateFin.getDayOfMonth());
+//        
+//        quiz.append("nombre", nombre);
+//        quiz.append("numero", numero);
+//        quiz.append ("curso", curso);
+//        quiz.append("recurso", recurso.obtenerDocument());
+//        quiz.append("fechaInicio", fechaInicioQuiz.obtenerDocument()) ;
+//        quiz.append("fechaFin", fechaFinQuiz.obtenerDocument());
+//        quiz.append("tiempoLimite", tiempoLimite);
+//        
+//        quizzes.insertOne(quiz);
     }
     
      public ArrayList<QuizAbstracto> obtenerTodosLosQuizzes() {
@@ -110,18 +123,18 @@ public class ControladorQuizzes {
         return quiz;
     }
     
-    public QuizDeBateria obtenerQuizDeBateria(String key, String valor) {
-        QuizDeBateria quiz = null;
-        Document findDocument = new Document(key, valor);
-        FindIterable<Document> resultDocument = quizzes.find(findDocument);
-        
-        MongoCursor<Document> cursor = resultDocument.iterator();
-        if (cursor.hasNext()) {
-            String json =  resultDocument.first().toJson();
-            quiz = new Gson().fromJson(json, QuizDeBateria.class);
-        }
-        return quiz;      
-    }
+//    public QuizDeBateria obtenerQuizDeBateria(String key, String valor) {
+//        QuizDeBateria quiz = null;
+//        Document findDocument = new Document(key, valor);
+//        FindIterable<Document> resultDocument = quizzes.find(findDocument);
+//        
+//        MongoCursor<Document> cursor = resultDocument.iterator();
+//        if (cursor.hasNext()) {
+//            String json =  resultDocument.first().toJson();
+//            quiz = new Gson().fromJson(json, QuizDeBateria.class);
+//        }
+//        return quiz;      
+//    }
     
     public boolean comprobarTipoDeQuiz(String key, String valor) {
         /**

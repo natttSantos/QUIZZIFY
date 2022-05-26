@@ -5,6 +5,7 @@
  */
 package LogicaNegocio.modelo;
 
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.util.Arrays;
@@ -19,11 +20,12 @@ public class FechaQuiz {
     private int month; 
     private int day; 
 
-    public FechaQuiz(int year, int month, int day) {
-        this.year = year;
-        this.month = month;
-        this.day = day;
+    public FechaQuiz (LocalDate date){
+        this.year = date.getYear(); 
+        this.month = date.getMonthValue(); 
+        this.day = date.getDayOfMonth(); 
     }
+    
 
      public Document obtenerDocument() {
         Document d = new Document(); 
