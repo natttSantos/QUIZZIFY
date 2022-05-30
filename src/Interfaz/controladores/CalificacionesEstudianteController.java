@@ -98,7 +98,7 @@ public class CalificacionesEstudianteController implements Initializable {
     }
     
     public String calcularPorcentajesQuiz (ArrayList <NotaQuizz> notasQuiz,  NotaQuizz quizRealizado){
-        int sumaNotas = 0; 
+        
         double miPosicion = 0; 
         String resultado = ""; 
         ArrayList <Double> notas = new ArrayList<>(); 
@@ -108,8 +108,8 @@ public class CalificacionesEstudianteController implements Initializable {
         Collections.sort(notas); //ArrayList ordenado
         
         for(int i = 0; i < notas.size(); i++){
-            sumaNotas += notas.get(i); 
-            if (quizRealizado.getNota() == notas.get(i)){
+           
+            if (quizRealizado.getNota() >= notas.get(i)){
                 miPosicion = i + 1; 
             }
         }
@@ -118,6 +118,7 @@ public class CalificacionesEstudianteController implements Initializable {
         DecimalFormat df = new DecimalFormat("#.00");
         resultado = df.format(miPosicion) + "%"; 
         return resultado; 
+       
     }
     
     
