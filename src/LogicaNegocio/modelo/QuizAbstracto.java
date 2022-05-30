@@ -73,7 +73,7 @@ public boolean eliminarPregunta(PreguntaAbstracta pregunta){
     return preguntas.remove(pregunta);
 }
 
-public static class QuizBuilder {
+public static class QuizBuilder implements IBuilder{
     private final String nombre;
     private final ArrayList preguntas;
     private final Curso curso; 
@@ -119,7 +119,7 @@ public static class QuizBuilder {
        if (quiz.preguntas.isEmpty()){
            JOptionPane.showMessageDialog(null, "Añada alguna pregunta!", "", JOptionPane.WARNING_MESSAGE);
        }
-       if(quiz.fechaInicio == null || quiz.fechaInicio == null || quiz.fechaInicio.isBefore(fechaFin)){
+       if(quiz.fechaInicio == null || quiz.fechaInicio == null || quiz.fechaInicio.isBefore(quiz.fechaFin)){
             JOptionPane.showMessageDialog(null, "Error en fechas!", "", JOptionPane.WARNING_MESSAGE);
         } 
    
