@@ -36,22 +36,7 @@ public class ControladorQuizzes {
     public ControladorQuizzes(MongoCollection collection){
         this.quizzes = collection;
     }
-    
-    
-//    public void insertarQuiz(String nombre, Document curso, Document [] preguntas,  LocalDate dateInicio, LocalDate dateFin, int tiempoLimite) {
-//        Document quiz = new Document();
-//        FechaQuiz fechaInicioQuiz = new FechaQuiz(dateInicio.getYear(), dateInicio.getMonthValue(), dateInicio.getDayOfMonth()); 
-//        FechaQuiz fechaFinQuiz = new FechaQuiz(dateFin.getYear(), dateFin.getMonthValue(), dateFin.getDayOfMonth()); 
-//        quiz.append("nombre", nombre)
-//            .append ("curso", curso)
-//            .append("preguntas", asList(preguntas))
-//            .append("fechaInicio", fechaInicioQuiz.obtenerDocument()) 
-//            .append("fechaFin", fechaFinQuiz.obtenerDocument())
-//            .append("tiempoLimite", tiempoLimite); 
-//
-//        quizzes.insertOne(quiz);
-//    }
-    
+
       public void insertarQuiz(QuizAbstracto quizAbstracto) {
         Document quiz = new Document();
         quiz.append("nombre", quizAbstracto.getNombre())
@@ -156,29 +141,7 @@ public class ControladorQuizzes {
         }
         return quizzesCurso;
     }
-    //areglar estados
-//    public void cambiarEstado(String nombreQuiz,String estado) {
-//        QuizAbstracto quiz = obtenerQuiz("nombre",nombreQuiz);
-//        ArrayList<PreguntaAbstracta> lista = quiz.getPreguntas();
-//            Document[] preguntas = new Document[lista.size()];
-//            int i = 0;
-//            for (PreguntaAbstracta pregunta:lista){
-//                Document d = new Document();
-//                d.append("text", pregunta.getText())
-//                    .append("dificultad", pregunta.getDificultad())
-//                    .append("recurso", pregunta.getRecurso()) 
-//                    .append("respuestas", asList(pregunta.getRespuestas()));
-//                preguntas[i] = d;
-//                i++;
-//        }        
-//        insertarQuiz(quiz.getNombre(), quiz.getCurso().obtenerDocument(), estado, preguntas);
-//        Document quizDocument = new Document();
-//        quizDocument.append("nombre", quiz.getNombre())
-//            .append ("curso", quiz.getCurso().obtenerDocument())
-//            .append("estado", quiz.getEstado())
-//            .append("preguntas", asList(preguntas));
-//        quizzes.deleteOne(quizDocument);
-//    }
+
     
     public boolean anularPregunta(QuizAbstracto quiz, Document[] preguntas){           
         try {
